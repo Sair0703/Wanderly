@@ -12,6 +12,7 @@ import pytest
 _tmp = tempfile.NamedTemporaryFile(suffix=".db", delete=False)
 os.environ["DATABASE_URL"] = f"sqlite:///{_tmp.name}"
 os.environ["AUTO_SEED"] = "true"
+os.environ["DATA_PROVIDER"] = "seed"  # deterministic curated catalog for tests
 
 from fastapi.testclient import TestClient  # noqa: E402
 
@@ -36,7 +37,14 @@ def test_health(client):
 
 
 def test_seeded_listings(client):
-    assert len(client.get("/api/listings").json()) == 20
+    listings = client.get("/api/listings").json()
+    assert len(listings) == 20
+
+
+def test_listings_have_outbound_booking_links(client):
+    listings = client.get("/api/listings").json()
+    assert all(l["booking_url"].startswith("https://") for l in listings)
+    assert any("booking.com" in l["booking_url"] for l in listings)
 
 
 def test_register_and_login(client):

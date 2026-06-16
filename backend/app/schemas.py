@@ -66,6 +66,10 @@ class ListingOut(BaseModel):
     description: str
     image_url: str
     popularity: int
+    price_is_estimate: bool = False
+    website: str = ""
+    booking_url: str = ""
+    source: str = "curated"
 
 
 class ScoredListing(ListingOut):

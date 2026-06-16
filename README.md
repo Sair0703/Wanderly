@@ -48,8 +48,9 @@ python3 -m pip install -r requirements.txt
 python3 -m uvicorn app.main:app --reload --port 8000
 ```
 
-Open **http://localhost:8000**. The database auto-seeds 20 listings and two demo
-users. Sign in with the pre-filled demo account:
+Open **http://localhost:8000**. On first run the catalog is populated with
+**real hotels pulled from OpenStreetMap** (no API key needed) and two demo users
+are created. Sign in with the pre-filled demo account:
 
 - **Email:** `demo@traveler.io`  **Password:** `demo1234`
 
@@ -112,6 +113,28 @@ For horizontal scale (multiple instances), add a Redis instance and set
 `REDIS_URL` — the rate limiter and caches then share state across instances.
 
 ---
+
+## Real listing data & booking links
+
+The listing catalog and the "Book" buttons use real data, configured by
+`DATA_PROVIDER` and `BOOKING_PROVIDER`:
+
+- **Listings (`DATA_PROVIDER=osm`, default):** real accommodations — hotels,
+  guest houses, hostels — are fetched from **OpenStreetMap** via the Overpass
+  API (no key required) across ~16 cities, with real names, coordinates, and
+  websites. OSM has no nightly rates, so each listing shows a clearly-labelled
+  **estimated** price (`≈`) used for ranking/budget filtering; the *real* price
+  is on the partner site. If the live fetch ever fails it falls back to the
+  curated catalog, so startup never breaks. `DATA_PROVIDER=seed` forces the
+  offline catalog; `amadeus` is scaffolded for real live prices (needs keys).
+- **Booking (`BOOKING_PROVIDER=booking`, default):** every listing has an
+  outbound deep link that opens a **real Booking.com search** for that property
+  (or Google Hotels / Expedia). Set **`BOOKING_AFFILIATE_ID`** to attach your
+  affiliate tag so qualifying bookings earn commission. Outbound clicks are
+  logged as signals that feed the recommender.
+
+In the UI, "Check availability on Booking.com →" sends users to the live
+listing; "Save to my trips" keeps the in-app planning/booking record (your DB).
 
 ## Architecture
 

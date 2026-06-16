@@ -37,6 +37,14 @@ services:
       # Set this to YOUR email, then register that account to become admin:
       - key: ADMIN_EMAIL
         value: ""
+      # Listing data: real hotels from OpenStreetMap (no key needed).
+      - key: DATA_PROVIDER
+        value: osm
+      # Outbound booking links. Add your Booking.com affiliate id to earn commission:
+      - key: BOOKING_PROVIDER
+        value: booking
+      - key: BOOKING_AFFILIATE_ID
+        value: ""
       # Real AI itineraries (optional): set provider + key as a secret in the dashboard.
       - key: LLM_PROVIDER
         value: stub

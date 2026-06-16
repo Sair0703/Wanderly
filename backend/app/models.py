@@ -62,6 +62,11 @@ class Listing(Base):
     description: Mapped[str] = mapped_column(Text, default="")
     image_url: Mapped[str] = mapped_column(String(500), default="")
     popularity: Mapped[int] = mapped_column(Integer, default=0)
+    # Real-data fields
+    price_is_estimate: Mapped[bool] = mapped_column(default=False)
+    website: Mapped[str] = mapped_column(String(500), default="")
+    booking_url: Mapped[str] = mapped_column(String(700), default="")
+    source: Mapped[str] = mapped_column(String(40), default="curated")  # openstreetmap | curated | amadeus
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
 

@@ -24,6 +24,13 @@ const api = {
 /* ----------------------------- Helpers ----------------------------- */
 const money = (n) => "$" + Number(n).toLocaleString(undefined, { maximumFractionDigits: 0 });
 const ALL_TAGS = ["beach","city","food","history","nature","adventure","nightlife","art","relax","mountain","ski","tropical","wine","desert"];
+const bookingSite = (url) => {
+  if (!url) return "partner site";
+  if (url.includes("booking.com")) return "Booking.com";
+  if (url.includes("google.com")) return "Google Hotels";
+  if (url.includes("expedia")) return "Expedia";
+  return "partner site";
+};
 
 function useToast() {
   const [msg, setMsg] = useState(null);
@@ -74,7 +81,7 @@ function Card({ l, onOpen, onLike }) {
         <div className="loc">{l.city}, {l.country}</div>
         <div className="tags">{(l.tags || []).slice(0, 3).map((t) => <span key={t} className="tag">{t}</span>)}</div>
         <div className="row" style={{ marginTop: 8 }}>
-          <span className="price">{money(l.price_per_night)} <small>/ night</small></span>
+          <span className="price">{l.price_is_estimate ? "≈ " : ""}{money(l.price_per_night)} <small>/ night</small></span>
         </div>
         {l.reason && <div className="reason">✦ {l.reason}</div>}
       </div>
@@ -94,14 +101,21 @@ function ListingModal({ listing, user, onClose, toast }) {
   const total = nights * listing.price_per_night;
 
   const book = async () => {
-    if (!user) return toast("Please sign in to book");
+    if (!user) return toast("Please sign in to save this trip");
     setBusy(true);
     try {
       await api.call("/bookings", { method: "POST", body: {
         listing_id: listing.id, check_in: checkIn, check_out: checkOut, guests: Number(guests) } });
-      toast(`Booked ${listing.title} · ${money(total)}`);
+      toast(`Saved to your trips · ${money(total)}`);
       onClose();
     } catch (e) { toast(e.message); } finally { setBusy(false); }
+  };
+
+  const site = bookingSite(listing.booking_url);
+  const bookExternal = () => {
+    // Log the affiliate click as a strong signal, then open the partner site.
+    if (user) api.call(`/listings/${listing.id}/interactions`, { method: "POST", body: { kind: "click" } }).catch(() => {});
+    window.open(listing.booking_url, "_blank", "noopener");
   };
 
   return (
@@ -116,15 +130,32 @@ function ListingModal({ listing, user, onClose, toast }) {
           <p>{listing.description}</p>
           <div className="tags">{(listing.amenities || []).map((a) => <span key={a} className="tag">{a}</span>)}</div>
           <MiniMap listings={[listing]} />
-          <h3>Book this stay</h3>
+
+          {listing.booking_url && (
+            <div className="book-real">
+              <div>
+                <strong>Book this real stay</strong>
+                <div className="muted" style={{ fontSize: 13 }}>
+                  Live availability &amp; final price on {site}
+                  {listing.source === "openstreetmap" && " · listing data from OpenStreetMap"}
+                </div>
+              </div>
+              <button className="btn" onClick={bookExternal}>Check availability on {site} →</button>
+            </div>
+          )}
+
+          <h3>Plan it on Wanderly</h3>
+          <p className="muted" style={{ fontSize: 13, marginTop: -6 }}>
+            Save these dates to your trips. {listing.price_is_estimate && "Price shown is an estimate — the live rate is on " + site + "."}
+          </p>
           <div className="field-row">
             <label className="form">Check in<input type="date" value={checkIn} min={today} onChange={(e) => setCheckIn(e.target.value)} /></label>
             <label className="form">Check out<input type="date" value={checkOut} min={checkIn} onChange={(e) => setCheckOut(e.target.value)} /></label>
             <label className="form">Guests<input type="number" min="1" max={listing.max_guests} value={guests} onChange={(e) => setGuests(e.target.value)} /></label>
           </div>
           <div className="row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 14 }}>
-            <strong>{money(listing.price_per_night)} × {nights} nights = {money(total)}</strong>
-            <button className="btn" onClick={book} disabled={busy || nights <= 0}>{busy ? "Booking…" : "Reserve"}</button>
+            <strong>{listing.price_is_estimate ? "≈ " : ""}{money(listing.price_per_night)} × {nights} nights = {money(total)}</strong>
+            <button className="btn ghost" onClick={book} disabled={busy || nights <= 0}>{busy ? "Saving…" : "Save to my trips"}</button>
           </div>
         </div>
       </div>

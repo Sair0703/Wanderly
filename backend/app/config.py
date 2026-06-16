@@ -48,8 +48,22 @@ class Settings(BaseSettings):
     # Bootstrap admin: a user registering/logging in with this email becomes admin.
     admin_email: str = ""
 
+    # --- Listing data source ---
+    # "osm"    -> real accommodations from OpenStreetMap (Overpass, no key)
+    # "seed"   -> curated demo catalog (offline, deterministic)
+    # "amadeus"-> Amadeus Self-Service hotel offers (real prices; needs keys)
+    data_provider: str = "osm"
+    amadeus_api_key: str = ""
+    amadeus_api_secret: str = ""
+
+    # --- Outbound booking / affiliate links ---
+    # "booking" | "google" | "expedia"
+    booking_provider: str = "booking"
+    # Your Booking.com affiliate id (aid=...). Empty = plain search link.
+    booking_affiliate_id: str = ""
+
     # Seeding
-    auto_seed: bool = True             # seed demo listings (content)
+    auto_seed: bool = True             # populate listings on first run
     seed_demo_users: bool = True       # seed demo login accounts (disable in prod)
 
     cache_ttl_seconds: int = 300

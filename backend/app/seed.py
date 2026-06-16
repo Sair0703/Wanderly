@@ -1,15 +1,22 @@
-"""Seed the database with demo listings and users."""
+"""Populate the database on first run.
+
+Listings come from the active data provider (real OpenStreetMap data by default;
+see ``data_sources.get_listings``). The curated catalog below is the offline
+fallback and the ``DATA_PROVIDER=seed`` source. Demo login accounts are seeded
+separately and only when enabled.
+"""
 from __future__ import annotations
 
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
+from .booking_links import build_booking_url
 from .config import settings
 from .models import Listing, User
 from .security import hash_password
 
-# (title, kind, city, country, lat, lng, price, rating, reviews, guests, tags, amenities, desc, img)
-_LISTINGS = [
+# (title, kind, city, country, lat, lng, price, rating, reviews, guests, tags, amenities, desc, slug)
+_CURATED = [
     ("Sunlit Loft by the Sea", "stay", "Lisbon", "Portugal", 38.7223, -9.1393, 145, 4.8, 312, 4,
      ["beach", "city", "food", "relax"], ["wifi", "kitchen", "balcony", "ac"],
      "Bright loft steps from the waterfront with pastel-tiled charm.", "lisbon-loft"),
@@ -80,32 +87,36 @@ _USERS = [
 ]
 
 
-def _img(slug: str) -> str:
-    # Stable, royalty-free placeholder photos keyed by slug (no API key needed).
-    return f"https://picsum.photos/seed/{slug}/640/420"
+def curated_listing_dicts() -> list[dict]:
+    """The curated catalog as insert-ready dicts (with real outbound links)."""
+    out = []
+    for (title, kind, city, country, lat, lng, price, rating, reviews, guests,
+         tags, amenities, desc, slug) in _CURATED:
+        out.append({
+            "title": title, "kind": kind, "city": city, "country": country,
+            "lat": lat, "lng": lng, "price_per_night": float(price),
+            "price_is_estimate": True, "rating": rating, "review_count": reviews,
+            "max_guests": guests, "tags": tags, "amenities": amenities,
+            "description": desc, "image_url": f"https://picsum.photos/seed/{slug}/640/420",
+            "website": "", "booking_url": build_booking_url(title, city, country),
+            "source": "curated", "popularity": reviews,
+        })
+    return out
 
 
 def seed_if_empty(db: Session) -> bool:
     if db.scalar(select(func.count()).select_from(Listing)):
         return False
 
-    for (title, kind, city, country, lat, lng, price, rating, reviews, guests,
-         tags, amenities, desc, slug) in _LISTINGS:
-        db.add(Listing(
-            title=title, kind=kind, city=city, country=country, lat=lat, lng=lng,
-            price_per_night=price, rating=rating, review_count=reviews, max_guests=guests,
-            tags=tags, amenities=amenities, description=desc,
-            image_url=_img(slug), popularity=reviews,
-        ))
+    from .data_sources import get_listings  # local import avoids a cycle
 
-    # Demo login accounts are convenient locally but are a known public
-    # credential — only seed them when explicitly enabled (off in production).
+    for row in get_listings():
+        db.add(Listing(**row))
+
     if settings.seed_demo_users:
         for name, email, pw, prefs in _USERS:
             if not db.scalar(select(User).where(User.email == email)):
                 matches_admin = bool(settings.admin_email) and email.lower() == settings.admin_email.lower()
-                # In dev, make the primary demo account admin so the dashboard
-                # is reachable; never auto-grant admin in production.
                 dev_admin = (not settings.is_production) and email == "demo@traveler.io"
                 db.add(User(name=name, email=email, hashed_password=hash_password(pw),
                             preferences=prefs, is_admin=matches_admin or dev_admin))

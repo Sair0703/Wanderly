@@ -47,6 +47,11 @@ def search(
     db: Session = Depends(get_db),
     user: Optional[User] = Depends(get_optional_user),
 ):
+    return run_search(payload, db, user)
+
+
+def run_search(payload: SearchRequest, db: Session, user: Optional[User]) -> SearchResponse:
+    """Core search used by the /search route and the AI concierge."""
     key = _cache_key(payload, user.id if user else None)
     cached = cache.get_json(key)
     if cached:

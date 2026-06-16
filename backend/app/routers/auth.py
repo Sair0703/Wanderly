@@ -70,6 +70,23 @@ def me(user: User = Depends(get_current_user)):
     return UserOut.model_validate(user)
 
 
+@router.get("/me/favorites")
+def my_favorites(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    from ..models import Favorite, Listing
+    from ..schemas import ListingOut
+
+    rows = db.execute(
+        select(Listing)
+        .join(Favorite, Favorite.listing_id == Listing.id)
+        .where(Favorite.user_id == user.id)
+        .order_by(Favorite.created_at.desc())
+    ).scalars().all()
+    return {
+        "ids": [l.id for l in rows],
+        "listings": [ListingOut.model_validate(l).model_dump() for l in rows],
+    }
+
+
 @router.put("/me/preferences", response_model=UserOut)
 def update_preferences(
     payload: PreferencesUpdate,

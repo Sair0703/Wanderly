@@ -154,6 +154,43 @@ class SuggestionOut(BaseModel):
     generated_by: str
 
 
+# ---------- Reviews ----------
+class ReviewCreate(BaseModel):
+    rating: int = Field(ge=1, le=5)
+    comment: str = Field(default="", max_length=1000)
+
+
+class ReviewOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    rating: int
+    comment: str
+    user_name: str
+    created_at: datetime
+
+
+class ReviewSummary(BaseModel):
+    average: float
+    count: int
+    reviews: list[ReviewOut]
+
+
+# ---------- Favorites ----------
+class FavoriteToggleOut(BaseModel):
+    saved: bool
+
+
+# ---------- AI Concierge ----------
+class ConciergeRequest(BaseModel):
+    message: str = Field(min_length=2, max_length=400)
+
+
+class ConciergeResponse(BaseModel):
+    reply: str
+    understood: dict
+    results: list[ScoredListing]
+
+
 # ---------- Analytics ----------
 class DashboardOut(BaseModel):
     totals: dict

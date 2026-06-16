@@ -104,7 +104,21 @@ def curated_listing_dicts() -> list[dict]:
     return out
 
 
-def seed_if_empty(db: Session) -> bool:
+def seed_demo_users(db: Session) -> None:
+    """Create demo login accounts (fast, no network). Safe to call repeatedly."""
+    if not settings.seed_demo_users:
+        return
+    for name, email, pw, prefs in _USERS:
+        if not db.scalar(select(User).where(User.email == email)):
+            matches_admin = bool(settings.admin_email) and email.lower() == settings.admin_email.lower()
+            dev_admin = (not settings.is_production) and email == "demo@traveler.io"
+            db.add(User(name=name, email=email, hashed_password=hash_password(pw),
+                        preferences=prefs, is_admin=matches_admin or dev_admin))
+    db.commit()
+
+
+def seed_listings_if_empty(db: Session) -> bool:
+    """Populate the listing catalog from the active provider (may hit network)."""
     if db.scalar(select(func.count()).select_from(Listing)):
         return False
 
@@ -112,14 +126,5 @@ def seed_if_empty(db: Session) -> bool:
 
     for row in get_listings():
         db.add(Listing(**row))
-
-    if settings.seed_demo_users:
-        for name, email, pw, prefs in _USERS:
-            if not db.scalar(select(User).where(User.email == email)):
-                matches_admin = bool(settings.admin_email) and email.lower() == settings.admin_email.lower()
-                dev_admin = (not settings.is_production) and email == "demo@traveler.io"
-                db.add(User(name=name, email=email, hashed_password=hash_password(pw),
-                            preferences=prefs, is_admin=matches_admin or dev_admin))
-
     db.commit()
     return True

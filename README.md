@@ -35,6 +35,21 @@ dashboards monitor engagement & recommendation quality
 Search and recommendations are **cached** (Redis or in-memory) to support
 scalable personalization flows.
 
+### Key features
+
+- **AI Concierge** — describe a trip in plain English ("a beachfront place in
+  Barcelona under $170 for 4") and it parses budget/guests/vibe/destination and
+  returns ranked real stays.
+- **Personalized recommendations** — content + behavioral ranking with
+  explainable "why this matches you" reasons.
+- **AI itinerary planner** — day-by-day trips grounded in real listings.
+- **Worldwide real inventory** — real hotels from OpenStreetMap, on-demand for
+  any destination on Earth, with **real photos** (property photos where
+  available, else a Wikipedia destination photo).
+- **Real outbound booking** — deep links to Booking.com (affiliate-ready).
+- **Guest reviews**, **wishlists/Saved**, **maps**, and an **admin analytics
+  dashboard** (engagement + recommendation quality).
+
 ---
 
 ## Quick start (zero infrastructure — only Python needed)

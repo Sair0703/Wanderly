@@ -66,11 +66,12 @@ function MiniMap({ listings, height = 240 }) {
 }
 
 /* ----------------------------- Listing card ----------------------------- */
-function Card({ l, onOpen, onLike }) {
+function Card({ l, onOpen, onToggleFav, saved }) {
+  const isSaved = saved && saved.has(l.id);
   return (
     <div className="card" onClick={() => onOpen(l)}>
       <div className="photo" style={{ backgroundImage: `url(${l.image_url})` }}>
-        <button className="fav" onClick={(e) => { e.stopPropagation(); onLike(l); }}>♥</button>
+        <button className={"fav" + (isSaved ? " on" : "")} onClick={(e) => { e.stopPropagation(); onToggleFav(l); }}>♥</button>
         {l.score > 0 && <span className="score">★ match {Math.round(l.score * 100)}%</span>}
       </div>
       <div className="body">
@@ -90,6 +91,46 @@ function Card({ l, onOpen, onLike }) {
 }
 
 /* ----------------------------- Listing modal ----------------------------- */
+function Reviews({ listing, user, toast }) {
+  const [data, setData] = useState(null);
+  const [rating, setRating] = useState(5);
+  const [comment, setComment] = useState("");
+  const [busy, setBusy] = useState(false);
+  const load = useCallback(() => {
+    api.call(`/listings/${listing.id}/reviews`).then(setData).catch(() => {});
+  }, [listing.id]);
+  useEffect(() => { load(); }, [load]);
+
+  const submit = async () => {
+    if (!user) return toast("Sign in to leave a review");
+    setBusy(true);
+    try {
+      await api.call(`/listings/${listing.id}/reviews`, { method: "POST", body: { rating: Number(rating), comment } });
+      setComment(""); toast("Review posted"); load();
+    } catch (e) { toast(e.message); } finally { setBusy(false); }
+  };
+
+  return (
+    <div>
+      <h3>Guest reviews {data && data.count > 0 && <span className="muted">· ★ {data.average} ({data.count})</span>}</h3>
+      {data && data.reviews.length === 0 && <p className="muted">No reviews yet — be the first.</p>}
+      {data && data.reviews.map((r) => (
+        <div key={r.id} className="review">
+          <div><b>{r.user_name}</b> <span className="star">{"★".repeat(r.rating)}</span></div>
+          {r.comment && <div className="muted">{r.comment}</div>}
+        </div>
+      ))}
+      <div className="review-form">
+        <select value={rating} onChange={(e) => setRating(e.target.value)}>
+          {[5, 4, 3, 2, 1].map((n) => <option key={n} value={n}>{"★".repeat(n)}</option>)}
+        </select>
+        <input placeholder="Share your experience…" value={comment} onChange={(e) => setComment(e.target.value)} />
+        <button className="btn small" onClick={submit} disabled={busy}>Post</button>
+      </div>
+    </div>
+  );
+}
+
 function ListingModal({ listing, user, onClose, toast }) {
   const today = new Date().toISOString().slice(0, 10);
   const [checkIn, setCheckIn] = useState(today);
@@ -157,6 +198,9 @@ function ListingModal({ listing, user, onClose, toast }) {
             <strong>{listing.price_is_estimate ? "≈ " : ""}{money(listing.price_per_night)} × {nights} nights = {money(total)}</strong>
             <button className="btn ghost" onClick={book} disabled={busy || nights <= 0}>{busy ? "Saving…" : "Save to my trips"}</button>
           </div>
+
+          <hr style={{ border: "none", borderTop: "1px solid var(--line)", margin: "20px 0" }} />
+          <Reviews listing={listing} user={user} toast={toast} />
         </div>
       </div>
     </div>
@@ -164,7 +208,7 @@ function ListingModal({ listing, user, onClose, toast }) {
 }
 
 /* ----------------------------- Explore view ----------------------------- */
-function Explore({ user, openListing, toast }) {
+function Explore({ user, openListing, toast, saved, onToggleFav }) {
   const [q, setQ] = useState("");
   const [sort, setSort] = useState("relevance");
   const [tags, setTags] = useState([]);
@@ -193,11 +237,6 @@ function Explore({ user, openListing, toast }) {
   }, [user]);
 
   const toggleTag = (t) => setTags((p) => p.includes(t) ? p.filter((x) => x !== t) : [...p, t]);
-  const like = async (l) => {
-    if (!user) return toast("Sign in to save favorites");
-    try { await api.call(`/listings/${l.id}/interactions`, { method: "POST", body: { kind: "like" } });
-      toast(`Saved ${l.title} ♥`); } catch (e) {}
-  };
 
   return (
     <div className="container">
@@ -238,14 +277,14 @@ function Explore({ user, openListing, toast }) {
       {user && recs.length > 0 && (
         <>
           <div className="section-title">Recommended for you</div>
-          <div className="grid">{recs.map((l) => <Card key={"r" + l.id} l={l} onOpen={openListing} onLike={like} />)}</div>
+          <div className="grid">{recs.map((l) => <Card key={"r" + l.id} l={l} onOpen={openListing} onToggleFav={onToggleFav} saved={saved} />)}</div>
         </>
       )}
 
       <div className="section-title">{q ? `Results for “${q}”` : "Explore stays"} <span className="muted" style={{ fontSize: 15 }}>({results.length})</span></div>
       {loading ? <div className="loading">Searching…</div> :
         results.length === 0 ? <div className="empty">No stays match those filters.</div> :
-        <div className="grid">{results.map((l) => <Card key={l.id} l={l} onOpen={openListing} onLike={like} />)}</div>}
+        <div className="grid">{results.map((l) => <Card key={l.id} l={l} onOpen={openListing} onToggleFav={onToggleFav} saved={saved} />)}</div>}
     </div>
   );
 }
@@ -459,29 +498,122 @@ function Auth({ onAuthed, toast }) {
   );
 }
 
+/* ----------------------------- AI Concierge ----------------------------- */
+const CONCIERGE_EXAMPLES = [
+  "A beachfront place in Barcelona under $170 for 4",
+  "Romantic stay in Kyoto with a garden",
+  "Cheap hostel in Lisbon for solo travel",
+  "Ski chalet in the mountains for 6 people",
+];
+
+function Concierge({ user, openListing, toast, saved, onToggleFav }) {
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState([
+    { from: "bot", text: "Hi! Tell me about your trip in plain English and I'll find stays — e.g. “a beachfront place in Bali under $120 for 2”." },
+  ]);
+  const [results, setResults] = useState([]);
+  const [busy, setBusy] = useState(false);
+
+  const send = async (text) => {
+    const msg = (text || input).trim();
+    if (!msg) return;
+    setMessages((m) => [...m, { from: "user", text: msg }]);
+    setInput(""); setBusy(true);
+    try {
+      const r = await api.call("/concierge", { method: "POST", body: { message: msg } });
+      const u = r.understood;
+      const chips = [u.destination && `📍 ${u.destination}`, u.max_price && `💰 ≤ $${Math.round(u.max_price)}`,
+        u.guests && `👥 ${u.guests}`, ...(u.tags || []).map((t) => `#${t}`)].filter(Boolean);
+      setMessages((m) => [...m, { from: "bot", text: r.reply, chips }]);
+      setResults(r.results);
+    } catch (e) { toast(e.message); } finally { setBusy(false); }
+  };
+
+  return (
+    <div className="container">
+      <div className="concierge-wrap">
+        <div className="section-title">AI Concierge <span className="badge">beta</span></div>
+        <div className="chat">
+          {messages.map((m, i) => (
+            <div key={i}>
+              <div className={"bubble " + m.from}>{m.text}</div>
+              {m.chips && m.chips.length > 0 && <div className="chips-row">{m.chips.map((c, j) => <span key={j} className="chip on">{c}</span>)}</div>}
+            </div>
+          ))}
+          {busy && <div className="bubble bot">Searching…</div>}
+        </div>
+        <div className="searchbar" style={{ marginTop: 12 }}>
+          <input className="grow" placeholder="Describe your ideal trip…" value={input}
+            onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && send()} />
+          <button className="btn" onClick={() => send()} disabled={busy}>Ask</button>
+        </div>
+        <div className="examples">
+          {CONCIERGE_EXAMPLES.map((ex) => <button key={ex} onClick={() => send(ex)}>{ex}</button>)}
+        </div>
+      </div>
+      {results.length > 0 && (
+        <>
+          <div className="section-title">Matches</div>
+          <div className="grid">{results.map((l) => <Card key={l.id} l={l} onOpen={openListing} onToggleFav={onToggleFav} saved={saved} />)}</div>
+        </>
+      )}
+    </div>
+  );
+}
+
+/* ----------------------------- Saved view ----------------------------- */
+function Saved({ user, openListing, toast, saved, onToggleFav }) {
+  const [items, setItems] = useState([]);
+  const load = useCallback(() => { api.call("/auth/me/favorites").then((d) => setItems(d.listings)).catch(() => {}); }, []);
+  useEffect(() => { if (user) load(); }, [user, load, saved]);
+  if (!user) return <div className="container"><div className="empty">Sign in to see your saved stays.</div></div>;
+  return (
+    <div className="container">
+      <div className="section-title">Saved stays</div>
+      {items.length === 0 ? <div className="empty">No saved stays yet — tap the ♥ on any listing.</div> :
+        <div className="grid">{items.map((l) => <Card key={l.id} l={l} onOpen={openListing} onToggleFav={onToggleFav} saved={saved} />)}</div>}
+    </div>
+  );
+}
+
 /* ----------------------------- App shell ----------------------------- */
 function App() {
   const [user, setUser] = useState(null);
   const [view, setView] = useState("explore");
   const [active, setActive] = useState(null);
   const [ready, setReady] = useState(false);
+  const [saved, setSaved] = useState(new Set());
   const [toastNode, toast] = useToast();
 
-  useEffect(() => {
-    if (api.token()) api.call("/auth/me").then(setUser).catch(() => api.setToken(null)).finally(() => setReady(true));
-    else setReady(true);
+  const loadFavorites = useCallback(() => {
+    api.call("/auth/me/favorites").then((d) => setSaved(new Set(d.ids))).catch(() => {});
   }, []);
+
+  useEffect(() => {
+    if (api.token()) api.call("/auth/me").then((u) => { setUser(u); loadFavorites(); })
+      .catch(() => api.setToken(null)).finally(() => setReady(true));
+    else setReady(true);
+  }, [loadFavorites]);
 
   const openListing = async (l) => {
     setActive(l);
     try { await api.call(`/listings/${l.id}/interactions`, { method: "POST", body: { kind: "click" } }); } catch (e) {}
   };
-  const logout = () => { api.setToken(null); setUser(null); setView("explore"); toast("Signed out"); };
-  const go = (v) => { if ((v === "trips" || v === "bookings") && !user) { setView("auth"); } else setView(v); };
+  const toggleFav = async (l) => {
+    if (!user) { toast("Sign in to save favorites"); setView("auth"); return; }
+    try {
+      const r = await api.call(`/listings/${l.id}/favorite`, { method: "POST" });
+      setSaved((prev) => { const n = new Set(prev); r.saved ? n.add(l.id) : n.delete(l.id); return n; });
+      toast(r.saved ? `Saved ${l.title} ♥` : `Removed ${l.title}`);
+    } catch (e) { toast(e.message); }
+  };
+  const logout = () => { api.setToken(null); setUser(null); setSaved(new Set()); setView("explore"); toast("Signed out"); };
+  const go = (v) => { if (["trips", "bookings", "saved"].includes(v) && !user) { setView("auth"); } else setView(v); };
 
   if (!ready) return <div className="loading">Loading…</div>;
 
-  const nav = [["explore", "Explore"], ["trips", "AI Planner"], ["bookings", "Bookings"]];
+  const nav = [["explore", "Explore"], ["concierge", "AI Concierge"], ["trips", "AI Planner"],
+    ["saved", "Saved"], ["bookings", "Bookings"]];
   if (user && user.is_admin) nav.push(["dashboard", "Dashboard"]);
   return (
     <>
@@ -504,11 +636,13 @@ function App() {
         )}
       </header>
 
-      {view === "explore" && <Explore user={user} openListing={openListing} toast={toast} />}
+      {view === "explore" && <Explore user={user} openListing={openListing} toast={toast} saved={saved} onToggleFav={toggleFav} />}
+      {view === "concierge" && <Concierge user={user} openListing={openListing} toast={toast} saved={saved} onToggleFav={toggleFav} />}
       {view === "trips" && <Trips user={user} toast={toast} />}
+      {view === "saved" && <Saved user={user} openListing={openListing} toast={toast} saved={saved} onToggleFav={toggleFav} />}
       {view === "bookings" && <Bookings user={user} toast={toast} />}
       {view === "dashboard" && <Dashboard />}
-      {view === "auth" && <Auth onAuthed={(u) => { setUser(u); setView("explore"); }} toast={toast} />}
+      {view === "auth" && <Auth onAuthed={(u) => { setUser(u); setView("explore"); loadFavorites(); }} toast={toast} />}
 
       {active && <ListingModal listing={active} user={user} onClose={() => setActive(null)} toast={toast} />}
       {toastNode}

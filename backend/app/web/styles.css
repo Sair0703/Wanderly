@@ -89,8 +89,9 @@ button { font-family: inherit; cursor: pointer; }
 .card .photo { height: 170px; background: #ddd center/cover; position: relative; }
 .card .photo .fav {
   position:absolute; top:10px; right:10px; background: rgba(255,255,255,.9);
-  border-radius:50%; width:34px; height:34px; border:none; font-size:16px;
+  border-radius:50%; width:34px; height:34px; border:none; font-size:16px; color:#888;
 }
+.card .photo .fav.on { color: var(--brand); }
 .card .score {
   position:absolute; bottom:10px; left:10px; background: rgba(0,0,0,.7); color:#fff;
   padding:4px 9px; border-radius:999px; font-size:12px; font-weight:700;
@@ -148,6 +149,21 @@ button { font-family: inherit; cursor: pointer; }
 .book-real .btn { white-space:nowrap; }
 .day ul { margin: 0; padding-left: 18px; color:#444; }
 .suggestion { background:#fff7f8; border:1px solid #ffd9e0; border-radius:10px; padding:12px 14px; margin:8px 0; }
+.review { border-bottom:1px solid var(--line); padding:10px 0; }
+.review .star { color: var(--brand); }
+.review-form { display:flex; gap:8px; margin-top:14px; }
+.review-form select { border:1px solid #ccc; border-radius:8px; padding:8px; }
+.review-form input { flex:1; border:1px solid #ccc; border-radius:8px; padding:8px 10px; }
+/* AI Concierge */
+.concierge-wrap { max-width: 760px; margin: 0 auto; }
+.chat { background:#fff; border-radius:16px; box-shadow:var(--shadow); padding:18px; min-height:120px; }
+.bubble { padding:12px 16px; border-radius:14px; margin:8px 0; max-width:85%; }
+.bubble.user { background:var(--ink); color:#fff; margin-left:auto; border-bottom-right-radius:4px; }
+.bubble.bot { background:#f0f0f0; color:var(--ink); border-bottom-left-radius:4px; }
+.chips-row { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 4px; }
+.understood { font-size:12px; color:var(--accent); margin-top:4px; }
+.examples { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+.examples button { background:#fff; border:1px solid #ddd; border-radius:999px; padding:8px 13px; font-size:13px; color:var(--muted); }
 
 .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
   background: var(--ink); color:#fff; padding: 13px 22px; border-radius: 10px;

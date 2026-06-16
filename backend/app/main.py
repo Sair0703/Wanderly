@@ -5,6 +5,7 @@ headers), startup DB init + seeding, health check, and serves the React SPA.
 """
 from __future__ import annotations
 
+import threading
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -21,12 +22,13 @@ from .routers import (
     analytics,
     auth,
     bookings,
+    concierge,
     listings,
     recommendations,
     search,
     trips,
 )
-from .seed import seed_if_empty
+from .seed import seed_demo_users, seed_listings_if_empty
 from fastapi.staticfiles import StaticFiles
 
 WEB_DIR = Path(__file__).parent / "web"
@@ -53,14 +55,34 @@ def _check_production_config() -> None:
             raise RuntimeError("Refusing to start in production:\n  - " + "\n  - ".join(problems))
 
 
+def _seed_listings_bg() -> None:
+    """Populate listings off the request path so startup is instant.
+
+    The global OSM fetch + photo lookups take ~1 min on first boot; doing it
+    synchronously would block the server (and fail the platform health check).
+    On-demand search works immediately regardless; this just fills the catalog.
+    """
+    try:
+        with SessionLocal() as db:
+            if seed_listings_if_empty(db):
+                print("[startup] Background listing seed complete.")
+    except Exception as exc:  # pragma: no cover
+        print(f"[startup] Background seed failed: {exc}")
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     _check_production_config()
     init_db()
     if settings.auto_seed:
+        # Demo users are seeded synchronously (instant) so login works at once.
         with SessionLocal() as db:
-            if seed_if_empty(db):
-                print("[startup] Seeded demo data.")
+            seed_demo_users(db)
+        if settings.data_provider.lower() == "seed":
+            with SessionLocal() as db:  # deterministic, offline -> synchronous
+                seed_listings_if_empty(db)
+        else:  # OSM/Amadeus may hit the network -> fill in the background
+            threading.Thread(target=_seed_listings_bg, daemon=True).start()
     print(f"[startup] env={settings.environment} cache={cache.backend} "
           f"llm={settings.llm_provider} https={settings.force_https}")
     yield
@@ -105,7 +127,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-for r in (auth, listings, search, recommendations, trips, bookings, analytics):
+for r in (auth, listings, search, recommendations, trips, bookings, analytics, concierge):
     app.include_router(r.router)
 
 

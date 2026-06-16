@@ -143,6 +143,49 @@ def _http_get_json(url: str, timeout: int = 40):
 
 
 # --------------------------------------------------------------------------- #
+# Real photos (no API key): per-property OSM tags, else a Wikipedia city photo
+# --------------------------------------------------------------------------- #
+def city_photo(city: str) -> str | None:
+    """A real representative photo of the destination from Wikipedia (cached)."""
+    key = "cityphoto:" + city.lower()
+    cached = cache.get_json(key)
+    if cached is not None:
+        return cached or None
+    try:
+        url = "https://en.wikipedia.org/w/api.php?" + urllib.parse.urlencode({
+            "action": "query", "titles": city, "prop": "pageimages",
+            "pithumbsize": "800", "format": "json", "redirects": "1",
+        })
+        pages = _http_get_json(url, timeout=12).get("query", {}).get("pages", {})
+        for p in pages.values():
+            thumb = (p.get("thumbnail") or {}).get("source")
+            if thumb:
+                cache.set_json(key, thumb, ttl=30 * 86400)
+                return thumb
+    except Exception:  # pragma: no cover - network dependent
+        pass
+    cache.set_json(key, "", ttl=86400)
+    return None
+
+
+def _resolve_image(tags: dict, city: str, slug: str) -> str:
+    # 1) Real photo of the actual property if OSM has one.
+    img = tags.get("image")
+    if img and img.startswith("http"):
+        return img
+    wc = tags.get("wikimedia_commons") or ""
+    if wc.startswith("File:"):
+        return ("https://commons.wikimedia.org/wiki/Special:FilePath/"
+                + urllib.parse.quote(wc[5:]) + "?width=800")
+    # 2) Real photo of the destination from Wikipedia.
+    cp = city_photo(city)
+    if cp:
+        return cp
+    # 3) Deterministic placeholder as a last resort.
+    return f"https://picsum.photos/seed/{slug}/640/420"
+
+
+# --------------------------------------------------------------------------- #
 # OpenStreetMap (Overpass) — names + locations, no prices
 # --------------------------------------------------------------------------- #
 def _shape_osm(el: dict, city: str, country: str, base: float, vibe: list) -> dict | None:
@@ -152,33 +195,35 @@ def _shape_osm(el: dict, city: str, country: str, base: float, vibe: list) -> di
     if not name or lat is None or lng is None:
         return None
 
-    d = _det(name + city)
+    # Independent deterministic seeds so rating / price / guests don't correlate
+    # (otherwise every "good" hotel is also the most expensive and largest).
+    dr, dp, dg, dv = (_det(name + city + s) for s in ("|r", "|p", "|g", "|v"))
     stars = tags.get("stars")
     try:
-        rating = round(3.9 + (float(stars) - 3) * 0.25, 2) if stars else round(4.0 + d * 0.9, 2)
+        rating = round(3.9 + (float(stars) - 3) * 0.25, 2) if stars else round(4.0 + dr * 0.9, 2)
     except ValueError:
-        rating = round(4.0 + d * 0.9, 2)
+        rating = round(4.0 + dr * 0.9, 2)
     rating = max(3.6, min(rating, 5.0))
 
     star_factor = 1.0
     if stars and stars.replace(".", "", 1).isdigit():
         star_factor = 1 + (float(stars) - 3) * 0.12
-    price = round(base * (0.7 + d * 0.8) * star_factor, 0)
+    price = round(base * (0.55 + dp * 0.95) * star_factor, 0)
 
     amenities = sorted({v for k, v in _AMENITY_MAP.items() if tags.get(k) and tags.get(k) != "no"} | {"wifi"})
     tourism = tags.get("tourism", "hotel")
     return {
         "title": name, "kind": "stay", "city": city, "country": country,
         "lat": lat, "lng": lng, "price_per_night": float(max(45, price)),
-        "price_is_estimate": True, "rating": rating, "review_count": int(60 + d * 540),
-        "max_guests": 2 + int(d * 4), "tags": vibe, "amenities": amenities,
+        "price_is_estimate": True, "rating": rating, "review_count": int(40 + dv * 560),
+        "max_guests": 2 + int(dg * 5), "tags": vibe, "amenities": amenities,
         "description": f"{tourism.replace('_', ' ').title()} in {city}, {country}."
                        + (f" {tags.get('addr:street')}." if tags.get("addr:street") else ""),
-        "image_url": f"https://picsum.photos/seed/{_slug(name + city)}/640/420",
+        "image_url": _resolve_image(tags, city, _slug(name + city)),
         "website": tags.get("website") or tags.get("contact:website") or "",
         "booking_url": build_booking_url(name, city, country),
-        "source": "openstreetmap", "popularity": int(d * 200),
-        "_score": (1 if stars else 0) + (1 if tags.get("website") else 0) + d,
+        "source": "openstreetmap", "popularity": int(dv * 200),
+        "_score": (1 if stars else 0) + (1 if tags.get("website") else 0) + dr,
     }
 
 

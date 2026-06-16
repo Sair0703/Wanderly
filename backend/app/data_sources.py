@@ -1,13 +1,18 @@
-"""Listing data sources.
+"""Listing data sources — global coverage.
 
-Default provider pulls **real accommodations from OpenStreetMap** via the
-Overpass API (no API key required) — real property names, coordinates, and
-websites. OSM has no nightly prices, so we attach a clearly-labelled *estimated*
-price for ranking/budget filtering; the real price lives on the partner site the
-"Book" button links to.
+Providers (``DATA_PROVIDER``):
+  * ``osm``     — real accommodations from OpenStreetMap / Overpass (no key).
+                  Seeds a broad global spread, then grows on demand: any
+                  destination a user searches is geocoded (Nominatim) and its
+                  hotels are fetched live, cached, and persisted — so coverage
+                  extends to anywhere on Earth without preloading everything.
+  * ``seed``    — curated offline catalog (deterministic; used in tests).
+  * ``amadeus`` — Amadeus Self-Service hotel offers (REAL nightly prices; needs
+                  AMADEUS_API_KEY/SECRET). Falls back to OSM/curated if unset.
 
-Falls back to the curated catalog (``seed.CURATED_LISTINGS``) if the live fetch
-returns nothing or errors, so startup never breaks.
+OSM carries no nightly price, so OSM listings show a clearly-labelled *estimate*;
+Amadeus listings carry real prices (``price_is_estimate=False``). Every provider
+attaches a real outbound booking link. All network paths degrade gracefully.
 """
 from __future__ import annotations
 
@@ -17,56 +22,100 @@ import math
 import urllib.parse
 import urllib.request
 
+from sqlalchemy import select
+from sqlalchemy.orm import Session
+
 from .booking_links import build_booking_url
+from .cache import cache
 from .config import settings
+from .models import Listing
 
-OVERPASS_URL = "https://overpass-api.de/api/interpreter"
+# Multiple Overpass mirrors — we try each in turn so one being down/rate-limited
+# doesn't break seeding.
+OVERPASS_MIRRORS = [
+    "https://overpass-api.de/api/interpreter",
+    "https://overpass.kumi.systems/api/interpreter",
+    "https://overpass.private.coffee/api/interpreter",
+]
+NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
+_UA = "wanderly/1.0 (travel recommendation platform; contact: admin@wanderly.app)"
 
-# (city, country, lat, lng, base_price, vibe_tags) — anchors for the live query.
+DEFAULT_VIBE = ["city", "food"]
+
+# Broad global spread seeded at startup. On-demand search covers everywhere else.
+# (city, country, lat, lng, base_price, vibe_tags)
 CITIES = [
+    # Europe
     ("Lisbon", "Portugal", 38.7223, -9.1393, 130, ["city", "beach", "food", "history"]),
     ("Barcelona", "Spain", 41.3851, 2.1734, 150, ["beach", "city", "nightlife", "food"]),
+    ("Madrid", "Spain", 40.4168, -3.7038, 140, ["city", "art", "food", "nightlife"]),
     ("Paris", "France", 48.8566, 2.3522, 190, ["city", "art", "food", "history"]),
     ("Rome", "Italy", 41.9028, 12.4964, 160, ["history", "city", "food", "art"]),
+    ("Venice", "Italy", 45.4408, 12.3155, 180, ["history", "art", "relax", "city"]),
     ("Amsterdam", "Netherlands", 52.3676, 4.9041, 185, ["city", "art", "history", "food"]),
     ("London", "United Kingdom", 51.5072, -0.1276, 210, ["city", "history", "art", "nightlife"]),
-    ("New York", "USA", 40.7128, -74.0060, 240, ["city", "nightlife", "shopping", "art"]),
+    ("Berlin", "Germany", 52.52, 13.405, 130, ["city", "nightlife", "art", "history"]),
+    ("Prague", "Czechia", 50.0755, 14.4378, 110, ["history", "city", "art"]),
+    ("Vienna", "Austria", 48.2082, 16.3738, 140, ["history", "art", "city", "relax"]),
+    ("Athens", "Greece", 37.9838, 23.7275, 110, ["history", "city", "beach", "food"]),
+    ("Istanbul", "Turkey", 41.0082, 28.9784, 110, ["history", "city", "food"]),
+    ("Edinburgh", "United Kingdom", 55.9533, -3.1883, 150, ["history", "city", "nature"]),
+    ("Reykjavik", "Iceland", 64.1466, -21.9426, 200, ["nature", "cold", "adventure", "snow"]),
+    ("Zurich", "Switzerland", 47.3769, 8.5417, 230, ["city", "mountain", "nature", "relax"]),
+    # Asia
     ("Tokyo", "Japan", 35.6762, 139.6503, 165, ["city", "food", "nightlife", "shopping"]),
     ("Kyoto", "Japan", 35.0116, 135.7681, 150, ["history", "art", "nature", "relax"]),
+    ("Osaka", "Japan", 34.6937, 135.5023, 140, ["city", "food", "nightlife"]),
     ("Bangkok", "Thailand", 13.7563, 100.5018, 90, ["city", "food", "nightlife", "tropical"]),
-    ("Istanbul", "Turkey", 41.0082, 28.9784, 110, ["history", "city", "food"]),
-    ("Marrakech", "Morocco", 31.6295, -7.9811, 95, ["history", "desert", "food", "art"]),
-    ("Cape Town", "South Africa", -33.9249, 18.4241, 140, ["beach", "adventure", "nature", "wine"]),
-    ("Sydney", "Australia", -33.8688, 151.2093, 200, ["beach", "city", "nature"]),
+    ("Singapore", "Singapore", 1.3521, 103.8198, 190, ["city", "food", "shopping", "tropical"]),
     ("Bali", "Indonesia", -8.4095, 115.1889, 120, ["tropical", "beach", "nature", "relax"]),
-    ("Reykjavik", "Iceland", 64.1466, -21.9426, 200, ["nature", "cold", "adventure", "snow"]),
+    ("Hong Kong", "China", 22.3193, 114.1694, 180, ["city", "food", "shopping", "nightlife"]),
+    ("Seoul", "South Korea", 37.5665, 126.978, 130, ["city", "food", "shopping", "nightlife"]),
+    ("Hanoi", "Vietnam", 21.0278, 105.8342, 70, ["history", "food", "city"]),
+    ("Mumbai", "India", 19.076, 72.8777, 90, ["city", "food", "nightlife"]),
+    ("New Delhi", "India", 28.6139, 77.209, 85, ["history", "city", "food"]),
+    ("Dubai", "United Arab Emirates", 25.2048, 55.2708, 220, ["city", "desert", "shopping", "beach"]),
+    # Africa
+    ("Marrakech", "Morocco", 31.6295, -7.9811, 95, ["history", "desert", "food", "art"]),
+    ("Cairo", "Egypt", 30.0444, 31.2357, 90, ["history", "desert", "city"]),
+    ("Cape Town", "South Africa", -33.9249, 18.4241, 140, ["beach", "adventure", "nature", "wine"]),
+    ("Nairobi", "Kenya", -1.2921, 36.8219, 120, ["nature", "adventure", "city"]),
+    ("Zanzibar", "Tanzania", -6.1659, 39.2026, 130, ["beach", "tropical", "relax", "island"]),
+    # Americas
+    ("New York", "USA", 40.7128, -74.006, 240, ["city", "nightlife", "shopping", "art"]),
+    ("Los Angeles", "USA", 34.0522, -118.2437, 220, ["city", "beach", "nightlife"]),
+    ("San Francisco", "USA", 37.7749, -122.4194, 240, ["city", "food", "nature"]),
+    ("Mexico City", "Mexico", 19.4326, -99.1332, 110, ["city", "history", "food", "art"]),
+    ("Cancun", "Mexico", 21.1619, -86.8515, 160, ["beach", "tropical", "relax", "nightlife"]),
+    ("Rio de Janeiro", "Brazil", -22.9068, -43.1729, 130, ["beach", "city", "nightlife", "nature"]),
+    ("Buenos Aires", "Argentina", -34.6037, -58.3816, 100, ["city", "food", "nightlife", "art"]),
+    ("Toronto", "Canada", 43.6532, -79.3832, 180, ["city", "art", "food"]),
+    # Oceania
+    ("Sydney", "Australia", -33.8688, 151.2093, 200, ["beach", "city", "nature"]),
+    ("Melbourne", "Australia", -37.8136, 144.9631, 180, ["city", "art", "food", "nightlife"]),
+    ("Auckland", "New Zealand", -36.8485, 174.7633, 170, ["nature", "city", "beach"]),
+    ("Queenstown", "New Zealand", -45.0312, 168.6626, 210, ["adventure", "mountain", "nature", "lake"]),
 ]
 
 _AMENITY_MAP = {
-    "internet_access": "wifi",
-    "wifi": "wifi",
-    "swimming_pool": "pool",
-    "air_conditioning": "ac",
-    "restaurant": "restaurant",
-    "bar": "bar",
-    "spa": "spa",
-    "parking": "parking",
-    "laundry_service": "washer",
+    "internet_access": "wifi", "wifi": "wifi", "swimming_pool": "pool",
+    "air_conditioning": "ac", "restaurant": "restaurant", "bar": "bar",
+    "spa": "spa", "parking": "parking", "laundry_service": "washer",
     "fitness_centre": "gym",
 }
 
 
+# --------------------------------------------------------------------------- #
+# Small helpers
+# --------------------------------------------------------------------------- #
 def _det(seed: str) -> float:
-    """Deterministic 0..1 value from a string (stable across runs)."""
-    h = hashlib.sha256(seed.encode()).hexdigest()
-    return int(h[:8], 16) / 0xFFFFFFFF
+    return int(hashlib.sha256(seed.encode()).hexdigest()[:8], 16) / 0xFFFFFFFF
 
 
 def _haversine(a_lat, a_lng, b_lat, b_lng) -> float:
     r = 6371.0
     p1, p2 = math.radians(a_lat), math.radians(b_lat)
-    dphi = math.radians(b_lat - a_lat)
-    dlmb = math.radians(b_lng - a_lng)
+    dphi, dlmb = math.radians(b_lat - a_lat), math.radians(b_lng - a_lng)
     h = math.sin(dphi / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dlmb / 2) ** 2
     return 2 * r * math.asin(math.sqrt(h))
 
@@ -75,96 +124,115 @@ def _nearest_city(lat: float, lng: float):
     return min(CITIES, key=lambda c: _haversine(lat, lng, c[2], c[3]))
 
 
+def _vibe_and_base(lat: float, lng: float):
+    """Borrow vibe/base from the nearest seeded city within 80km, else defaults."""
+    c = _nearest_city(lat, lng)
+    if _haversine(lat, lng, c[2], c[3]) <= 80:
+        return list(c[5]), c[4]
+    return list(DEFAULT_VIBE), 120
+
+
 def _slug(text: str) -> str:
     return "".join(ch.lower() if ch.isalnum() else "-" for ch in text).strip("-")[:40] or "stay"
 
 
-def _overpass_query(radius: int = 6000) -> str:
-    parts = [
+def _http_get_json(url: str, timeout: int = 40):
+    req = urllib.request.Request(url, headers={"User-Agent": _UA})
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        return json.loads(resp.read().decode())
+
+
+# --------------------------------------------------------------------------- #
+# OpenStreetMap (Overpass) — names + locations, no prices
+# --------------------------------------------------------------------------- #
+def _shape_osm(el: dict, city: str, country: str, base: float, vibe: list) -> dict | None:
+    tags = el.get("tags", {})
+    name = tags.get("name")
+    lat, lng = el.get("lat"), el.get("lon")
+    if not name or lat is None or lng is None:
+        return None
+
+    d = _det(name + city)
+    stars = tags.get("stars")
+    try:
+        rating = round(3.9 + (float(stars) - 3) * 0.25, 2) if stars else round(4.0 + d * 0.9, 2)
+    except ValueError:
+        rating = round(4.0 + d * 0.9, 2)
+    rating = max(3.6, min(rating, 5.0))
+
+    star_factor = 1.0
+    if stars and stars.replace(".", "", 1).isdigit():
+        star_factor = 1 + (float(stars) - 3) * 0.12
+    price = round(base * (0.7 + d * 0.8) * star_factor, 0)
+
+    amenities = sorted({v for k, v in _AMENITY_MAP.items() if tags.get(k) and tags.get(k) != "no"} | {"wifi"})
+    tourism = tags.get("tourism", "hotel")
+    return {
+        "title": name, "kind": "stay", "city": city, "country": country,
+        "lat": lat, "lng": lng, "price_per_night": float(max(45, price)),
+        "price_is_estimate": True, "rating": rating, "review_count": int(60 + d * 540),
+        "max_guests": 2 + int(d * 4), "tags": vibe, "amenities": amenities,
+        "description": f"{tourism.replace('_', ' ').title()} in {city}, {country}."
+                       + (f" {tags.get('addr:street')}." if tags.get("addr:street") else ""),
+        "image_url": f"https://picsum.photos/seed/{_slug(name + city)}/640/420",
+        "website": tags.get("website") or tags.get("contact:website") or "",
+        "booking_url": build_booking_url(name, city, country),
+        "source": "openstreetmap", "popularity": int(d * 200),
+        "_score": (1 if stars else 0) + (1 if tags.get("website") else 0) + d,
+    }
+
+
+def _overpass_around(points: list[tuple], radius: int) -> list[dict]:
+    clauses = "".join(
         f'node["tourism"~"^(hotel|guest_house|hostel|apartment|resort)$"]["name"]'
         f"(around:{radius},{lat},{lng});"
-        for _, _, lat, lng, _, _ in CITIES
-    ]
-    return f"[out:json][timeout:30];({''.join(parts)});out body 600;"
-
-
-def fetch_osm_listings(per_city: int = 8) -> list[dict]:
-    """Query Overpass and shape OSM accommodations into listing dicts."""
-    body = urllib.parse.urlencode({"data": _overpass_query()}).encode()
-    req = urllib.request.Request(
-        OVERPASS_URL,
-        data=body,
-        headers={
-            "Content-Type": "application/x-www-form-urlencoded",
-            "User-Agent": "wanderly/1.0 (travel recommendation demo)",
-        },
+        for lat, lng in points
     )
-    with urllib.request.urlopen(req, timeout=40) as resp:
-        payload = json.loads(resp.read().decode())
+    query = f"[out:json][timeout:50];({clauses});out body 2000;"
+    body = urllib.parse.urlencode({"data": query}).encode()
+    last_exc = None
+    for mirror in OVERPASS_MIRRORS:
+        req = urllib.request.Request(
+            mirror, data=body,
+            headers={"Content-Type": "application/x-www-form-urlencoded", "User-Agent": _UA},
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=70) as resp:
+                return json.loads(resp.read().decode()).get("elements", [])
+        except Exception as exc:  # 429 / timeout / 5xx -> try next mirror
+            last_exc = exc
+            continue
+    raise last_exc if last_exc else RuntimeError("no overpass mirror responded")
 
+
+def fetch_osm_listings(per_city: int = 7, radius: int = 5000) -> list[dict]:
+    """Seed-time global fetch across CITIES (chunked Overpass requests)."""
     buckets: dict[str, list[dict]] = {c[0]: [] for c in CITIES}
     seen: set[tuple] = set()
-
-    for el in payload.get("elements", []):
-        tags = el.get("tags", {})
-        name = tags.get("name")
-        lat, lng = el.get("lat"), el.get("lon")
-        if not name or lat is None or lng is None:
-            continue
-        city, country, c_lat, c_lng, base, vibe = _nearest_city(lat, lng)
-        key = (name.lower(), city)
-        if key in seen:
-            continue
-        seen.add(key)
-
-        d = _det(name + city)
-        stars = tags.get("stars")
+    chunk = 6
+    for i in range(0, len(CITIES), chunk):
+        group = CITIES[i:i + chunk]
         try:
-            rating = round(3.9 + (float(stars) - 3) * 0.25, 2) if stars else round(4.0 + d * 0.9, 2)
-        except ValueError:
-            rating = round(4.0 + d * 0.9, 2)
-        rating = max(3.6, min(rating, 5.0))
-
-        amenities = sorted({
-            v for k, v in _AMENITY_MAP.items()
-            if tags.get(k) and tags.get(k) != "no"
-        } | {"wifi"})
-
-        kind = "stay"
-        tourism = tags.get("tourism", "hotel")
-        star_factor = 1.0
-        if stars and stars.replace(".", "", 1).isdigit():
-            star_factor = 1 + (float(stars) - 3) * 0.12
-        price = round(base * (0.7 + d * 0.8) * star_factor, 0)
-        website = tags.get("website") or tags.get("contact:website") or ""
-
-        buckets[city].append({
-            "title": name,
-            "kind": kind,
-            "city": city,
-            "country": country,
-            "lat": lat,
-            "lng": lng,
-            "price_per_night": float(max(45, price)),
-            "price_is_estimate": True,
-            "rating": rating,
-            "review_count": int(60 + d * 540),
-            "max_guests": 2 + int(d * 4),
-            "tags": vibe,
-            "amenities": amenities,
-            "description": f"{tourism.replace('_', ' ').title()} in {city}, {country}."
-                           + (f" {tags.get('addr:street')}." if tags.get("addr:street") else ""),
-            "image_url": f"https://picsum.photos/seed/{_slug(name + city)}/640/420",
-            "website": website,
-            "booking_url": build_booking_url(name, city, country),
-            "source": "openstreetmap",
-            "popularity": int(d * 200),
-            # rank within city: prefer entries with stars + website
-            "_score": (1 if stars else 0) + (1 if website else 0) + d,
-        })
+            elements = _overpass_around([(c[2], c[3]) for c in group], radius)
+        except Exception as exc:  # pragma: no cover - network dependent
+            print(f"[data] Overpass chunk {i // chunk} failed: {exc}")
+            continue
+        for el in elements:
+            lat, lng = el.get("lat"), el.get("lon")
+            if lat is None or lng is None:
+                continue
+            city, country, _, _, base, vibe = _nearest_city(lat, lng)
+            shaped = _shape_osm(el, city, country, base, vibe)
+            if not shaped:
+                continue
+            key = (shaped["title"].lower(), city)
+            if key in seen:
+                continue
+            seen.add(key)
+            buckets[city].append(shaped)
 
     listings: list[dict] = []
-    for city, items in buckets.items():
+    for items in buckets.values():
         items.sort(key=lambda x: x["_score"], reverse=True)
         for it in items[:per_city]:
             it.pop("_score", None)
@@ -172,24 +240,219 @@ def fetch_osm_listings(per_city: int = 8) -> list[dict]:
     return listings
 
 
+# --------------------------------------------------------------------------- #
+# On-demand: geocode any place on Earth, then fetch its hotels
+# --------------------------------------------------------------------------- #
+def geocode(query: str) -> dict | None:
+    key = "geo:" + query.lower().strip()
+    cached = cache.get_json(key)
+    if cached is not None:
+        return cached or None
+    url = NOMINATIM_URL + "?" + urllib.parse.urlencode(
+        {"q": query, "format": "json", "limit": 1, "addressdetails": 1}
+    )
+    try:
+        data = _http_get_json(url, timeout=15)
+    except Exception as exc:  # pragma: no cover
+        print(f"[data] geocode failed for {query!r}: {exc}")
+        return None
+    if not data:
+        cache.set_json(key, {}, ttl=86400)
+        return None
+    item = data[0]
+    addr = item.get("address", {})
+    city = (
+        addr.get("city") or addr.get("town") or addr.get("municipality")
+        or addr.get("village") or item.get("display_name", query).split(",")[0].strip()
+        or addr.get("county") or addr.get("state")
+    )
+    result = {
+        "lat": float(item["lat"]), "lng": float(item["lon"]),
+        "city": city, "country": addr.get("country", ""),
+    }
+    cache.set_json(key, result, ttl=7 * 86400)
+    return result
+
+
+def fetch_around(lat: float, lng: float, city: str, country: str,
+                 radius: int = 8000, limit: int = 24) -> list[dict]:
+    vibe, base = _vibe_and_base(lat, lng)
+    try:
+        elements = _overpass_around([(lat, lng)], radius)
+    except Exception as exc:  # pragma: no cover
+        print(f"[data] on-demand Overpass failed for {city}: {exc}")
+        return []
+    out, seen = [], set()
+    for el in elements:
+        shaped = _shape_osm(el, city, country, base, vibe)
+        if not shaped:
+            continue
+        k = (shaped["title"].lower(), city)
+        if k in seen:
+            continue
+        seen.add(k)
+        shaped.pop("_score", None)
+        out.append(shaped)
+    out.sort(key=lambda x: x["rating"], reverse=True)
+    return out[:limit]
+
+
+def ensure_destination(db: Session, query: str) -> int:
+    """Geocode `query` and ingest its hotels if we haven't recently. Idempotent."""
+    if settings.data_provider.lower() != "osm":
+        return 0
+    q = query.strip()
+    if len(q) < 3:
+        return 0
+    marker = "dest:" + q.lower()
+    if cache.get_json(marker):
+        return 0
+
+    geo = geocode(q)
+    if not geo:
+        cache.set_json(marker, {"done": 1, "added": 0}, ttl=3600)
+        return 0
+
+    added = 0
+    for row in fetch_around(geo["lat"], geo["lng"], geo["city"], geo["country"]):
+        exists = db.scalar(
+            select(Listing.id).where(Listing.title == row["title"], Listing.city == row["city"])
+        )
+        if not exists:
+            db.add(Listing(**row))
+            added += 1
+    db.commit()
+    cache.set_json(marker, {"done": 1, "added": added}, ttl=7 * 86400)
+    if added:
+        print(f"[data] On-demand: added {added} listings for {geo['city']}, {geo['country']}.")
+    return added
+
+
+# --------------------------------------------------------------------------- #
+# Amadeus Self-Service — REAL nightly prices (needs API keys)
+# --------------------------------------------------------------------------- #
+_AMADEUS_BASE = "https://test.api.amadeus.com"  # use api.amadeus.com for production keys
+
+
+def _amadeus_token() -> str | None:
+    cached = cache.get_json("amadeus:token")
+    if cached:
+        return cached
+    if not (settings.amadeus_api_key and settings.amadeus_api_secret):
+        return None
+    body = urllib.parse.urlencode({
+        "grant_type": "client_credentials",
+        "client_id": settings.amadeus_api_key,
+        "client_secret": settings.amadeus_api_secret,
+    }).encode()
+    req = urllib.request.Request(
+        f"{_AMADEUS_BASE}/v1/security/oauth2/token", data=body,
+        headers={"Content-Type": "application/x-www-form-urlencoded"},
+    )
+    try:
+        data = json.loads(urllib.request.urlopen(req, timeout=20).read().decode())
+    except Exception as exc:  # pragma: no cover
+        print(f"[data] Amadeus auth failed: {exc}")
+        return None
+    token = data.get("access_token")
+    if token:
+        cache.set_json("amadeus:token", token, ttl=max(60, int(data.get("expires_in", 1700)) - 60))
+    return token
+
+
+def _amadeus_get(path: str, token: str) -> dict:
+    req = urllib.request.Request(f"{_AMADEUS_BASE}{path}", headers={"Authorization": f"Bearer {token}"})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return json.loads(resp.read().decode())
+
+
+def fetch_amadeus_listings(per_city: int = 6) -> list[dict]:
+    """Real hotel offers (with nightly prices) near each seeded city."""
+    token = _amadeus_token()
+    if not token:
+        return []
+    listings, seen = [], set()
+    for city, country, lat, lng, base, vibe in CITIES:
+        try:
+            hotels = _amadeus_get(
+                f"/v1/reference-data/locations/hotels/by-geocode"
+                f"?latitude={lat}&longitude={lng}&radius=8&radiusUnit=KM&hotelSource=ALL",
+                token,
+            ).get("data", [])[: per_city * 3]
+            if not hotels:
+                continue
+            ids = ",".join(h["hotelId"] for h in hotels[:20])
+            offers = _amadeus_get(
+                f"/v3/shopping/hotel-offers?hotelIds={ids}&adults=1&roomQuantity=1", token
+            ).get("data", [])
+        except Exception as exc:  # pragma: no cover
+            print(f"[data] Amadeus fetch failed for {city}: {exc}")
+            continue
+
+        count = 0
+        for entry in offers:
+            if count >= per_city:
+                break
+            hotel = entry.get("hotel", {})
+            name = hotel.get("name")
+            offer_list = entry.get("offers") or []
+            if not name or not offer_list:
+                continue
+            key = (name.lower(), city)
+            if key in seen:
+                continue
+            seen.add(key)
+            try:
+                price = float(offer_list[0]["price"]["total"])
+            except (KeyError, ValueError, TypeError):
+                continue
+            d = _det(name + city)
+            media = hotel.get("media") or []
+            image = media[0].get("uri") if media else f"https://picsum.photos/seed/{_slug(name + city)}/640/420"
+            listings.append({
+                "title": name.title(), "kind": "stay", "city": city, "country": country,
+                "lat": hotel.get("latitude", lat), "lng": hotel.get("longitude", lng),
+                "price_per_night": round(price, 2), "price_is_estimate": False,
+                "rating": round(4.0 + d * 0.9, 2), "review_count": int(60 + d * 540),
+                "max_guests": 2 + int(d * 3), "tags": vibe, "amenities": ["wifi"],
+                "description": f"Hotel in {city}, {country}. Live offer via Amadeus.",
+                "image_url": image, "website": "",
+                "booking_url": build_booking_url(name, city, country),
+                "source": "amadeus", "popularity": int(d * 200),
+            })
+            count += 1
+    return listings
+
+
+# --------------------------------------------------------------------------- #
+# Provider resolution
+# --------------------------------------------------------------------------- #
 def get_listings() -> list[dict]:
-    """Resolve listings for the active provider, with safe fallback to curated."""
     from .seed import curated_listing_dicts  # local import avoids a cycle
 
     provider = settings.data_provider.lower()
+
     if provider == "seed":
         return curated_listing_dicts()
 
-    if provider == "osm":
+    if provider == "amadeus":
+        try:
+            amadeus = fetch_amadeus_listings()
+            if len(amadeus) >= 12:
+                print(f"[data] Loaded {len(amadeus)} real listings (with prices) from Amadeus.")
+                return amadeus
+            print("[data] Amadeus returned too few results; falling back to OpenStreetMap.")
+        except Exception as exc:  # pragma: no cover
+            print(f"[data] Amadeus failed ({exc}); falling back to OpenStreetMap.")
+
+    if provider in ("osm", "amadeus"):
         try:
             live = fetch_osm_listings()
             if len(live) >= 12:
                 print(f"[data] Loaded {len(live)} real listings from OpenStreetMap.")
                 return live
             print("[data] Overpass returned too few results; using curated catalog.")
-        except Exception as exc:  # pragma: no cover - network dependent
+        except Exception as exc:  # pragma: no cover
             print(f"[data] OSM fetch failed ({exc}); using curated catalog.")
-        return curated_listing_dicts()
 
-    # Unknown / amadeus-not-configured -> curated.
     return curated_listing_dicts()

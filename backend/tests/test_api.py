@@ -72,6 +72,15 @@ def test_personalized_search_ranks_by_preference(client, auth):
     assert "beach" in (results[0]["reason"].lower() + " ".join(results[0]["tags"]))
 
 
+def test_multiword_destination_search(client):
+    # "Tokyo Japan" must match Tokyo listings even though it's two words and the
+    # country differs in wording from the query. (No network: provider=seed.)
+    r = client.post("/api/search", json={"q": "Tokyo Japan", "personalize": False})
+    assert r.status_code == 200
+    cities = {x["city"] for x in r.json()["results"]}
+    assert "Tokyo" in cities
+
+
 def test_recommendations_require_auth(client):
     assert client.get("/api/recommendations").status_code == 401
 

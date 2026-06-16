@@ -203,9 +203,9 @@ function Explore({ user, openListing, toast }) {
     <div className="container">
       <div className="hero">
         <h1>Find your next trip, personalized by AI</h1>
-        <p>Search destinations and stays — our recommendation engine ranks results to your taste, and the AI planner builds a day-by-day itinerary.</p>
+        <p>Search any destination in the world — real stays pulled live, ranked to your taste, with AI-built day-by-day itineraries.</p>
         <div className="searchbar">
-          <input className="grow" placeholder="Search city, country, or vibe…" value={q}
+          <input className="grow" placeholder="Search anywhere — e.g. Lisbon, Goa, Patagonia…" value={q}
             onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => e.key === "Enter" && runSearch()} />
           <input type="number" placeholder="Max $/night" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} style={{ width: 140 }} />
           <select value={sort} onChange={(e) => setSort(e.target.value)}>

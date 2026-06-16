@@ -121,12 +121,21 @@ The listing catalog and the "Book" buttons use real data, configured by
 
 - **Listings (`DATA_PROVIDER=osm`, default):** real accommodations — hotels,
   guest houses, hostels — are fetched from **OpenStreetMap** via the Overpass
-  API (no key required) across ~16 cities, with real names, coordinates, and
-  websites. OSM has no nightly rates, so each listing shows a clearly-labelled
-  **estimated** price (`≈`) used for ranking/budget filtering; the *real* price
-  is on the partner site. If the live fetch ever fails it falls back to the
-  curated catalog, so startup never breaks. `DATA_PROVIDER=seed` forces the
-  offline catalog; `amadeus` is scaffolded for real live prices (needs keys).
+  API (no key required), with real names, coordinates, and websites. OSM has no
+  nightly rates, so each listing shows a clearly-labelled **estimated** price
+  (`≈`) used for ranking/budget filtering; the *real* price is on the partner
+  site. Overpass requests try several mirrors and fall back to the curated
+  catalog if all fail, so startup never breaks.
+- **Global coverage (on-demand):** ~44 cities across every continent are seeded
+  at first boot, and the catalog then grows to cover **anywhere on Earth** — when
+  someone searches a destination we don't already have (e.g. "Porto", "Cusco",
+  "Goa"), it is geocoded via **Nominatim** and its real hotels are fetched live,
+  cached, and persisted. So the world is reachable without preloading millions of
+  rows. (Verified live: Lima, Porto, Cusco, Honolulu, Krakow, …)
+- **Prices with `DATA_PROVIDER=amadeus`:** the Amadeus Self-Service provider
+  returns **real nightly prices** (and photos when available) near each seeded
+  city; needs `AMADEUS_API_KEY`/`AMADEUS_API_SECRET` and falls back to OSM if
+  unset. `DATA_PROVIDER=seed` forces the offline catalog (used by the tests).
 - **Booking (`BOOKING_PROVIDER=booking`, default):** every listing has an
   outbound deep link that opens a **real Booking.com search** for that property
   (or Google Hotels / Expedia). Set **`BOOKING_AFFILIATE_ID`** to attach your

@@ -1,0 +1,48 @@
+# Render Blueprint — one-click deploy of the API (serving the SPA) + Postgres.
+# In Render: New > Blueprint > point at this repo. It provisions everything and
+# wires DATABASE_URL automatically. A strong SECRET_KEY is generated for you.
+databases:
+  - name: wanderly-db
+    plan: free            # upgrade for persistence guarantees / more storage
+    databaseName: travel
+    user: travel
+
+services:
+  - type: web
+    name: wanderly
+    runtime: docker
+    plan: free            # free dynos sleep when idle; upgrade for always-on
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: wanderly-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true          # cryptographically random, kept by Render
+      - key: ENVIRONMENT
+        value: production
+      - key: FORCE_HTTPS
+        value: "true"
+      - key: SEED_DEMO_USERS
+        value: "false"               # no public demo login in prod
+      - key: AUTO_SEED
+        value: "true"                # still seed the listing catalog (content)
+      - key: ALLOWED_HOSTS
+        value: "*"                   # set to your render hostname/domain
+      - key: ALLOWED_ORIGINS
+        value: "*"                   # SPA is same-origin; tighten if using a separate frontend
+      # Set this to YOUR email, then register that account to become admin:
+      - key: ADMIN_EMAIL
+        value: ""
+      # Real AI itineraries (optional): set provider + key as a secret in the dashboard.
+      - key: LLM_PROVIDER
+        value: stub
+      # - key: OPENAI_API_KEY        # add as a secret env var in the Render UI
+      #   sync: false
+
+      # For multi-instance scale, add a Render Key Value (Redis) instance and set:
+      # - key: REDIS_URL
+      #   fromService: { type: keyvalue, name: wanderly-cache, property: connectionString }

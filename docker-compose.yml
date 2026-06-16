@@ -1,0 +1,50 @@
+# Production-shaped stack: PostgreSQL + Redis + FastAPI (serving the React SPA).
+# Run:  docker compose up --build   ->   http://localhost:8000
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: travel
+      POSTGRES_PASSWORD: travel
+      POSTGRES_DB: travel
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U travel"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql+psycopg2://travel:travel@db:5432/travel
+      REDIS_URL: redis://redis:6379/0
+      SECRET_KEY: change-me-in-prod
+      AUTO_SEED: "true"
+      # To enable real LLM itineraries, set provider + key:
+      LLM_PROVIDER: ${LLM_PROVIDER:-stub}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  pgdata:

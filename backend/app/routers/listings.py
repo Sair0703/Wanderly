@@ -8,6 +8,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from ..database import get_db
+from ..llm import summarize_reviews
 from ..models import Favorite, Interaction, Listing, Review, User
 from ..schemas import (
     FavoriteToggleOut,
@@ -140,4 +141,9 @@ def list_reviews(listing_id: int, db: Session = Depends(get_db)):
         for r, name in rows
     ]
     avg = round(sum(rv.rating for rv in reviews) / len(reviews), 2) if reviews else 0.0
-    return ReviewSummary(average=avg, count=len(reviews), reviews=reviews)
+    summary, summary_by = summarize_reviews(
+        [{"rating": rv.rating, "comment": rv.comment} for rv in reviews]
+    )
+    return ReviewSummary(
+        average=avg, count=len(reviews), summary=summary, summary_by=summary_by, reviews=reviews
+    )

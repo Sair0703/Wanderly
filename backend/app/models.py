@@ -121,6 +121,7 @@ class Trip(Base):
     days: Mapped[list] = mapped_column(JSON, default=list)  # [{day, title, activities[]}]
     listing_ids: Mapped[list] = mapped_column(JSON, default=list)
     generated_by: Mapped[str] = mapped_column(String(20), default="stub")
+    share_id: Mapped[Optional[str]] = mapped_column(String(24), unique=True, index=True, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
     user: Mapped["User"] = relationship(back_populates="trips")

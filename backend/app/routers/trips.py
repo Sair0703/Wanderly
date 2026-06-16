@@ -1,6 +1,7 @@
 """Trips / itineraries — LLM-generated, personalized day-by-day plans."""
 from __future__ import annotations
 
+import secrets
 from datetime import timedelta
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -12,7 +13,7 @@ from ..database import get_db
 from ..llm import generate_itinerary
 from ..models import Listing, Trip, User
 from ..rate_limit import rate_limiter
-from ..schemas import TripOut, TripRequest
+from ..schemas import ListingOut, SharedTripOut, TripOut, TripRequest
 from ..security import get_current_user
 
 router = APIRouter(prefix="/api/trips", tags=["trips"])
@@ -58,6 +59,7 @@ def create_trip(
         days=plan.get("days", []),
         listing_ids=[s["id"] for s in stay_dicts],
         generated_by=provider,
+        share_id=secrets.token_urlsafe(9),
     )
     db.add(trip)
     db.commit()
@@ -70,6 +72,24 @@ def list_trips(user: User = Depends(get_current_user), db: Session = Depends(get
     return db.execute(
         select(Trip).where(Trip.user_id == user.id).order_by(Trip.created_at.desc())
     ).scalars().all()
+
+
+@router.get("/shared/{share_id}", response_model=SharedTripOut, tags=["public"])
+def get_shared_trip(share_id: str, db: Session = Depends(get_db)):
+    """Public, no-auth view of a shared itinerary."""
+    trip = db.scalar(select(Trip).where(Trip.share_id == share_id))
+    if not trip:
+        raise HTTPException(status_code=404, detail="Shared trip not found")
+    author = db.get(User, trip.user_id)
+    listings = []
+    if trip.listing_ids:
+        rows = db.execute(select(Listing).where(Listing.id.in_(trip.listing_ids))).scalars().all()
+        listings = [ListingOut.model_validate(l) for l in rows]
+    return SharedTripOut(
+        title=trip.title, destination=trip.destination, summary=trip.summary,
+        days=trip.days, generated_by=trip.generated_by,
+        author=author.name if author else "A Wanderly traveler", listings=listings,
+    )
 
 
 @router.get("/{trip_id}", response_model=TripOut)

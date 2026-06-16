@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session
 from ..cache import cache
 from ..data_sources import ensure_destination
 from ..database import get_db
+from ..pricing import annotate_deals
 from ..models import Interaction, Listing, User
 from ..recommender import recommend
 from ..schemas import ScoredListing, SearchRequest, SearchResponse
@@ -132,6 +133,7 @@ def run_search(payload: SearchRequest, db: Session, user: Optional[User]) -> Sea
         )
         for listing, score, reason in scored
     ]
+    annotate_deals(db, results)
 
     response = SearchResponse(total=len(rows), results=results, cached=False)
     cache.set_json(key, {"total": response.total, "results": [r.model_dump() for r in results]})

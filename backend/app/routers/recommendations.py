@@ -8,6 +8,7 @@ from ..cache import cache
 from ..database import get_db
 from ..llm import generate_suggestions
 from ..models import RecommendationLog, User
+from ..pricing import annotate_deals
 from ..recommender import recommend
 from ..schemas import ScoredListing, SuggestionOut
 from ..security import get_current_user
@@ -43,6 +44,7 @@ def my_recommendations(
         )
         for listing, score, reason in scored
     ]
+    annotate_deals(db, results)
     cache.set_json(key, [r.model_dump() for r in results], ttl=120)
     return results
 

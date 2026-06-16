@@ -75,6 +75,7 @@ class ListingOut(BaseModel):
 class ScoredListing(ListingOut):
     score: float = 0.0
     reason: str = ""
+    deal: str = ""  # "Great deal" | "Good value" | "Typical price" | "Premium"
 
 
 # ---------- Search ----------
@@ -146,7 +147,19 @@ class TripOut(BaseModel):
     days: list[Any]
     listing_ids: list[int]
     generated_by: str
+    share_id: Optional[str] = None
     created_at: datetime
+
+
+class SharedTripOut(BaseModel):
+    """Public (no-auth) view of a shared trip."""
+    title: str
+    destination: str
+    summary: str
+    days: list[Any]
+    generated_by: str
+    author: str
+    listings: list[ListingOut] = Field(default_factory=list)
 
 
 class SuggestionOut(BaseModel):
@@ -172,6 +185,8 @@ class ReviewOut(BaseModel):
 class ReviewSummary(BaseModel):
     average: float
     count: int
+    summary: str = ""           # AI-generated digest of the reviews
+    summary_by: str = ""        # provider that produced the summary
     reviews: list[ReviewOut]
 
 

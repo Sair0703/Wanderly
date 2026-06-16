@@ -149,6 +149,11 @@ button { font-family: inherit; cursor: pointer; }
 .book-real .btn { white-space:nowrap; }
 .day ul { margin: 0; padding-left: 18px; color:#444; }
 .suggestion { background:#fff7f8; border:1px solid #ffd9e0; border-radius:10px; padding:12px 14px; margin:8px 0; }
+.deal { font-size:11px; font-weight:700; padding:3px 8px; border-radius:6px; white-space:nowrap; }
+.deal.good { background:#e6f7ee; color:#0a7d43; }
+.deal.premium { background:#fdeee8; color:#b4530f; }
+.deal.neutral { background:#f0f0f0; color:#666; }
+.ai-summary { background:#f0fbfb; border:1px solid #b8e6e8; border-radius:10px; padding:11px 14px; margin:6px 0 14px; font-size:14px; color:#0b6b6f; }
 .review { border-bottom:1px solid var(--line); padding:10px 0; }
 .review .star { color: var(--brand); }
 .review-form { display:flex; gap:8px; margin-top:14px; }

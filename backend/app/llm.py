@@ -174,3 +174,58 @@ def generate_itinerary(
 def generate_suggestions(prefs: dict) -> tuple[list[str], str]:
     # Suggestions use the same provider machinery but the stub is always safe.
     return _stub_suggestions(prefs), "stub"
+
+
+def _stub_review_summary(reviews: list[dict]) -> str:
+    n = len(reviews)
+    if not n:
+        return ""
+    avg = round(sum(r["rating"] for r in reviews) / n, 1)
+    pos = [r["comment"] for r in reviews if r["rating"] >= 4 and r.get("comment")]
+    neg = [r["comment"] for r in reviews if r["rating"] <= 2 and r.get("comment")]
+    parts = [f"Guests rate this {avg}/5 across {n} review{'s' if n != 1 else ''}."]
+    if pos:
+        parts.append(f"Loved: “{pos[0][:90]}”")
+    if neg:
+        parts.append(f"Some note: “{neg[0][:90]}”")
+    return " ".join(parts)
+
+
+def _remote_review_summary(reviews: list[dict]) -> Optional[str]:
+    joined = "\n".join(f"- {r['rating']}/5: {r.get('comment', '')}" for r in reviews[:30])
+    prompt = (
+        "Summarize these guest reviews in 1-2 sentences for a traveler deciding "
+        "whether to book. Mention recurring praise and any concerns.\n" + joined
+    )
+    try:
+        if settings.llm_provider == "openai" and settings.openai_api_key:
+            data = _http_json(
+                "https://api.openai.com/v1/chat/completions",
+                {"Authorization": f"Bearer {settings.openai_api_key}", "Content-Type": "application/json"},
+                {"model": settings.openai_model,
+                 "messages": [{"role": "user", "content": prompt}], "temperature": 0.4},
+            )
+            return data["choices"][0]["message"]["content"].strip()
+        if settings.llm_provider == "anthropic" and settings.anthropic_api_key:
+            data = _http_json(
+                "https://api.anthropic.com/v1/messages",
+                {"x-api-key": settings.anthropic_api_key, "anthropic-version": "2023-06-01",
+                 "Content-Type": "application/json"},
+                {"model": settings.anthropic_model, "max_tokens": 200,
+                 "messages": [{"role": "user", "content": prompt}]},
+            )
+            return data["content"][0]["text"].strip()
+    except Exception:
+        pass
+    return None
+
+
+def summarize_reviews(reviews: list[dict]) -> tuple[str, str]:
+    """Return (summary, provider). Empty string if there are no reviews."""
+    if not reviews:
+        return "", "none"
+    if settings.llm_provider in ("openai", "anthropic"):
+        remote = _remote_review_summary(reviews)
+        if remote:
+            return remote, settings.llm_provider
+    return _stub_review_summary(reviews), "stub"

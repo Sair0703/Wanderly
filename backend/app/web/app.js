@@ -31,6 +31,8 @@ const bookingSite = (url) => {
   if (url.includes("expedia")) return "Expedia";
   return "partner site";
 };
+const dealClass = (deal) =>
+  deal === "Great deal" || deal === "Good value" ? "good" : deal === "Premium" ? "premium" : "neutral";
 
 function useToast() {
   const [msg, setMsg] = useState(null);
@@ -83,6 +85,7 @@ function Card({ l, onOpen, onToggleFav, saved }) {
         <div className="tags">{(l.tags || []).slice(0, 3).map((t) => <span key={t} className="tag">{t}</span>)}</div>
         <div className="row" style={{ marginTop: 8 }}>
           <span className="price">{l.price_is_estimate ? "≈ " : ""}{money(l.price_per_night)} <small>/ night</small></span>
+          {l.deal && <span className={"deal " + dealClass(l.deal)}>{l.deal}</span>}
         </div>
         {l.reason && <div className="reason">✦ {l.reason}</div>}
       </div>
@@ -113,6 +116,9 @@ function Reviews({ listing, user, toast }) {
   return (
     <div>
       <h3>Guest reviews {data && data.count > 0 && <span className="muted">· ★ {data.average} ({data.count})</span>}</h3>
+      {data && data.summary && (
+        <div className="ai-summary">🤖 <b>AI summary:</b> {data.summary}</div>
+      )}
       {data && data.reviews.length === 0 && <p className="muted">No reviews yet — be the first.</p>}
       {data && data.reviews.map((r) => (
         <div key={r.id} className="review">
@@ -308,6 +314,11 @@ function Trips({ user, toast }) {
     } catch (e) { toast(e.message); } finally { setBusy(false); }
   };
   const remove = async (id) => { await api.call(`/trips/${id}`, { method: "DELETE" }); load(); };
+  const share = async (t) => {
+    const url = `${location.origin}/?trip=${t.share_id}`;
+    try { await navigator.clipboard.writeText(url); toast("Share link copied to clipboard"); }
+    catch (e) { window.prompt("Copy this share link:", url); }
+  };
 
   if (!user) return <div className="container"><div className="empty">Sign in to plan AI itineraries.</div></div>;
   return (
@@ -327,7 +338,10 @@ function Trips({ user, toast }) {
                 <h3 style={{ margin: "0 0 4px" }}>{t.title} <span className="badge">{t.generated_by}</span></h3>
                 <div className="muted">{t.summary}</div>
               </div>
-              <button className="btn ghost small" onClick={() => remove(t.id)}>Delete</button>
+              <div style={{ display: "flex", gap: 8 }}>
+                {t.share_id && <button className="btn ghost small" onClick={() => share(t)}>🔗 Share</button>}
+                <button className="btn ghost small" onClick={() => remove(t.id)}>Delete</button>
+              </div>
             </div>
             {t.days.map((d) => (
               <div key={d.day} className="day">
@@ -576,8 +590,55 @@ function Saved({ user, openListing, toast, saved, onToggleFav }) {
   );
 }
 
+/* ----------------------------- Shared trip (public) ----------------------------- */
+function SharedTrip({ shareId }) {
+  const [trip, setTrip] = useState(undefined);
+  useEffect(() => {
+    api.call(`/trips/shared/${shareId}`).then(setTrip).catch(() => setTrip(null));
+  }, [shareId]);
+
+  const goHome = () => { window.history.replaceState({}, "", "/"); location.reload(); };
+
+  if (trip === undefined) return <div className="loading">Loading shared trip…</div>;
+  if (trip === null) return (
+    <div className="container"><div className="empty">This shared trip wasn't found.
+      <div style={{ marginTop: 16 }}><button className="btn" onClick={goHome}>Explore Wanderly</button></div></div></div>
+  );
+  return (
+    <>
+      <header className="header">
+        <div className="logo" onClick={goHome}>🧭 Wanderly</div>
+        <span className="spacer" />
+        <button className="btn" onClick={goHome}>Plan your own trip →</button>
+      </header>
+      <div className="container">
+        <div className="hero">
+          <h1>{trip.title}</h1>
+          <p>{trip.summary}</p>
+          <div className="muted" style={{ color: "rgba(255,255,255,.85)" }}>Shared by {trip.author} · made with AI</div>
+        </div>
+        {trip.days.map((d) => (
+          <div key={d.day} className="panel">
+            <h3 style={{ margin: "0 0 8px" }}>{d.title}</h3>
+            <ul>{(d.activities || []).map((a, i) => <li key={i}>{a}</li>)}</ul>
+          </div>
+        ))}
+        {trip.listings && trip.listings.length > 0 && (
+          <>
+            <div className="section-title">Where to stay</div>
+            <div className="grid">{trip.listings.map((l) =>
+              <Card key={l.id} l={l} onOpen={() => {}} onToggleFav={() => {}} saved={new Set()} />)}</div>
+          </>
+        )}
+      </div>
+    </>
+  );
+}
+
 /* ----------------------------- App shell ----------------------------- */
 function App() {
+  const sharedTripId = new URLSearchParams(location.search).get("trip");
+  if (sharedTripId) return <SharedTrip shareId={sharedTripId} />;
   const [user, setUser] = useState(null);
   const [view, setView] = useState("explore");
   const [active, setActive] = useState(null);

@@ -116,6 +116,29 @@ def test_booking_rejects_overcapacity(client, auth):
     assert r.status_code == 400
 
 
+def test_price_deal_labels(client):
+    r = client.post("/api/search", json={"q": "Lisbon", "personalize": False})
+    deals = {x["deal"] for x in r.json()["results"]}
+    assert deals and all(d in {"Great deal", "Good value", "Typical price", "Premium"} for d in deals)
+
+
+def test_ai_review_summary(client, auth):
+    client.post("/api/listings/2/reviews", json={"rating": 5, "comment": "Loved the location"}, headers=auth)
+    client.post("/api/listings/2/reviews", json={"rating": 4, "comment": "Cozy and clean"}, headers=auth)
+    rs = client.get("/api/listings/2/reviews").json()
+    assert rs["count"] == 2 and rs["summary"] and "5" not in rs["summary"][:0]  # summary present
+    assert rs["summary_by"] in {"stub", "openai", "anthropic"}
+
+
+def test_shareable_trip(client, auth):
+    t = client.post("/api/trips", json={"destination": "Lisbon", "days": 2}, headers=auth).json()
+    assert t["share_id"]
+    pub = client.get(f"/api/trips/shared/{t['share_id']}")
+    assert pub.status_code == 200
+    assert pub.json()["title"] == t["title"] and "author" in pub.json()
+    assert client.get("/api/trips/shared/does-not-exist").status_code == 404
+
+
 def test_dashboard_requires_admin(client):
     # No auth -> 401; the demo account is admin in dev -> 200.
     assert client.get("/api/analytics/dashboard").status_code == 401

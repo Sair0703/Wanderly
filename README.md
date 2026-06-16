@@ -47,8 +47,14 @@ scalable personalization flows.
   any destination on Earth, with **real photos** (property photos where
   available, else a Wikipedia destination photo).
 - **Real outbound booking** — deep links to Booking.com (affiliate-ready).
-- **Guest reviews**, **wishlists/Saved**, **maps**, and an **admin analytics
-  dashboard** (engagement + recommendation quality).
+- **Guest reviews** with an **AI review summary** ("guests love the location,
+  some mention street noise").
+- **Price intelligence** — every stay is labelled vs its city median
+  (Great deal / Good value / Typical / Premium).
+- **Shareable trips** — public, no-login itinerary links with a built-in
+  "plan your own" conversion CTA.
+- **Wishlists/Saved**, **maps**, and an **admin analytics dashboard**
+  (engagement + recommendation quality).
 
 ---
 

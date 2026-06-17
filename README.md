@@ -42,7 +42,9 @@ scalable personalization flows.
   returns ranked real stays.
 - **Personalized recommendations** — content + behavioral ranking with
   explainable "why this matches you" reasons.
-- **AI itinerary planner** — day-by-day trips grounded in real listings.
+- **AI itinerary planner** — day-by-day trips built from **real attractions**
+  (museums, landmarks, parks, viewpoints from OpenStreetMap) with estimated
+  entry prices, per-day and trip cost totals, and a map of every stop.
 - **Worldwide real inventory** — real hotels from OpenStreetMap, on-demand for
   any destination on Earth, with **real photos** (property photos where
   available, else a Wikipedia destination photo).

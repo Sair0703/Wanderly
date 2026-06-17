@@ -142,7 +142,9 @@ button { font-family: inherit; cursor: pointer; }
 @media (max-width: 760px){ .two-col { grid-template-columns: 1fr; } }
 
 /* ---------- Itinerary ---------- */
+.trip-total { background:#fff7f8; border:1px solid #ffd9e0; border-radius:10px; padding:10px 14px; margin:12px 0; font-size:14px; }
 .day { border-left: 3px solid var(--brand); padding: 6px 0 6px 16px; margin: 14px 0; }
+.day li { margin: 4px 0; }
 .day h4 { margin: 0 0 6px; }
 .book-real { display:flex; align-items:center; justify-content:space-between; gap:14px;
   background:#f0fbfb; border:1px solid #b8e6e8; border-radius:12px; padding:14px 16px; margin:14px 0; flex-wrap:wrap; }

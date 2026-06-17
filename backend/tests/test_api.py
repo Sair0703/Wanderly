@@ -13,6 +13,7 @@ _tmp = tempfile.NamedTemporaryFile(suffix=".db", delete=False)
 os.environ["DATABASE_URL"] = f"sqlite:///{_tmp.name}"
 os.environ["AUTO_SEED"] = "true"
 os.environ["DATA_PROVIDER"] = "seed"  # deterministic curated catalog for tests
+os.environ["LIVE_ATTRACTIONS"] = "false"  # no network in tests
 
 from fastapi.testclient import TestClient  # noqa: E402
 

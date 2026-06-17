@@ -227,13 +227,8 @@ def _shape_osm(el: dict, city: str, country: str, base: float, vibe: list) -> di
     }
 
 
-def _overpass_around(points: list[tuple], radius: int) -> list[dict]:
-    clauses = "".join(
-        f'node["tourism"~"^(hotel|guest_house|hostel|apartment|resort)$"]["name"]'
-        f"(around:{radius},{lat},{lng});"
-        for lat, lng in points
-    )
-    query = f"[out:json][timeout:50];({clauses});out body 2000;"
+def _overpass_post(query: str, timeout: int = 70) -> list[dict]:
+    """POST an Overpass query, trying each mirror until one answers."""
     body = urllib.parse.urlencode({"data": query}).encode()
     last_exc = None
     for mirror in OVERPASS_MIRRORS:
@@ -242,12 +237,21 @@ def _overpass_around(points: list[tuple], radius: int) -> list[dict]:
             headers={"Content-Type": "application/x-www-form-urlencoded", "User-Agent": _UA},
         )
         try:
-            with urllib.request.urlopen(req, timeout=70) as resp:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
                 return json.loads(resp.read().decode()).get("elements", [])
         except Exception as exc:  # 429 / timeout / 5xx -> try next mirror
             last_exc = exc
             continue
     raise last_exc if last_exc else RuntimeError("no overpass mirror responded")
+
+
+def _overpass_around(points: list[tuple], radius: int) -> list[dict]:
+    clauses = "".join(
+        f'node["tourism"~"^(hotel|guest_house|hostel|apartment|resort)$"]["name"]'
+        f"(around:{radius},{lat},{lng});"
+        for lat, lng in points
+    )
+    return _overpass_post(f"[out:json][timeout:50];({clauses});out body 2000;")
 
 
 def fetch_osm_listings(per_city: int = 7, radius: int = 5000) -> list[dict]:
@@ -472,6 +476,108 @@ def fetch_amadeus_listings(per_city: int = 6) -> list[dict]:
 # --------------------------------------------------------------------------- #
 # Provider resolution
 # --------------------------------------------------------------------------- #
+# --------------------------------------------------------------------------- #
+# Real attractions / things to do (for the itinerary planner)
+# --------------------------------------------------------------------------- #
+_ATTR_PRICE = {  # estimated entry fee range (USD) by category
+    "museum": (10, 25), "gallery": (8, 18), "attraction": (12, 28), "zoo": (16, 30),
+    "aquarium": (18, 32), "theme_park": (35, 75), "castle": (10, 22), "historic": (8, 16),
+}
+_FREE_CATS = {"viewpoint", "artwork", "park", "garden", "monument", "memorial",
+              "place_of_worship", "fountain", "square"}
+_CAT_WEIGHT = {  # marquee sights rank above the swarm of minor public artworks
+    "museum": 3.0, "attraction": 2.6, "castle": 2.6, "theme_park": 2.6, "zoo": 2.4,
+    "aquarium": 2.4, "viewpoint": 2.2, "gallery": 2.0, "historic": 2.0,
+    "place_of_worship": 1.8, "park": 1.8, "garden": 1.3, "artwork": 0.3,
+}
+_CATEGORY_LABEL = {
+    "museum": "Museum", "gallery": "Gallery", "attraction": "Attraction",
+    "viewpoint": "Viewpoint", "artwork": "Public art", "zoo": "Zoo",
+    "theme_park": "Theme park", "aquarium": "Aquarium", "castle": "Historic site",
+    "historic": "Historic site", "park": "Park", "garden": "Garden",
+    "place_of_worship": "Landmark",
+}
+
+
+def _attraction_category(tags: dict) -> str:
+    t = tags.get("tourism")
+    if t in {"museum", "gallery", "attraction", "viewpoint", "artwork", "zoo", "theme_park", "aquarium"}:
+        return t
+    if tags.get("historic"):
+        return "castle" if tags["historic"] in {"castle", "fort", "palace"} else "historic"
+    if tags.get("leisure") == "park":
+        return "park"
+    if tags.get("leisure") == "garden":
+        return "garden"
+    if tags.get("amenity") == "place_of_worship":
+        return "place_of_worship"
+    return "attraction"
+
+
+def _attraction_price(category: str, seed: str):
+    if category in _FREE_CATS:
+        return 0.0, "Free"
+    lo, hi = _ATTR_PRICE.get(category, (10, 20))
+    p = round(lo + (hi - lo) * _det(seed))
+    return float(p), f"≈ ${p}"
+
+
+def fetch_attractions(destination: str, radius: int = 6000, limit: int = 45):
+    """Real things-to-do near a destination (geocode + Overpass), with estimated
+    entry prices. Returns (attractions, geo). Cached per destination."""
+    geo = geocode(destination)
+    if not geo:
+        return [], None
+    key = "attractions:" + destination.lower().strip()
+    cached = cache.get_json(key)
+    if cached is not None:
+        return cached, geo
+
+    lat, lng = geo["lat"], geo["lng"]
+    query = (
+        "[out:json][timeout:40];("
+        f'nwr["tourism"~"^(museum|gallery|attraction|viewpoint|artwork|zoo|theme_park|aquarium)$"]["name"](around:{radius},{lat},{lng});'
+        f'nwr["historic"]["name"](around:{radius},{lat},{lng});'
+        f'nwr["leisure"~"^(park|garden)$"]["name"](around:{radius},{lat},{lng});'
+        ");out center 300;"
+    )
+    try:
+        elements = _overpass_post(query, timeout=25)
+    except Exception as exc:  # pragma: no cover
+        print(f"[data] attractions fetch failed for {destination}: {exc}")
+        return [], geo
+
+    seen, out = set(), []
+    for el in elements:
+        tags = el.get("tags", {})
+        name = tags.get("name")
+        a_lat = el.get("lat") or (el.get("center") or {}).get("lat")
+        a_lng = el.get("lon") or (el.get("center") or {}).get("lon")
+        if not name or a_lat is None or a_lng is None or name.lower() in seen:
+            continue
+        seen.add(name.lower())
+        category = _attraction_category(tags)
+        price, label = _attraction_price(category, name + destination)
+        if tags.get("fee") == "no":
+            price, label = 0.0, "Free"
+        out.append({
+            "name": name, "category": category,
+            "category_label": _CATEGORY_LABEL.get(category, "Attraction"),
+            "price": price, "price_label": label, "lat": a_lat, "lng": a_lng,
+            # rank by category prominence, then notability (Wikipedia/Wikidata).
+            "_score": _CAT_WEIGHT.get(category, 1.0)
+            + (0.6 if tags.get("wikidata") else 0) + (0.6 if tags.get("wikipedia") else 0)
+            + _det(name) * 0.3,
+        })
+
+    out.sort(key=lambda a: a["_score"], reverse=True)
+    out = out[:limit]
+    for a in out:
+        a.pop("_score", None)
+    cache.set_json(key, out, ttl=7 * 86400)
+    return out, geo
+
+
 def get_listings() -> list[dict]:
     from .seed import curated_listing_dicts  # local import avoids a cycle
 

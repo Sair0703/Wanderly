@@ -56,9 +56,12 @@ function MiniMap({ listings, height = 240 }) {
     }
     const map = mapRef.current;
     map._markers && map._markers.forEach((m) => map.removeLayer(m));
-    map._markers = pts.map((l) =>
-      L.marker([l.lat, l.lng]).addTo(map).bindPopup(`<b>${l.title}</b><br/>${money(l.price_per_night)}/night`)
-    );
+    map._markers = pts.map((l) => {
+      const label = l.price_per_night != null ? `${money(l.price_per_night)}/night`
+        : (l.price_label || "");
+      return L.marker([l.lat, l.lng]).addTo(map)
+        .bindPopup(`<b>${l.title || l.name}</b>${label ? "<br/>" + label : ""}`);
+    });
     if (pts.length === 1) map.setView([pts[0].lat, pts[0].lng], 11);
     else if (pts.length > 1) map.fitBounds(pts.map((l) => [l.lat, l.lng]), { padding: [30, 30] });
     else map.setView([20, 0], 2);
@@ -296,6 +299,56 @@ function Explore({ user, openListing, toast, saved, onToggleFav }) {
 }
 
 /* ----------------------------- Trips view ----------------------------- */
+/* ----------------------------- Itinerary rendering ----------------------------- */
+function ItineraryDays({ days }) {
+  return days.map((d) => (
+    <div key={d.day} className="day">
+      <h4>{d.title} {d.est_cost > 0 && <span className="muted" style={{ fontWeight: 400 }}>· ≈ {money(d.est_cost)} in entry fees</span>}</h4>
+      <ul>{(d.activities || []).map((a, i) => (
+        <li key={i}>
+          {typeof a === "string" ? a : (
+            <span>
+              <b>{a.time}:</b> {a.name}
+              {a.category && <span className="tag" style={{ marginLeft: 6 }}>{a.category}</span>}
+              {a.price_label && <span className="muted"> · {a.price_label}</span>}
+            </span>
+          )}
+        </li>
+      ))}</ul>
+    </div>
+  ));
+}
+
+function tripPoints(t) {
+  return (t.days || []).flatMap((d) => d.activities || [])
+    .filter((a) => a && typeof a === "object" && a.lat);
+}
+function tripTotal(t) {
+  return (t.days || []).reduce((s, d) => s + (d.est_cost || 0), 0);
+}
+
+function TripCard({ t, onShare, onRemove }) {
+  const points = tripPoints(t);
+  const total = tripTotal(t);
+  return (
+    <div className="panel">
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div>
+          <h3 style={{ margin: "0 0 4px" }}>{t.title} <span className="badge">{t.generated_by}</span></h3>
+          <div className="muted">{t.summary}</div>
+        </div>
+        <div style={{ display: "flex", gap: 8 }}>
+          {t.share_id && <button className="btn ghost small" onClick={() => onShare(t)}>🔗 Share</button>}
+          <button className="btn ghost small" onClick={() => onRemove(t.id)}>Delete</button>
+        </div>
+      </div>
+      {total > 0 && <div className="trip-total">Estimated activities cost: <b>≈ {money(total)}</b> <span className="muted">(entry fees; lodging separate)</span></div>}
+      {points.length > 0 && <MiniMap listings={points} height={220} />}
+      <ItineraryDays days={t.days} />
+    </div>
+  );
+}
+
 function Trips({ user, toast }) {
   const [destination, setDestination] = useState("Lisbon");
   const [days, setDays] = useState(3);
@@ -331,26 +384,7 @@ function Trips({ user, toast }) {
       </div>
 
       {trips.length === 0 ? <div className="empty">No trips yet — generate your first itinerary above.</div> :
-        trips.map((t) => (
-          <div key={t.id} className="panel">
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <div>
-                <h3 style={{ margin: "0 0 4px" }}>{t.title} <span className="badge">{t.generated_by}</span></h3>
-                <div className="muted">{t.summary}</div>
-              </div>
-              <div style={{ display: "flex", gap: 8 }}>
-                {t.share_id && <button className="btn ghost small" onClick={() => share(t)}>🔗 Share</button>}
-                <button className="btn ghost small" onClick={() => remove(t.id)}>Delete</button>
-              </div>
-            </div>
-            {t.days.map((d) => (
-              <div key={d.day} className="day">
-                <h4>{d.title}</h4>
-                <ul>{(d.activities || []).map((a, i) => <li key={i}>{a}</li>)}</ul>
-              </div>
-            ))}
-          </div>
-        ))}
+        trips.map((t) => <TripCard key={t.id} t={t} onShare={share} onRemove={remove} />)}
     </div>
   );
 }
@@ -617,12 +651,10 @@ function SharedTrip({ shareId }) {
           <p>{trip.summary}</p>
           <div className="muted" style={{ color: "rgba(255,255,255,.85)" }}>Shared by {trip.author} · made with AI</div>
         </div>
-        {trip.days.map((d) => (
-          <div key={d.day} className="panel">
-            <h3 style={{ margin: "0 0 8px" }}>{d.title}</h3>
-            <ul>{(d.activities || []).map((a, i) => <li key={i}>{a}</li>)}</ul>
-          </div>
-        ))}
+        {tripPoints(trip).length > 0 && (
+          <div className="panel" style={{ padding: 0, overflow: "hidden" }}><MiniMap listings={tripPoints(trip)} height={260} /></div>
+        )}
+        <div className="panel"><ItineraryDays days={trip.days} /></div>
         {trip.listings && trip.listings.length > 0 && (
           <>
             <div className="section-title">Where to stay</div>

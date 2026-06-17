@@ -39,20 +39,22 @@ def _stub_itinerary(
     destination: str, days: int, interests: list[str], stays: list[dict]
 ) -> dict[str, Any]:
     interests = [i.lower() for i in interests] or _DEFAULT_INTERESTS
+    times = ["Morning", "Afternoon", "Evening"]
     plan_days = []
     for d in range(1, days + 1):
         focus = interests[(d - 1) % len(interests)]
         bank = _ACTIVITY_BANK.get(focus, _ACTIVITY_BANK["city"])
         activities = [
-            f"Morning: {bank[0]}",
-            f"Afternoon: {bank[1 % len(bank)]}",
-            f"Evening: {bank[2 % len(bank)]}",
+            {"time": times[i], "name": bank[i % len(bank)], "category": focus.capitalize(),
+             "price": 0.0, "price_label": ""}
+            for i in range(3)
         ]
         plan_days.append(
             {
                 "day": d,
                 "title": f"Day {d}: {focus.capitalize()} in {destination}",
                 "activities": activities,
+                "est_cost": 0,
             }
         )
     stay_line = (

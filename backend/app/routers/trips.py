@@ -9,9 +9,11 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from ..config import settings
+from ..data_sources import fetch_attractions
 from ..database import get_db
 from ..llm import generate_itinerary
 from ..models import Listing, Trip, User
+from ..planner import build_itinerary
 from ..rate_limit import rate_limiter
 from ..schemas import ListingOut, SharedTripOut, TripOut, TripRequest
 from ..security import get_current_user
@@ -41,9 +43,18 @@ def create_trip(
     ).scalars().all()
     stay_dicts = [{"id": s.id, "title": s.title, "city": s.city} for s in stays]
 
-    plan, provider = generate_itinerary(
-        payload.destination, payload.days, interests, stay_dicts, budget
-    )
+    # Ground the itinerary in real attractions (named places + entry prices);
+    # fall back to the generic generator only if none can be fetched.
+    attractions = []
+    if settings.live_attractions:
+        attractions, _geo = fetch_attractions(payload.destination)
+    if attractions:
+        plan = build_itinerary(payload.destination, payload.days, interests, attractions, stay_dicts)
+        provider = "openstreetmap"
+    else:
+        plan, provider = generate_itinerary(
+            payload.destination, payload.days, interests, stay_dicts, budget
+        )
 
     end_date = None
     if payload.start_date:

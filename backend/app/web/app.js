@@ -70,6 +70,21 @@ function MiniMap({ listings, height = 240 }) {
   return <div className="mini-map" ref={ref} style={{ height }} />;
 }
 
+/* ----------------------------- Skeleton loader ----------------------------- */
+function SkeletonGrid({ n = 8 }) {
+  return (
+    <div className="skel-grid">
+      {Array.from({ length: n }).map((_, i) => (
+        <div key={i} className="skel">
+          <div className="ph shimmer" />
+          <div className="ln shimmer" />
+          <div className="ln s shimmer" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 /* ----------------------------- Listing card ----------------------------- */
 function Card({ l, onOpen, onToggleFav, saved }) {
   const isSaved = saved && saved.has(l.id);
@@ -291,7 +306,7 @@ function Explore({ user, openListing, toast, saved, onToggleFav }) {
       )}
 
       <div className="section-title">{q ? `Results for “${q}”` : "Explore stays"} <span className="muted" style={{ fontSize: 15 }}>({results.length})</span></div>
-      {loading ? <div className="loading">Searching…</div> :
+      {loading ? <SkeletonGrid /> :
         results.length === 0 ? <div className="empty">No stays match those filters.</div> :
         <div className="grid">{results.map((l) => <Card key={l.id} l={l} onOpen={openListing} onToggleFav={onToggleFav} saved={saved} />)}</div>}
     </div>
@@ -311,6 +326,7 @@ function ItineraryDays({ days }) {
               <b>{a.time}:</b> {a.name}
               {a.category && <span className="tag" style={{ marginLeft: 6 }}>{a.category}</span>}
               {a.price_label && <span className="muted"> · {a.price_label}</span>}
+              {a.book_url && <> · <a className="ticket-link" href={a.book_url} target="_blank" rel="noopener">🎟 Tickets ↗</a></>}
             </span>
           )}
         </li>
@@ -736,6 +752,13 @@ function App() {
       {view === "bookings" && <Bookings user={user} toast={toast} />}
       {view === "dashboard" && <Dashboard />}
       {view === "auth" && <Auth onAuthed={(u) => { setUser(u); setView("explore"); loadFavorites(); }} toast={toast} />}
+
+      {view !== "auth" && (
+        <footer className="footer">
+          <b>🧭 Wanderly</b> — AI-powered travel. Real stays &amp; things to do worldwide, personalized to you.
+          <div style={{ marginTop: 6 }}>Listings &amp; places via OpenStreetMap · maps © OpenStreetMap contributors</div>
+        </footer>
+      )}
 
       {active && <ListingModal listing={active} user={user} onClose={() => setActive(null)} toast={toast} />}
       {toastNode}

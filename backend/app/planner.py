@@ -9,6 +9,8 @@ from __future__ import annotations
 from collections import OrderedDict
 from typing import Any
 
+from .booking_links import build_activity_url
+
 _TIMES = ["Morning", "Afternoon", "Evening"]
 
 
@@ -50,6 +52,7 @@ def build_itinerary(
                     "price_label": a["price_label"],
                     "lat": a["lat"],
                     "lng": a["lng"],
+                    "book_url": build_activity_url(a["name"], destination),
                 })
                 day_cost += a["price"]
         days.append({

@@ -25,3 +25,18 @@ def build_booking_url(name: str, city: str, country: str = "") -> str:
     if settings.booking_affiliate_id:
         params["aid"] = settings.booking_affiliate_id
     return "https://www.booking.com/searchresults.html?" + urlencode(params)
+
+
+def build_activity_url(name: str, city: str = "") -> str:
+    """Outbound 'book tickets' link for an attraction/activity (affiliate-ready)."""
+    query = " ".join(p for p in (name, city) if p).strip()
+    if settings.activity_provider == "viator":
+        params = {"text": query}
+        if settings.activity_affiliate_id:
+            params["pid"] = settings.activity_affiliate_id
+        return "https://www.viator.com/searchResults/all?" + urlencode(params)
+    # Default: GetYourGuide search.
+    params = {"q": query}
+    if settings.activity_affiliate_id:
+        params["partner_id"] = settings.activity_affiliate_id
+    return "https://www.getyourguide.com/s/?" + urlencode(params)

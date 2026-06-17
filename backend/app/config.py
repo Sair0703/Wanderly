@@ -63,6 +63,9 @@ class Settings(BaseSettings):
     booking_provider: str = "booking"
     # Your Booking.com affiliate id (aid=...). Empty = plain search link.
     booking_affiliate_id: str = ""
+    # Activities/tickets: "getyourguide" | "viator". Optional affiliate id.
+    activity_provider: str = "getyourguide"
+    activity_affiliate_id: str = ""
 
     # Seeding
     auto_seed: bool = True             # populate listings on first run

@@ -44,9 +44,10 @@ def _stub_itinerary(
     for d in range(1, days + 1):
         focus = interests[(d - 1) % len(interests)]
         bank = _ACTIVITY_BANK.get(focus, _ACTIVITY_BANK["city"])
+        from .booking_links import build_activity_url
         activities = [
             {"time": times[i], "name": bank[i % len(bank)], "category": focus.capitalize(),
-             "price": 0.0, "price_label": ""}
+             "price": 0.0, "price_label": "", "book_url": build_activity_url(bank[i % len(bank)], destination)}
             for i in range(3)
         ]
         plan_days.append(

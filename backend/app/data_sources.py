@@ -578,6 +578,54 @@ def fetch_attractions(destination: str, radius: int = 6000, limit: int = 45):
     return out, geo
 
 
+def fetch_amadeus_activities(lat: float, lng: float, radius: int = 15) -> list[dict]:
+    """Real tours & activities WITH prices and booking links from Amadeus."""
+    token = _amadeus_token()
+    if not token:
+        return []
+    try:
+        data = _amadeus_get(
+            f"/v1/shopping/activities?latitude={lat}&longitude={lng}&radius={radius}", token
+        ).get("data", [])
+    except Exception as exc:  # pragma: no cover
+        print(f"[data] Amadeus activities failed: {exc}")
+        return []
+    out = []
+    for a in data:
+        name = a.get("name")
+        if not name:
+            continue
+        geo = a.get("geoCode") or {}
+        price_obj = a.get("price") or {}
+        try:
+            price = float(price_obj.get("amount"))
+        except (TypeError, ValueError):
+            price = 0.0
+        pics = a.get("pictures") or []
+        out.append({
+            "name": name, "category": "activity", "category_label": "Activity",
+            "price": price, "price_label": f"${round(price)}" if price else "See price",
+            "lat": float(geo.get("latitude", lat)), "lng": float(geo.get("longitude", lng)),
+            "book_url": a.get("bookingLink") or "", "image": pics[0] if pics else "",
+        })
+    return out
+
+
+def fetch_things_to_do(destination: str):
+    """Dispatch to the configured activities provider. Returns (items, geo, source).
+    Amadeus gives real prices + booking links; OSM is the free default/fallback."""
+    geo = geocode(destination)
+    if not geo:
+        return [], None, ""
+    if settings.activities_provider.lower() == "amadeus" and settings.amadeus_api_key:
+        acts = fetch_amadeus_activities(geo["lat"], geo["lng"])
+        if len(acts) >= 6:
+            return acts, geo, "amadeus"
+        print("[data] Amadeus activities sparse; falling back to OpenStreetMap.")
+    attractions, _ = fetch_attractions(destination)
+    return attractions, geo, "openstreetmap"
+
+
 def get_listings() -> list[dict]:
     from .seed import curated_listing_dicts  # local import avoids a cycle
 

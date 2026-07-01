@@ -55,8 +55,10 @@ class Settings(BaseSettings):
     data_provider: str = "osm"
     amadeus_api_key: str = ""
     amadeus_api_secret: str = ""
-    # Fetch real attractions (OSM) for itineraries. Disabled in tests for speed.
+    # Fetch real attractions for itineraries. Disabled in tests for speed.
     live_attractions: bool = True
+    # Source for things-to-do: "osm" (free, no key) or "amadeus" (real prices + booking links).
+    activities_provider: str = "osm"
 
     # --- Outbound booking / affiliate links ---
     # "booking" | "google" | "expedia"

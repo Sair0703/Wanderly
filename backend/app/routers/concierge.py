@@ -90,6 +90,35 @@ def _parse(message: str) -> SearchRequest:
     )
 
 
+def _merge(context: dict, new: SearchRequest, message: str) -> SearchRequest:
+    """Refine the previous turn's filters with the new message (multi-turn chat).
+    Handles relative intents like "cheaper", "for 6", "more art", "in Rome"."""
+    low = message.lower()
+    q = new.q or context.get("destination")
+    max_price = new.max_price if new.max_price else context.get("max_price")
+    guests = new.guests if new.guests else context.get("guests")
+    prev_tags = context.get("tags") or []
+    # "add/also/more" keeps prior vibes; otherwise a fresh vibe list replaces them.
+    if new.tags and re.search(r"\b(also|add|more|plus|with)\b", low):
+        tags = list(dict.fromkeys(prev_tags + new.tags))
+    else:
+        tags = new.tags or prev_tags
+
+    # Relative budget intents when no explicit number was given.
+    if not new.max_price:
+        base = max_price or 250
+        if re.search(r"cheaper|less expensive|lower budget|more affordable|budget", low):
+            max_price = round(base * 0.7)
+        elif re.search(r"luxury|nicer|fancier|more expensive|splurge|upscale", low):
+            max_price = round(base * 1.6)
+    # Relative guest intents.
+    if not new.guests and re.search(r"\b(more people|bigger group|larger)\b", low):
+        guests = (guests or 2) + 2
+
+    return SearchRequest(q=q, max_price=max_price, guests=guests, tags=tags,
+                         sort="relevance", personalize=True, limit=12)
+
+
 def _reply(req: SearchRequest, total: int) -> str:
     if total == 0:
         return ("I couldn't find a match for that yet — try naming a city "
@@ -113,7 +142,8 @@ def concierge(
     db: Session = Depends(get_db),
     user: Optional[User] = Depends(get_optional_user),
 ):
-    req = _parse(payload.message)
+    parsed = _parse(payload.message)
+    req = _merge(payload.context, parsed, payload.message) if payload.context else parsed
     result = run_search(req, db, user)
     understood = {
         "destination": req.q,

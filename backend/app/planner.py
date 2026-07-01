@@ -52,7 +52,8 @@ def build_itinerary(
                     "price_label": a["price_label"],
                     "lat": a["lat"],
                     "lng": a["lng"],
-                    "book_url": build_activity_url(a["name"], destination),
+                    # Prefer a real booking link (Amadeus); else an affiliate search link.
+                    "book_url": a.get("book_url") or build_activity_url(a["name"], destination),
                 })
                 day_cost += a["price"]
         days.append({
@@ -64,15 +65,26 @@ def build_itinerary(
         total += day_cost
 
     stops = min(n, ndays * 3)
-    stay_line = f" Suggested base: {stays[0]['title']}." if stays else ""
-    summary = (
-        f"A {ndays}-day {destination} itinerary built around {stops} real places. "
-        f"Estimated activities cost ≈ ${round(total)} for the trip (entry fees; "
-        f"free sights count as $0).{stay_line}"
-    )
+    # Whole-trip budget: lodging (suggested stay × nights) + activities.
+    stay = stays[0] if stays else None
+    stay_price = (stay or {}).get("price") or 0
+    lodging = round(stay_price * ndays)
+    grand = round(total) + lodging
+
+    if stay:
+        cost_line = (
+            f" Estimated trip cost ≈ ${grand}: {ndays} nights at {stay['title']} "
+            f"≈ ${lodging} + activities ≈ ${round(total)}."
+        )
+    else:
+        cost_line = f" Estimated activities cost ≈ ${round(total)} (entry fees)."
+    summary = f"A {ndays}-day {destination} itinerary built around {stops} real places.{cost_line}"
+
     return {
         "title": f"{ndays}-Day {destination} Trip",
         "summary": summary,
         "days": days,
         "estimated_total": round(total),
+        "lodging_est": lodging,
+        "trip_est": grand,
     }

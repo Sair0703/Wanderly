@@ -131,6 +131,28 @@ def test_ai_review_summary(client, auth):
     assert rs["summary_by"] in {"stub", "openai", "anthropic"}
 
 
+def test_concierge_multiturn_refine(client):
+    first = client.post("/api/concierge", json={
+        "message": "a beach place in Barcelona under $200 for 2"}).json()
+    assert first["understood"]["max_price"] == 200
+    second = client.post("/api/concierge", json={
+        "message": "make it cheaper", "context": first["understood"]}).json()
+    # Budget lowered, destination/guests carried over from context.
+    assert second["understood"]["max_price"] < 200
+    assert second["understood"]["destination"] == "Barcelona"
+    assert second["understood"]["guests"] == 2
+
+
+def test_itinerary_trip_cost():
+    from app.planner import build_itinerary
+    attrs = [{"name": f"Place {i}", "category": "museum", "category_label": "Museum",
+              "price": 10.0, "price_label": "$10", "lat": 0.0, "lng": 0.0} for i in range(6)]
+    plan = build_itinerary("Testville", 2, [], attrs, [{"title": "Hotel X", "price": 100}])
+    assert plan["lodging_est"] == 200
+    assert plan["trip_est"] > plan["estimated_total"]
+    assert "trip cost" in plan["summary"].lower()
+
+
 def test_shareable_trip(client, auth):
     t = client.post("/api/trips", json={"destination": "Lisbon", "days": 2}, headers=auth).json()
     assert t["share_id"]

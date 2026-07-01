@@ -573,9 +573,10 @@ const CONCIERGE_EXAMPLES = [
 function Concierge({ user, openListing, toast, saved, onToggleFav }) {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([
-    { from: "bot", text: "Hi! Tell me about your trip in plain English and I'll find stays — e.g. “a beachfront place in Bali under $120 for 2”." },
+    { from: "bot", text: "Hi! Tell me about your trip in plain English — e.g. “a beachfront place in Bali under $120 for 2”. Then refine it: “make it cheaper”, “for 6 people”, “more nightlife”." },
   ]);
   const [results, setResults] = useState([]);
+  const [context, setContext] = useState(null);
   const [busy, setBusy] = useState(false);
 
   const send = async (text) => {
@@ -584,8 +585,9 @@ function Concierge({ user, openListing, toast, saved, onToggleFav }) {
     setMessages((m) => [...m, { from: "user", text: msg }]);
     setInput(""); setBusy(true);
     try {
-      const r = await api.call("/concierge", { method: "POST", body: { message: msg } });
+      const r = await api.call("/concierge", { method: "POST", body: { message: msg, context } });
       const u = r.understood;
+      setContext(u);
       const chips = [u.destination && `📍 ${u.destination}`, u.max_price && `💰 ≤ $${Math.round(u.max_price)}`,
         u.guests && `👥 ${u.guests}`, ...(u.tags || []).map((t) => `#${t}`)].filter(Boolean);
       setMessages((m) => [...m, { from: "bot", text: r.reply, chips }]);

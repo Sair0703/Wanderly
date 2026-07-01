@@ -40,6 +40,9 @@ services:
       # Listing data: real hotels from OpenStreetMap (no key needed).
       - key: DATA_PROVIDER
         value: osm
+      # Things to do: osm (free) or amadeus (real prices; needs AMADEUS keys).
+      - key: ACTIVITIES_PROVIDER
+        value: osm
       # Outbound booking links. Add your Booking.com affiliate id to earn commission:
       - key: BOOKING_PROVIDER
         value: booking

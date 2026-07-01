@@ -198,6 +198,8 @@ class FavoriteToggleOut(BaseModel):
 # ---------- AI Concierge ----------
 class ConciergeRequest(BaseModel):
     message: str = Field(min_length=2, max_length=400)
+    # Previous turn's understood filters, for conversational refinement.
+    context: Optional[dict] = None
 
 
 class ConciergeResponse(BaseModel):

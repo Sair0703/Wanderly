@@ -1,4 +1,6 @@
-# Wanderly — AI-Powered Travel Recommendation Platform
+# 🧭 Wanderly — AI-Powered Travel Recommendation Platform
+
+![Python](https://img.shields.io/badge/python-3.9%2B-blue) ![React](https://img.shields.io/badge/frontend-React-61dafb) ![FastAPI](https://img.shields.io/badge/backend-FastAPI-009688) ![License](https://img.shields.io/badge/license-MIT-green) ![tests](https://img.shields.io/badge/tests-20%20passing-brightgreen)
 
 A full-stack platform that personalizes travel recommendations and trip discovery
 using AI. Users search destinations and stays, a recommendation engine ranks
@@ -6,8 +8,20 @@ listings by their preferences and history, an LLM generates personalized
 itineraries, and an analytics dashboard monitors engagement and recommendation
 quality.
 
-> Built to the resume spec: **Python (FastAPI) backend · React frontend ·
-> PostgreSQL · Redis · LLM (OpenAI/Anthropic) · Docker · AWS-ready.**
+> **Stack:** Python (FastAPI) backend · React frontend · PostgreSQL · Redis ·
+> pluggable LLM (OpenAI/Anthropic, with an offline fallback) · Docker · AWS-ready.
+
+![Wanderly architecture](docs/architecture.svg)
+
+## 🚀 Try it live
+
+One-click deploy your own instance — **no API key required** (the AI features run
+on a built-in offline model out of the box):
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Sair0703/Wanderly)
+
+<!-- LIVE_URL -->
+**Live demo:** _deploy above, then drop your URL here._ · Demo login: `demo@traveler.io` / `demo1234`
 
 ---
 

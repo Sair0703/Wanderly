@@ -15,8 +15,11 @@ services:
         generateValue: true   # random, kept by Render
       - key: FORCE_HTTPS
         value: "true"
+      # Hosted demo uses the curated catalog: instant + reliable on free tiers
+      # (the live worldwide OpenStreetMap pipeline needs more CPU/an unshared IP —
+      # set DATA_PROVIDER=osm when self-hosting with real resources).
       - key: DATA_PROVIDER
-        value: osm            # real stays + attractions from OpenStreetMap
+        value: seed
       - key: SEED_DEMO_USERS
         value: "true"         # demo login so visitors can try personalization
       # Optional: set a Groq/OpenAI/Anthropic key for real AI itineraries.

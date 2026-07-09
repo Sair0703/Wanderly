@@ -78,8 +78,8 @@ async def lifespan(app: FastAPI):
         # Demo users are seeded synchronously (instant) so login works at once.
         with SessionLocal() as db:
             seed_demo_users(db)
-        if settings.data_provider.lower() == "seed":
-            with SessionLocal() as db:  # deterministic, offline -> synchronous
+        if settings.data_provider.lower() in ("seed", "snapshot"):
+            with SessionLocal() as db:  # offline -> seed synchronously (instant)
                 seed_listings_if_empty(db)
         else:  # OSM/Amadeus may hit the network -> fill in the background
             threading.Thread(target=_seed_listings_bg, daemon=True).start()

@@ -21,6 +21,7 @@ import json
 import math
 import urllib.parse
 import urllib.request
+from pathlib import Path
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -626,10 +627,27 @@ def fetch_things_to_do(destination: str):
     return attractions, geo, "openstreetmap"
 
 
+_SNAPSHOT_PATH = Path(__file__).parent / "seed_snapshot.json"
+
+
+def load_snapshot() -> list[dict]:
+    """Real listings captured from a prior OpenStreetMap pull — lets a hosted
+    demo boot instantly with worldwide data, no live network fetch."""
+    try:
+        return json.loads(_SNAPSHOT_PATH.read_text(encoding="utf-8"))
+    except Exception:  # pragma: no cover
+        return []
+
+
 def get_listings() -> list[dict]:
     from .seed import curated_listing_dicts  # local import avoids a cycle
 
     provider = settings.data_provider.lower()
+
+    if provider == "snapshot":
+        snap = load_snapshot()
+        print(f"[data] Loaded {len(snap)} listings from baked snapshot.")
+        return snap or curated_listing_dicts()
 
     if provider == "seed":
         return curated_listing_dicts()

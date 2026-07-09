@@ -1,0 +1,2772 @@
+[
+{
+"title": "モクシー 大阪新梅田",
+"kind": "stay",
+"city": "Osaka",
+"country": "Japan",
+"lat": 34.7006392,
+"lng": 135.4867188,
+"price_per_night": 86.0,
+"rating": 4.9,
+"review_count": 86,
+"max_guests": 3,
+"tags": [
+"city",
+"food",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Osaka, Japan.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Osaka_Castle_02bs3200.jpg/960px-Osaka_Castle_02bs3200.jpg",
+"popularity": 16,
+"price_is_estimate": true,
+"website": "https://www.marriott.com/en-us/hotels/osaoo-moxy-osaka-shin-umeda/overview/?scid=f2ae0541-1279-4f24-b197-a979c79310b0",
+"booking_url": "https://www.booking.com/searchresults.html?ss=%E3%83%A2%E3%82%AF%E3%82%B7%E3%83%BC+%E5%A4%A7%E9%98%AA%E6%96%B0%E6%A2%85%E7%94%B0+Osaka+Japan",
+"source": "openstreetmap"
+},
+{
+"title": "東横INN大阪谷四交差点",
+"kind": "stay",
+"city": "Osaka",
+"country": "Japan",
+"lat": 34.6810169,
+"lng": 135.5169735,
+"price_per_night": 82.0,
+"rating": 4.9,
+"review_count": 421,
+"max_guests": 3,
+"tags": [
+"city",
+"food",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Osaka, Japan. Tanimachi Chou-ku.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Osaka_Castle_02bs3200.jpg/960px-Osaka_Castle_02bs3200.jpg",
+"popularity": 136,
+"price_is_estimate": true,
+"website": "http://toyoko-inn.com/eng/search/detail/00150",
+"booking_url": "https://www.booking.com/searchresults.html?ss=%E6%9D%B1%E6%A8%AAINN%E5%A4%A7%E9%98%AA%E8%B0%B7%E5%9B%9B%E4%BA%A4%E5%B7%AE%E7%82%B9+Osaka+Japan",
+"source": "openstreetmap"
+},
+{
+"title": "พักดี ประตูน้ำ เบดแอนด์เบรคฟาสต์",
+"kind": "stay",
+"city": "Bangkok",
+"country": "Thailand",
+"lat": 13.7519311,
+"lng": 100.537043,
+"price_per_night": 92.0,
+"rating": 4.9,
+"review_count": 552,
+"max_guests": 4,
+"tags": [
+"city",
+"food",
+"nightlife",
+"tropical"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Bangkok, Thailand. Phetchaburi 15.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/4Y1A1159_Bangkok_%2833536795515%29.jpg/960px-4Y1A1159_Bangkok_%2833536795515%29.jpg",
+"popularity": 182,
+"price_is_estimate": true,
+"website": "http://www.pak-d.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=%E0%B8%9E%E0%B8%B1%E0%B8%81%E0%B8%94%E0%B8%B5+%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%95%E0%B8%B9%E0%B8%99%E0%B9%89%E0%B8%B3+%E0%B9%80%E0%B8%9A%E0%B8%94%E0%B9%81%E0%B8%AD%E0%B8%99%E0%B8%94%E0%B9%8C%E0%B9%80%E0%B8%9A%E0%B8%A3%E0%B8%84%E0%B8%9F%E0%B8%B2%E0%B8%AA%E0%B8%95%E0%B9%8C+Bangkok+Thailand",
+"source": "openstreetmap"
+},
+{
+"title": "Holiday Inn Darling Harbour",
+"kind": "stay",
+"city": "Sydney",
+"country": "Australia",
+"lat": -33.87779,
+"lng": 151.2036153,
+"price_per_night": 235.0,
+"rating": 4.9,
+"review_count": 493,
+"max_guests": 6,
+"tags": [
+"beach",
+"city",
+"nature"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Sydney, Australia. Harbour Street.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Sydney_Opera_House_and_Harbour_Bridge_Dusk_%282%29_2019-06-21.jpg/960px-Sydney_Opera_House_and_Harbour_Bridge_Dusk_%282%29_2019-06-21.jpg",
+"popularity": 161,
+"price_is_estimate": true,
+"website": "https://www.hidarlingharbour.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Holiday+Inn+Darling+Harbour+Sydney+Australia",
+"source": "openstreetmap"
+},
+{
+"title": "J-Hoppers",
+"kind": "stay",
+"city": "Osaka",
+"country": "Japan",
+"lat": 34.6974104,
+"lng": 135.4848196,
+"price_per_night": 109.0,
+"rating": 4.89,
+"review_count": 411,
+"max_guests": 3,
+"tags": [
+"city",
+"food",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Osaka, Japan.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Osaka_Castle_02bs3200.jpg/960px-Osaka_Castle_02bs3200.jpg",
+"popularity": 132,
+"price_is_estimate": true,
+"website": "https://osaka.j-hoppers.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=J-Hoppers+Osaka+Japan",
+"source": "openstreetmap"
+},
+{
+"title": "메트로호텔",
+"kind": "stay",
+"city": "Seoul",
+"country": "South Korea",
+"lat": 37.5651052,
+"lng": 126.983621,
+"price_per_night": 145.0,
+"rating": 4.89,
+"review_count": 67,
+"max_guests": 6,
+"tags": [
+"city",
+"food",
+"shopping",
+"nightlife"
+],
+"amenities": [
+"ac",
+"wifi"
+],
+"description": "Hotel in Seoul, South Korea. 명동9가길.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg/960px-%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg",
+"popularity": 9,
+"price_is_estimate": true,
+"website": "https://www.metrohotel.co.kr/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=%EB%A9%94%ED%8A%B8%EB%A1%9C%ED%98%B8%ED%85%94+Seoul+South+Korea",
+"source": "openstreetmap"
+},
+{
+"title": "Único",
+"kind": "stay",
+"city": "Rio de Janeiro",
+"country": "Brazil",
+"lat": -22.9289213,
+"lng": -43.1756649,
+"price_per_night": 179.0,
+"rating": 4.89,
+"review_count": 60,
+"max_guests": 3,
+"tags": [
+"beach",
+"city",
+"nightlife",
+"nature"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Rio de Janeiro, Brazil. Rua Buarque de Macedo.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Cidade_Maravilhosa.jpg/960px-Cidade_Maravilhosa.jpg",
+"popularity": 7,
+"price_is_estimate": true,
+"website": "http://www.unicohotel.com.br/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=%C3%9Anico+Rio+de+Janeiro+Brazil",
+"source": "openstreetmap"
+},
+{
+"title": "Hotel Victoria",
+"kind": "stay",
+"city": "Toronto",
+"country": "Canada",
+"lat": 43.6481903,
+"lng": -79.3776696,
+"price_per_night": 162.0,
+"rating": 4.89,
+"review_count": 131,
+"max_guests": 6,
+"tags": [
+"city",
+"art",
+"food"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Toronto, Canada. Yonge Street.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Toronto_Skyline_from_Olympic_Island%2C_June_20_2026_%285-3_cropped%29.jpg/960px-Toronto_Skyline_from_Olympic_Island%2C_June_20_2026_%285-3_cropped%29.jpg",
+"popularity": 32,
+"price_is_estimate": true,
+"website": "https://www.hotelvictoria-toronto.com",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Hotel+Victoria+Toronto+Canada",
+"source": "openstreetmap"
+},
+{
+"title": "IP City Hotel Osaka",
+"kind": "stay",
+"city": "Osaka",
+"country": "Japan",
+"lat": 34.6757641,
+"lng": 135.5037592,
+"price_per_night": 130.0,
+"rating": 4.88,
+"review_count": 104,
+"max_guests": 6,
+"tags": [
+"city",
+"food",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Osaka, Japan.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Osaka_Castle_02bs3200.jpg/960px-Osaka_Castle_02bs3200.jpg",
+"popularity": 22,
+"price_is_estimate": true,
+"website": "https://www.iphotel.co.jp/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=IP+City+Hotel+Osaka+Osaka+Japan",
+"source": "openstreetmap"
+},
+{
+"title": "ヴィラフォンテーヌグランド大阪梅田",
+"kind": "stay",
+"city": "Osaka",
+"country": "Japan",
+"lat": 34.7012751,
+"lng": 135.5013531,
+"price_per_night": 194.0,
+"rating": 4.88,
+"review_count": 572,
+"max_guests": 2,
+"tags": [
+"city",
+"food",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Osaka, Japan.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Osaka_Castle_02bs3200.jpg/960px-Osaka_Castle_02bs3200.jpg",
+"popularity": 190,
+"price_is_estimate": true,
+"website": "https://www.hvf.jp/osaka-umeda/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=%E3%83%B4%E3%82%A3%E3%83%A9%E3%83%95%E3%82%A9%E3%83%B3%E3%83%86%E3%83%BC%E3%83%8C%E3%82%B0%E3%83%A9%E3%83%B3%E3%83%89%E5%A4%A7%E9%98%AA%E6%A2%85%E7%94%B0+Osaka+Japan",
+"source": "openstreetmap"
+},
+{
+"title": "Rider's Lodge",
+"kind": "stay",
+"city": "Singapore",
+"country": "Singapore",
+"lat": 1.3345536,
+"lng": 103.7952442,
+"price_per_night": 202.0,
+"rating": 4.88,
+"review_count": 404,
+"max_guests": 4,
+"tags": [
+"city",
+"food",
+"shopping",
+"tropical"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Singapore, Singapore. Turf Club Road.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Flag_of_Singapore.svg/960px-Flag_of_Singapore.svg.png",
+"popularity": 130,
+"price_is_estimate": true,
+"website": "https://www.riderslodge.net/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Rider%27s+Lodge+Singapore+Singapore",
+"source": "openstreetmap"
+},
+{
+"title": "Soft pillow hostel",
+"kind": "stay",
+"city": "Hanoi",
+"country": "Vietnam",
+"lat": 21.0292555,
+"lng": 105.8437402,
+"price_per_night": 59.0,
+"rating": 4.88,
+"review_count": 111,
+"max_guests": 4,
+"tags": [
+"history",
+"food",
+"city"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hostel in Hanoi, Vietnam. Phố Tống Duy Tân.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Hanoi_skyline_with_Ba_Vi_Mountain.jpg/960px-Hanoi_skyline_with_Ba_Vi_Mountain.jpg",
+"popularity": 25,
+"price_is_estimate": true,
+"website": "http://www.softpillowhostel.com",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Soft+pillow+hostel+Hanoi+Vietnam",
+"source": "openstreetmap"
+},
+{
+"title": "Dahab Hostel",
+"kind": "stay",
+"city": "Cairo",
+"country": "Egypt",
+"lat": 30.0481266,
+"lng": 31.2373954,
+"price_per_night": 91.0,
+"rating": 4.88,
+"review_count": 387,
+"max_guests": 3,
+"tags": [
+"history",
+"desert",
+"city"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hostel in Cairo, Egypt. شارع محمود بسيوني.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Cairo_Opera_House%2C_Al_Hurriyah_Park_and_the_Nile_river_%2814797782354%29.jpg/960px-Cairo_Opera_House%2C_Al_Hurriyah_Park_and_the_Nile_river_%2814797782354%29.jpg",
+"popularity": 124,
+"price_is_estimate": true,
+"website": "https://www.dahabhostel.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Dahab+Hostel+Cairo+Egypt",
+"source": "openstreetmap"
+},
+{
+"title": "YEHS Hotel Sydney Harbour Suites",
+"kind": "stay",
+"city": "Sydney",
+"country": "Australia",
+"lat": -33.8726729,
+"lng": 151.2042159,
+"price_per_night": 289.0,
+"rating": 4.88,
+"review_count": 559,
+"max_guests": 3,
+"tags": [
+"beach",
+"city",
+"nature"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Sydney, Australia. Sussex Street.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Sydney_Opera_House_and_Harbour_Bridge_Dusk_%282%29_2019-06-21.jpg/960px-Sydney_Opera_House_and_Harbour_Bridge_Dusk_%282%29_2019-06-21.jpg",
+"popularity": 185,
+"price_is_estimate": true,
+"website": "https://sydneyhotelharboursuites.com.au",
+"booking_url": "https://www.booking.com/searchresults.html?ss=YEHS+Hotel+Sydney+Harbour+Suites+Sydney+Australia",
+"source": "openstreetmap"
+},
+{
+"title": "DeVere Hotel",
+"kind": "stay",
+"city": "Sydney",
+"country": "Australia",
+"lat": -33.8708575,
+"lng": 151.2254334,
+"price_per_night": 137.0,
+"rating": 4.88,
+"review_count": 111,
+"max_guests": 4,
+"tags": [
+"beach",
+"city",
+"nature"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Sydney, Australia. Macleay Street.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Sydney_Opera_House_and_Harbour_Bridge_Dusk_%282%29_2019-06-21.jpg/960px-Sydney_Opera_House_and_Harbour_Bridge_Dusk_%282%29_2019-06-21.jpg",
+"popularity": 25,
+"price_is_estimate": true,
+"website": "https://www.devere.com.au/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=DeVere+Hotel+Sydney+Australia",
+"source": "openstreetmap"
+},
+{
+"title": "Rydges Melbourne",
+"kind": "stay",
+"city": "Melbourne",
+"country": "Australia",
+"lat": -37.811201,
+"lng": 144.9706806,
+"price_per_night": 175.0,
+"rating": 4.88,
+"review_count": 354,
+"max_guests": 2,
+"tags": [
+"city",
+"art",
+"food",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Melbourne, Australia. Exhibition Street.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Melbourne_skyline_sor.jpg/960px-Melbourne_skyline_sor.jpg",
+"popularity": 112,
+"price_is_estimate": true,
+"website": "https://www.rydges.com/hotel/RVMELB/Rydges-Melbourne.htm",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Rydges+Melbourne+Melbourne+Australia",
+"source": "openstreetmap"
+},
+{
+"title": "Value Hotel (Thomson)",
+"kind": "stay",
+"city": "Singapore",
+"country": "Singapore",
+"lat": 1.3269557,
+"lng": 103.8427199,
+"price_per_night": 268.0,
+"rating": 4.87,
+"review_count": 248,
+"max_guests": 6,
+"tags": [
+"city",
+"food",
+"shopping",
+"tropical"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Singapore, Singapore. Balestier Road.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Flag_of_Singapore.svg/960px-Flag_of_Singapore.svg.png",
+"popularity": 74,
+"price_is_estimate": true,
+"website": "https://www.valuehotel.com.sg/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Value+Hotel+%28Thomson%29+Singapore+Singapore",
+"source": "openstreetmap"
+},
+{
+"title": "Rising Dragon Villa",
+"kind": "stay",
+"city": "Hanoi",
+"country": "Vietnam",
+"lat": 21.0345522,
+"lng": 105.8474998,
+"price_per_night": 83.0,
+"rating": 4.87,
+"review_count": 581,
+"max_guests": 3,
+"tags": [
+"history",
+"food",
+"city"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Hanoi, Vietnam. Phố Bát Sứ.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Hanoi_skyline_with_Ba_Vi_Mountain.jpg/960px-Hanoi_skyline_with_Ba_Vi_Mountain.jpg",
+"popularity": 193,
+"price_is_estimate": true,
+"website": "www.risingdragonhotel.com",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Rising+Dragon+Villa+Hanoi+Vietnam",
+"source": "openstreetmap"
+},
+{
+"title": "Horus House Hotel",
+"kind": "stay",
+"city": "Cairo",
+"country": "Egypt",
+"lat": 30.0637719,
+"lng": 31.2192726,
+"price_per_night": 52.0,
+"rating": 4.87,
+"review_count": 61,
+"max_guests": 5,
+"tags": [
+"history",
+"desert",
+"city"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Cairo, Egypt. Ismail Mohamed Street.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Cairo_Opera_House%2C_Al_Hurriyah_Park_and_the_Nile_river_%2814797782354%29.jpg/960px-Cairo_Opera_House%2C_Al_Hurriyah_Park_and_the_Nile_river_%2814797782354%29.jpg",
+"popularity": 7,
+"price_is_estimate": true,
+"website": "www.horushotel.4t.com",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Horus+House+Hotel+Cairo+Egypt",
+"source": "openstreetmap"
+},
+{
+"title": "Casa Herrmann",
+"kind": "stay",
+"city": "Mexico City",
+"country": "Mexico",
+"lat": 19.4323991,
+"lng": -99.1354462,
+"price_per_night": 63.0,
+"rating": 4.87,
+"review_count": 552,
+"max_guests": 2,
+"tags": [
+"city",
+"history",
+"food",
+"art"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Mexico City, Mexico. Calle de la Palma.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Sobrevuelos_CDMX_HJ2A4913_%2825514321687%29_%28cropped%29.jpg/960px-Sobrevuelos_CDMX_HJ2A4913_%2825514321687%29_%28cropped%29.jpg",
+"popularity": 183,
+"price_is_estimate": true,
+"website": "https://www.casaherrmann.com.mx/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Casa+Herrmann+Mexico+City+Mexico",
+"source": "openstreetmap"
+},
+{
+"title": "Rooftop travellers lodge",
+"kind": "stay",
+"city": "Sydney",
+"country": "Australia",
+"lat": -33.879568,
+"lng": 151.1866538,
+"price_per_night": 172.0,
+"rating": 4.87,
+"review_count": 389,
+"max_guests": 2,
+"tags": [
+"beach",
+"city",
+"nature"
+],
+"amenities": [
+"ac",
+"wifi"
+],
+"description": "Hostel in Sydney, Australia. Glebe Point Road.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Sydney_Opera_House_and_Harbour_Bridge_Dusk_%282%29_2019-06-21.jpg/960px-Sydney_Opera_House_and_Harbour_Bridge_Dusk_%282%29_2019-06-21.jpg",
+"popularity": 124,
+"price_is_estimate": true,
+"website": "https://www.rooftoptravellerslodge.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Rooftop+travellers+lodge+Sydney+Australia",
+"source": "openstreetmap"
+},
+{
+"title": "Sofitel Hotel Queenstown",
+"kind": "stay",
+"city": "Queenstown",
+"country": "New Zealand",
+"lat": -45.0311521,
+"lng": 168.6590117,
+"price_per_night": 310.0,
+"rating": 4.87,
+"review_count": 76,
+"max_guests": 6,
+"tags": [
+"adventure",
+"mountain",
+"nature",
+"lake"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Queenstown, New Zealand. Duke Street.",
+"image_url": "https://picsum.photos/seed/sofitel-hotel-queenstownqueenstown/640/420",
+"popularity": 13,
+"price_is_estimate": true,
+"website": "https://www.sofitel-queenstown.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Sofitel+Hotel+Queenstown+Queenstown+New+Zealand",
+"source": "openstreetmap"
+},
+{
+"title": "Delta HK Hotel",
+"kind": "stay",
+"city": "Hong Kong",
+"country": "China",
+"lat": 22.2965537,
+"lng": 114.172595,
+"price_per_night": 225.0,
+"rating": 4.86,
+"review_count": 295,
+"max_guests": 3,
+"tags": [
+"city",
+"food",
+"shopping",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hostel in Hong Kong, China. 彌敦道 Nathan Road.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Flag_of_Hong_Kong.svg/960px-Flag_of_Hong_Kong.svg.png",
+"popularity": 91,
+"price_is_estimate": true,
+"website": "http://www.deltahotelhongkong.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Delta+HK+Hotel+Hong+Kong+China",
+"source": "openstreetmap"
+},
+{
+"title": "One Ciudad de México Alameda",
+"kind": "stay",
+"city": "Mexico City",
+"country": "Mexico",
+"lat": 19.4349224,
+"lng": -99.147812,
+"price_per_night": 78.0,
+"rating": 4.86,
+"review_count": 132,
+"max_guests": 3,
+"tags": [
+"city",
+"history",
+"food",
+"art"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Mexico City, Mexico. Avenida Juárez.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Sobrevuelos_CDMX_HJ2A4913_%2825514321687%29_%28cropped%29.jpg/960px-Sobrevuelos_CDMX_HJ2A4913_%2825514321687%29_%28cropped%29.jpg",
+"popularity": 32,
+"price_is_estimate": true,
+"website": "https://www.onehotels.com/one-ciudad-de-mexico-alameda/overview",
+"booking_url": "https://www.booking.com/searchresults.html?ss=One+Ciudad+de+M%C3%A9xico+Alameda+Mexico+City+Mexico",
+"source": "openstreetmap"
+},
+{
+"title": "Harry's",
+"kind": "stay",
+"city": "Sydney",
+"country": "Australia",
+"lat": -33.8785321,
+"lng": 151.2113105,
+"price_per_night": 297.0,
+"rating": 4.86,
+"review_count": 178,
+"max_guests": 6,
+"tags": [
+"beach",
+"city",
+"nature"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Sydney, Australia. Wentworth Avenue.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Sydney_Opera_House_and_Harbour_Bridge_Dusk_%282%29_2019-06-21.jpg/960px-Sydney_Opera_House_and_Harbour_Bridge_Dusk_%282%29_2019-06-21.jpg",
+"popularity": 49,
+"price_is_estimate": true,
+"website": "https://hotelharry.com.au/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Harry%27s+Sydney+Australia",
+"source": "openstreetmap"
+},
+{
+"title": "Hotel Fitzroy",
+"kind": "stay",
+"city": "Auckland",
+"country": "New Zealand",
+"lat": -36.8568095,
+"lng": 174.7434277,
+"price_per_night": 217.0,
+"rating": 4.86,
+"review_count": 47,
+"max_guests": 5,
+"tags": [
+"nature",
+"city",
+"beach"
+],
+"amenities": [
+"wifi"
+],
+"description": "Guest House in Auckland, New Zealand.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Auckland_skyline_-_May_2024_%282%29.jpg/960px-Auckland_skyline_-_May_2024_%282%29.jpg",
+"popularity": 2,
+"price_is_estimate": true,
+"website": "https://www.fablehotelsandresorts.com/hotels/hotel-fitzroy",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Hotel+Fitzroy+Auckland+New+Zealand",
+"source": "openstreetmap"
+},
+{
+"title": "Marriott City Centre",
+"kind": "stay",
+"city": "Toronto",
+"country": "Canada",
+"lat": 43.642343,
+"lng": -79.3899493,
+"price_per_night": 229.0,
+"rating": 4.85,
+"review_count": 592,
+"max_guests": 3,
+"tags": [
+"city",
+"art",
+"food"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Toronto, Canada. Blue Jays Way.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Toronto_Skyline_from_Olympic_Island%2C_June_20_2026_%285-3_cropped%29.jpg/960px-Toronto_Skyline_from_Olympic_Island%2C_June_20_2026_%285-3_cropped%29.jpg",
+"popularity": 197,
+"price_is_estimate": true,
+"website": "https://www.marriott.com/en-us/hotels/yyzcc-toronto-marriott-city-centre-hotel/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Marriott+City+Centre+Toronto+Canada",
+"source": "openstreetmap"
+},
+{
+"title": "Neill-Wycik Hotel",
+"kind": "stay",
+"city": "Toronto",
+"country": "Canada",
+"lat": 43.6603466,
+"lng": -79.3773218,
+"price_per_night": 195.0,
+"rating": 4.85,
+"review_count": 338,
+"max_guests": 3,
+"tags": [
+"city",
+"art",
+"food"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Toronto, Canada. Gerrard Street East.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Toronto_Skyline_from_Olympic_Island%2C_June_20_2026_%285-3_cropped%29.jpg/960px-Toronto_Skyline_from_Olympic_Island%2C_June_20_2026_%285-3_cropped%29.jpg",
+"popularity": 106,
+"price_is_estimate": true,
+"website": "https://www.neillwycikhotel.ca/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Neill-Wycik+Hotel+Toronto+Canada",
+"source": "openstreetmap"
+},
+{
+"title": "InterContinental",
+"kind": "stay",
+"city": "Melbourne",
+"country": "Australia",
+"lat": -37.8182545,
+"lng": 144.9579913,
+"price_per_night": 266.0,
+"rating": 4.85,
+"review_count": 255,
+"max_guests": 2,
+"tags": [
+"city",
+"art",
+"food",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Melbourne, Australia. Collins Street.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Melbourne_skyline_sor.jpg/960px-Melbourne_skyline_sor.jpg",
+"popularity": 76,
+"price_is_estimate": true,
+"website": "https://www.melbourne.intercontinental.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=InterContinental+Melbourne+Australia",
+"source": "openstreetmap"
+},
+{
+"title": "Especen Hotel",
+"kind": "stay",
+"city": "Hanoi",
+"country": "Vietnam",
+"lat": 21.029055,
+"lng": 105.8485059,
+"price_per_night": 74.0,
+"rating": 4.84,
+"review_count": 348,
+"max_guests": 6,
+"tags": [
+"history",
+"food",
+"city"
+],
+"amenities": [
+"ac",
+"wifi"
+],
+"description": "Hotel in Hanoi, Vietnam. Thọ Xương.",
+"image_url": "http://www.especen.vn/card.jpg",
+"popularity": 110,
+"price_is_estimate": true,
+"website": "http://www.especen.vn",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Especen+Hotel+Hanoi+Vietnam",
+"source": "openstreetmap"
+},
+{
+"title": "Proverb Hotel Hanoi",
+"kind": "stay",
+"city": "Hanoi",
+"country": "Vietnam",
+"lat": 21.0350169,
+"lng": 105.8475137,
+"price_per_night": 48.0,
+"rating": 4.84,
+"review_count": 139,
+"max_guests": 6,
+"tags": [
+"history",
+"food",
+"city"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Hanoi, Vietnam. Phố Bát Sứ.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Hanoi_skyline_with_Ba_Vi_Mountain.jpg/960px-Hanoi_skyline_with_Ba_Vi_Mountain.jpg",
+"popularity": 35,
+"price_is_estimate": true,
+"website": "https://proverbhotel.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Proverb+Hotel+Hanoi+Hanoi+Vietnam",
+"source": "openstreetmap"
+},
+{
+"title": "The Corus Hotel",
+"kind": "stay",
+"city": "New Delhi",
+"country": "India",
+"lat": 28.6340937,
+"lng": 77.2186621,
+"price_per_night": 65.0,
+"rating": 4.84,
+"review_count": 569,
+"max_guests": 5,
+"tags": [
+"history",
+"city",
+"food"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in New Delhi, India. Connaught Circus (Indira Chowk), Connaught Place.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Forecourt%2C_Rashtrapati_Bhavan_-_1.jpg/960px-Forecourt%2C_Rashtrapati_Bhavan_-_1.jpg",
+"popularity": 189,
+"price_is_estimate": true,
+"website": "https://www.hotelcorus.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=The+Corus+Hotel+New+Delhi+India",
+"source": "openstreetmap"
+},
+{
+"title": "Madison Manor",
+"kind": "stay",
+"city": "Toronto",
+"country": "Canada",
+"lat": 43.668096,
+"lng": -79.4033862,
+"price_per_night": 207.0,
+"rating": 4.84,
+"review_count": 599,
+"max_guests": 3,
+"tags": [
+"city",
+"art",
+"food"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Toronto, Canada. Madison Avenue.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Toronto_Skyline_from_Olympic_Island%2C_June_20_2026_%285-3_cropped%29.jpg/960px-Toronto_Skyline_from_Olympic_Island%2C_June_20_2026_%285-3_cropped%29.jpg",
+"popularity": 199,
+"price_is_estimate": true,
+"website": "http://madisonmanorboutiquehotel.com/location/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Madison+Manor+Toronto+Canada",
+"source": "openstreetmap"
+},
+{
+"title": "Beija Flor",
+"kind": "stay",
+"city": "Rio de Janeiro",
+"country": "Brazil",
+"lat": -22.9274418,
+"lng": -43.1741429,
+"price_per_night": 136.0,
+"rating": 4.83,
+"review_count": 509,
+"max_guests": 3,
+"tags": [
+"beach",
+"city",
+"nightlife",
+"nature"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Rio de Janeiro, Brazil. Rua Ferreira Viana.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Cidade_Maravilhosa.jpg/960px-Cidade_Maravilhosa.jpg",
+"popularity": 167,
+"price_is_estimate": true,
+"website": "http://www.hotelbeijaflor.com.br/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Beija+Flor+Rio+de+Janeiro+Brazil",
+"source": "openstreetmap"
+},
+{
+"title": "Mercure Welcome",
+"kind": "stay",
+"city": "Melbourne",
+"country": "Australia",
+"lat": -37.8127548,
+"lng": 144.9646913,
+"price_per_night": 207.0,
+"rating": 4.83,
+"review_count": 168,
+"max_guests": 5,
+"tags": [
+"city",
+"art",
+"food",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Melbourne, Australia. Little Bourke Street.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Melbourne_skyline_sor.jpg/960px-Melbourne_skyline_sor.jpg",
+"popularity": 46,
+"price_is_estimate": true,
+"website": "https://www.mercurewelcome.com.au/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Mercure+Welcome+Melbourne+Australia",
+"source": "openstreetmap"
+},
+{
+"title": "Aachen House Boutique Hotel",
+"kind": "stay",
+"city": "Auckland",
+"country": "New Zealand",
+"lat": -36.8805932,
+"lng": 174.7875312,
+"price_per_night": 250.0,
+"rating": 4.83,
+"review_count": 570,
+"max_guests": 5,
+"tags": [
+"nature",
+"city",
+"beach"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Auckland, New Zealand.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Auckland_skyline_-_May_2024_%282%29.jpg/960px-Auckland_skyline_-_May_2024_%282%29.jpg",
+"popularity": 189,
+"price_is_estimate": true,
+"website": "https://aachenhouse.co.nz",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Aachen+House+Boutique+Hotel+Auckland+New+Zealand",
+"source": "openstreetmap"
+},
+{
+"title": "The Royal Plaza",
+"kind": "stay",
+"city": "New Delhi",
+"country": "India",
+"lat": 28.6216848,
+"lng": 77.2170271,
+"price_per_night": 71.0,
+"rating": 4.81,
+"review_count": 300,
+"max_guests": 5,
+"tags": [
+"history",
+"city",
+"food"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in New Delhi, India. Ashoka Road.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Forecourt%2C_Rashtrapati_Bhavan_-_1.jpg/960px-Forecourt%2C_Rashtrapati_Bhavan_-_1.jpg",
+"popularity": 93,
+"price_is_estimate": true,
+"website": "https://www.hoteltheroyalplaza.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=The+Royal+Plaza+New+Delhi+India",
+"source": "openstreetmap"
+},
+{
+"title": "براسبيل",
+"kind": "stay",
+"city": "Cairo",
+"country": "Egypt",
+"lat": 30.0517845,
+"lng": 31.241795,
+"price_per_night": 72.0,
+"rating": 4.81,
+"review_count": 550,
+"max_guests": 5,
+"tags": [
+"history",
+"desert",
+"city"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Cairo, Egypt.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Cairo_Opera_House%2C_Al_Hurriyah_Park_and_the_Nile_river_%2814797782354%29.jpg/960px-Cairo_Opera_House%2C_Al_Hurriyah_Park_and_the_Nile_river_%2814797782354%29.jpg",
+"popularity": 182,
+"price_is_estimate": true,
+"website": "https://www.brassbell.net",
+"booking_url": "https://www.booking.com/searchresults.html?ss=%D8%A8%D8%B1%D8%A7%D8%B3%D8%A8%D9%8A%D9%84+Cairo+Egypt",
+"source": "openstreetmap"
+},
+{
+"title": "Backpacker Panda Appetite - Mumbai",
+"kind": "stay",
+"city": "Mumbai",
+"country": "India",
+"lat": 19.1112515,
+"lng": 72.8660859,
+"price_per_night": 62.0,
+"rating": 4.8,
+"review_count": 174,
+"max_guests": 4,
+"tags": [
+"city",
+"food",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hostel in Mumbai, India. 186, New Andheri Link Road, Bhagat Singh Colony,, Andheri East,.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Mumbai_Bandra-Worli_Sea_Link.jpg/960px-Mumbai_Bandra-Worli_Sea_Link.jpg",
+"popularity": 47,
+"price_is_estimate": true,
+"website": "https://backpackerpanda.com",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Backpacker+Panda+Appetite+-+Mumbai+Mumbai+India",
+"source": "openstreetmap"
+},
+{
+"title": "Uenuku Lodge",
+"kind": "stay",
+"city": "Auckland",
+"country": "New Zealand",
+"lat": -36.8516455,
+"lng": 174.7451994,
+"price_per_night": 220.0,
+"rating": 4.79,
+"review_count": 404,
+"max_guests": 3,
+"tags": [
+"nature",
+"city",
+"beach"
+],
+"amenities": [
+"wifi"
+],
+"description": "Guest House in Auckland, New Zealand. Ponsonby Road.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Auckland_skyline_-_May_2024_%282%29.jpg/960px-Auckland_skyline_-_May_2024_%282%29.jpg",
+"popularity": 130,
+"price_is_estimate": true,
+"website": "http://UenukuLodge.co.nz",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Uenuku+Lodge+Auckland+New+Zealand",
+"source": "openstreetmap"
+},
+{
+"title": "Whitetail Backpacker & Hostel",
+"kind": "stay",
+"city": "Seoul",
+"country": "South Korea",
+"lat": 37.5652265,
+"lng": 126.9224555,
+"price_per_night": 163.0,
+"rating": 4.78,
+"review_count": 511,
+"max_guests": 4,
+"tags": [
+"city",
+"food",
+"shopping",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hostel in Seoul, South Korea.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg/960px-%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg",
+"popularity": 168,
+"price_is_estimate": true,
+"website": "https://whitetailhostel.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Whitetail+Backpacker+%26+Hostel+Seoul+South+Korea",
+"source": "openstreetmap"
+},
+{
+"title": "Hotel Xbalamque",
+"kind": "stay",
+"city": "Cancun",
+"country": "Mexico",
+"lat": 21.1617486,
+"lng": -86.8290417,
+"price_per_night": 213.0,
+"rating": 4.78,
+"review_count": 82,
+"max_guests": 4,
+"tags": [
+"beach",
+"tropical",
+"relax",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Cancun, Mexico.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Cancun_Strand_Luftbild_%2822143397586%29.jpg/960px-Cancun_Strand_Luftbild_%2822143397586%29.jpg",
+"popularity": 15,
+"price_is_estimate": true,
+"website": "https://www.xbalamque.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Hotel+Xbalamque+Cancun+Mexico",
+"source": "openstreetmap"
+},
+{
+"title": "클래식고택",
+"kind": "stay",
+"city": "Seoul",
+"country": "South Korea",
+"lat": 37.5798212,
+"lng": 126.9681258,
+"price_per_night": 142.0,
+"rating": 4.77,
+"review_count": 492,
+"max_guests": 5,
+"tags": [
+"city",
+"food",
+"shopping",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Guest House in Seoul, South Korea. 필운대로5가길.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg/960px-%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg",
+"popularity": 161,
+"price_is_estimate": true,
+"website": "https://lihanculture.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=%ED%81%B4%EB%9E%98%EC%8B%9D%EA%B3%A0%ED%83%9D+Seoul+South+Korea",
+"source": "openstreetmap"
+},
+{
+"title": "비마이게스트하우스",
+"kind": "stay",
+"city": "Seoul",
+"country": "South Korea",
+"lat": 37.5584798,
+"lng": 126.9838331,
+"price_per_night": 187.0,
+"rating": 4.77,
+"review_count": 245,
+"max_guests": 5,
+"tags": [
+"city",
+"food",
+"shopping",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Guest House in Seoul, South Korea. 소공로6가길.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg/960px-%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg",
+"popularity": 73,
+"price_is_estimate": true,
+"website": "http://www.bmyguesthouse.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=%EB%B9%84%EB%A7%88%EC%9D%B4%EA%B2%8C%EC%8A%A4%ED%8A%B8%ED%95%98%EC%9A%B0%EC%8A%A4+Seoul+South+Korea",
+"source": "openstreetmap"
+},
+{
+"title": "Atlantis Hotel",
+"kind": "stay",
+"city": "Cairo",
+"country": "Egypt",
+"lat": 30.0495245,
+"lng": 31.2400351,
+"price_per_night": 55.0,
+"rating": 4.77,
+"review_count": 509,
+"max_guests": 2,
+"tags": [
+"history",
+"desert",
+"city"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Cairo, Egypt. Talaat Harb.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Cairo_Opera_House%2C_Al_Hurriyah_Park_and_the_Nile_river_%2814797782354%29.jpg/960px-Cairo_Opera_House%2C_Al_Hurriyah_Park_and_the_Nile_river_%2814797782354%29.jpg",
+"popularity": 167,
+"price_is_estimate": true,
+"website": "https://www.facebook.com/Atlantis.cai.hotel",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Atlantis+Hotel+Cairo+Egypt",
+"source": "openstreetmap"
+},
+{
+"title": "Imperial Palace Boutique Hotel Itaewon",
+"kind": "stay",
+"city": "Seoul",
+"country": "South Korea",
+"lat": 37.5352908,
+"lng": 126.9982368,
+"price_per_night": 122.0,
+"rating": 4.76,
+"review_count": 491,
+"max_guests": 4,
+"tags": [
+"city",
+"food",
+"shopping",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Seoul, South Korea. 이태원로.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg/960px-%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg",
+"popularity": 161,
+"price_is_estimate": true,
+"website": "https://imperialpalacebotiquehotel.com",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Imperial+Palace+Boutique+Hotel+Itaewon+Seoul+South+Korea",
+"source": "openstreetmap"
+},
+{
+"title": "The Ambassador",
+"kind": "stay",
+"city": "New Delhi",
+"country": "India",
+"lat": 28.6017391,
+"lng": 77.228846,
+"price_per_night": 55.0,
+"rating": 4.76,
+"review_count": 332,
+"max_guests": 6,
+"tags": [
+"history",
+"city",
+"food"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in New Delhi, India. Subramania Bharti Marg.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Forecourt%2C_Rashtrapati_Bhavan_-_1.jpg/960px-Forecourt%2C_Rashtrapati_Bhavan_-_1.jpg",
+"popularity": 104,
+"price_is_estimate": true,
+"website": "https://www.vivantabytaj.com/Ambassador-New-Delhi/Overview.html",
+"booking_url": "https://www.booking.com/searchresults.html?ss=The+Ambassador+New+Delhi+India",
+"source": "openstreetmap"
+},
+{
+"title": "Arabian Nights",
+"kind": "stay",
+"city": "Cairo",
+"country": "Egypt",
+"lat": 30.0486398,
+"lng": 31.2672675,
+"price_per_night": 86.0,
+"rating": 4.76,
+"review_count": 178,
+"max_guests": 4,
+"tags": [
+"history",
+"desert",
+"city"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Cairo, Egypt. Al Aaded Street.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Cairo_Opera_House%2C_Al_Hurriyah_Park_and_the_Nile_river_%2814797782354%29.jpg/960px-Cairo_Opera_House%2C_Al_Hurriyah_Park_and_the_Nile_river_%2814797782354%29.jpg",
+"popularity": 49,
+"price_is_estimate": true,
+"website": "http://arabiannightshotel.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Arabian+Nights+Cairo+Egypt",
+"source": "openstreetmap"
+},
+{
+"title": "Kriok Hostel",
+"kind": "stay",
+"city": "Rio de Janeiro",
+"country": "Brazil",
+"lat": -22.9206251,
+"lng": -43.179481,
+"price_per_night": 138.0,
+"rating": 4.76,
+"review_count": 299,
+"max_guests": 5,
+"tags": [
+"beach",
+"city",
+"nightlife",
+"nature"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hostel in Rio de Janeiro, Brazil. Rua Benjamin Constant.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Cidade_Maravilhosa.jpg/960px-Cidade_Maravilhosa.jpg",
+"popularity": 92,
+"price_is_estimate": true,
+"website": "https://www.kariok.com.br/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Kriok+Hostel+Rio+de+Janeiro+Brazil",
+"source": "openstreetmap"
+},
+{
+"title": "Casa Beleza",
+"kind": "stay",
+"city": "Rio de Janeiro",
+"country": "Brazil",
+"lat": -22.9235229,
+"lng": -43.1894238,
+"price_per_night": 192.0,
+"rating": 4.76,
+"review_count": 299,
+"max_guests": 2,
+"tags": [
+"beach",
+"city",
+"nightlife",
+"nature"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Rio de Janeiro, Brazil.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Cidade_Maravilhosa.jpg/960px-Cidade_Maravilhosa.jpg",
+"popularity": 92,
+"price_is_estimate": true,
+"website": "https://www.casabeleza.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Casa+Beleza+Rio+de+Janeiro+Brazil",
+"source": "openstreetmap"
+},
+{
+"title": "HCC St. Moritz",
+"kind": "stay",
+"city": "Barcelona",
+"country": "Spain",
+"lat": 41.391097,
+"lng": 2.1682549,
+"price_per_night": 192.0,
+"rating": 4.75,
+"review_count": 383,
+"max_guests": 4,
+"tags": [
+"beach",
+"city",
+"nightlife",
+"food"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Barcelona, Spain. Carrer de la Diputació.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Evening_light_over_Barcelona.jpg/960px-Evening_light_over_Barcelona.jpg",
+"popularity": 122,
+"price_is_estimate": true,
+"website": "https://www.hcchotels.com/hcc-st-moritz/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=HCC+St.+Moritz+Barcelona+Spain",
+"source": "openstreetmap"
+},
+{
+"title": "Pimblett's Downtown Toronto Bed and Breakfast",
+"kind": "stay",
+"city": "Toronto",
+"country": "Canada",
+"lat": 43.6619301,
+"lng": -79.3696207,
+"price_per_night": 207.0,
+"rating": 4.75,
+"review_count": 422,
+"max_guests": 5,
+"tags": [
+"city",
+"art",
+"food"
+],
+"amenities": [
+"wifi"
+],
+"description": "Guest House in Toronto, Canada. Gerrard Street East.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Toronto_Skyline_from_Olympic_Island%2C_June_20_2026_%285-3_cropped%29.jpg/960px-Toronto_Skyline_from_Olympic_Island%2C_June_20_2026_%285-3_cropped%29.jpg",
+"popularity": 136,
+"price_is_estimate": true,
+"website": "http://pimblett.ca",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Pimblett%27s+Downtown+Toronto+Bed+and+Breakfast+Toronto+Canada",
+"source": "openstreetmap"
+},
+{
+"title": "Avani Auckland Metropolis Residences",
+"kind": "stay",
+"city": "Auckland",
+"country": "New Zealand",
+"lat": -36.8482558,
+"lng": 174.7669814,
+"price_per_night": 155.0,
+"rating": 4.75,
+"review_count": 469,
+"max_guests": 5,
+"tags": [
+"nature",
+"city",
+"beach"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Auckland, New Zealand.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Auckland_skyline_-_May_2024_%282%29.jpg/960px-Auckland_skyline_-_May_2024_%282%29.jpg",
+"popularity": 153,
+"price_is_estimate": true,
+"website": "https://www.avanihotels.com/en/metropolis-auckland",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Avani+Auckland+Metropolis+Residences+Auckland+New+Zealand",
+"source": "openstreetmap"
+},
+{
+"title": "Wake Up Cairo Hostel",
+"kind": "stay",
+"city": "Cairo",
+"country": "Egypt",
+"lat": 30.0504314,
+"lng": 31.2359592,
+"price_per_night": 72.0,
+"rating": 4.74,
+"review_count": 181,
+"max_guests": 6,
+"tags": [
+"history",
+"desert",
+"city"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hostel in Cairo, Egypt. Ramsis St.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Cairo_Opera_House%2C_Al_Hurriyah_Park_and_the_Nile_river_%2814797782354%29.jpg/960px-Cairo_Opera_House%2C_Al_Hurriyah_Park_and_the_Nile_river_%2814797782354%29.jpg",
+"popularity": 50,
+"price_is_estimate": true,
+"website": "http://www.wakeupcairohostel.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Wake+Up+Cairo+Hostel+Cairo+Egypt",
+"source": "openstreetmap"
+},
+{
+"title": "Residence Inn Downtown Toronto",
+"kind": "stay",
+"city": "Toronto",
+"country": "Canada",
+"lat": 43.6447324,
+"lng": -79.3905978,
+"price_per_night": 188.0,
+"rating": 4.74,
+"review_count": 481,
+"max_guests": 3,
+"tags": [
+"city",
+"art",
+"food"
+],
+"amenities": [
+"ac",
+"wifi"
+],
+"description": "Hotel in Toronto, Canada. Wellington Street West.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Toronto_Skyline_from_Olympic_Island%2C_June_20_2026_%285-3_cropped%29.jpg/960px-Toronto_Skyline_from_Olympic_Island%2C_June_20_2026_%285-3_cropped%29.jpg",
+"popularity": 157,
+"price_is_estimate": true,
+"website": "https://www.marriott.com/hotels/travel/yyztd-residence-inn-toronto-downtown-entertainment-district/?scid=bb1a189a-fec3-4d19-a255-54ba596febe2",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Residence+Inn+Downtown+Toronto+Toronto+Canada",
+"source": "openstreetmap"
+},
+{
+"title": "休閑小窩 Urban Pack Hostel",
+"kind": "stay",
+"city": "Hong Kong",
+"country": "China",
+"lat": 22.2980286,
+"lng": 114.1719034,
+"price_per_night": 265.0,
+"rating": 4.73,
+"review_count": 401,
+"max_guests": 3,
+"tags": [
+"city",
+"food",
+"shopping",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hostel in Hong Kong, China. 海防道 Haiphong Road.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Flag_of_Hong_Kong.svg/960px-Flag_of_Hong_Kong.svg.png",
+"popularity": 129,
+"price_is_estimate": true,
+"website": "http://urban-pack.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=%E4%BC%91%E9%96%91%E5%B0%8F%E7%AA%A9+Urban+Pack+Hostel+Hong+Kong+China",
+"source": "openstreetmap"
+},
+{
+"title": "Traveller's Oasis",
+"kind": "stay",
+"city": "Queenstown",
+"country": "New Zealand",
+"lat": -45.0304745,
+"lng": 168.6674036,
+"price_per_night": 254.0,
+"rating": 4.73,
+"review_count": 550,
+"max_guests": 3,
+"tags": [
+"adventure",
+"mountain",
+"nature",
+"lake"
+],
+"amenities": [
+"wifi"
+],
+"description": "Apartment in Queenstown, New Zealand. Kent Street.",
+"image_url": "https://picsum.photos/seed/traveller-s-oasisqueenstown/640/420",
+"popularity": 182,
+"price_is_estimate": true,
+"website": "https://auraqueenstown.co.nz/stay-with-us/travellers-oasis/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Traveller%27s+Oasis+Queenstown+New+Zealand",
+"source": "openstreetmap"
+},
+{
+"title": "Kamana Lakehouse",
+"kind": "stay",
+"city": "Queenstown",
+"country": "New Zealand",
+"lat": -45.0388012,
+"lng": 168.6339216,
+"price_per_night": 296.0,
+"rating": 4.72,
+"review_count": 142,
+"max_guests": 3,
+"tags": [
+"adventure",
+"mountain",
+"nature",
+"lake"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Queenstown, New Zealand. Fernhill Road.",
+"image_url": "https://picsum.photos/seed/kamana-lakehousequeenstown/640/420",
+"popularity": 36,
+"price_is_estimate": true,
+"website": "https://kamana.co.nz/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Kamana+Lakehouse+Queenstown+New+Zealand",
+"source": "openstreetmap"
+},
+{
+"title": "The Waterfront",
+"kind": "stay",
+"city": "Queenstown",
+"country": "New Zealand",
+"lat": -45.033725,
+"lng": 168.6559506,
+"price_per_night": 178.0,
+"rating": 4.72,
+"review_count": 248,
+"max_guests": 2,
+"tags": [
+"adventure",
+"mountain",
+"nature",
+"lake"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Queenstown, New Zealand. Beach Street.",
+"image_url": "https://picsum.photos/seed/the-waterfrontqueenstown/640/420",
+"popularity": 74,
+"price_is_estimate": true,
+"website": "https://www.thewaterfront.nz/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=The+Waterfront+Queenstown+New+Zealand",
+"source": "openstreetmap"
+},
+{
+"title": "Villa Santana",
+"kind": "stay",
+"city": "Rio de Janeiro",
+"country": "Brazil",
+"lat": -22.9095402,
+"lng": -43.1887325,
+"price_per_night": 143.0,
+"rating": 4.71,
+"review_count": 464,
+"max_guests": 5,
+"tags": [
+"beach",
+"city",
+"nightlife",
+"nature"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Rio de Janeiro, Brazil. Rua Vinte de Abril.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Cidade_Maravilhosa.jpg/960px-Cidade_Maravilhosa.jpg",
+"popularity": 151,
+"price_is_estimate": true,
+"website": "http://www.hostelvillasantana.com.br",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Villa+Santana+Rio+de+Janeiro+Brazil",
+"source": "openstreetmap"
+},
+{
+"title": "蘋果旅館旺角店 Apple Inn Mong Kok",
+"kind": "stay",
+"city": "Hong Kong",
+"country": "China",
+"lat": 22.3166514,
+"lng": 114.1696047,
+"price_per_night": 233.0,
+"rating": 4.7,
+"review_count": 563,
+"max_guests": 5,
+"tags": [
+"city",
+"food",
+"shopping",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hostel in Hong Kong, China.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Flag_of_Hong_Kong.svg/960px-Flag_of_Hong_Kong.svg.png",
+"popularity": 187,
+"price_is_estimate": true,
+"website": "http://appleinn.com.hk/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=%E8%98%8B%E6%9E%9C%E6%97%85%E9%A4%A8%E6%97%BA%E8%A7%92%E5%BA%97+Apple+Inn+Mong+Kok+Hong+Kong+China",
+"source": "openstreetmap"
+},
+{
+"title": "香港置地文華東方酒店 The Landmark Mandarin Oriental Hong Kong",
+"kind": "stay",
+"city": "Hong Kong",
+"country": "China",
+"lat": 22.2808167,
+"lng": 114.157722,
+"price_per_night": 118.0,
+"rating": 4.69,
+"review_count": 368,
+"max_guests": 5,
+"tags": [
+"city",
+"food",
+"shopping",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Hong Kong, China. 皇后大道中 Queen's Road Central.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Flag_of_Hong_Kong.svg/960px-Flag_of_Hong_Kong.svg.png",
+"popularity": 117,
+"price_is_estimate": true,
+"website": "https://www.mandarinoriental.com/en/hong-kong/the-landmark",
+"booking_url": "https://www.booking.com/searchresults.html?ss=%E9%A6%99%E6%B8%AF%E7%BD%AE%E5%9C%B0%E6%96%87%E8%8F%AF%E6%9D%B1%E6%96%B9%E9%85%92%E5%BA%97+The+Landmark+Mandarin+Oriental+Hong+Kong+Hong+Kong+China",
+"source": "openstreetmap"
+},
+{
+"title": "QT Auckland",
+"kind": "stay",
+"city": "Auckland",
+"country": "New Zealand",
+"lat": -36.8453887,
+"lng": 174.7596744,
+"price_per_night": 181.0,
+"rating": 4.69,
+"review_count": 462,
+"max_guests": 3,
+"tags": [
+"nature",
+"city",
+"beach"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Auckland, New Zealand.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Auckland_skyline_-_May_2024_%282%29.jpg/960px-Auckland_skyline_-_May_2024_%282%29.jpg",
+"popularity": 150,
+"price_is_estimate": true,
+"website": "https://www.qthotels.com/auckland/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=QT+Auckland+Auckland+New+Zealand",
+"source": "openstreetmap"
+},
+{
+"title": "Queenstown Park Boutique Hotel",
+"kind": "stay",
+"city": "Queenstown",
+"country": "New Zealand",
+"lat": -45.0280651,
+"lng": 168.6598822,
+"price_per_night": 303.0,
+"rating": 4.69,
+"review_count": 267,
+"max_guests": 4,
+"tags": [
+"adventure",
+"mountain",
+"nature",
+"lake"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Queenstown, New Zealand. Robins Road.",
+"image_url": "https://picsum.photos/seed/queenstown-park-boutique-hotelqueenstown/640/420",
+"popularity": 81,
+"price_is_estimate": true,
+"website": "https://www.queenstownparkhotel.co.nz/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Queenstown+Park+Boutique+Hotel+Queenstown+New+Zealand",
+"source": "openstreetmap"
+},
+{
+"title": "Newmarket International Motor Inn Auckland",
+"kind": "stay",
+"city": "Auckland",
+"country": "New Zealand",
+"lat": -36.8780979,
+"lng": 174.7809795,
+"price_per_night": 239.0,
+"rating": 4.66,
+"review_count": 71,
+"max_guests": 6,
+"tags": [
+"nature",
+"city",
+"beach"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Auckland, New Zealand. Great South Road.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Auckland_skyline_-_May_2024_%282%29.jpg/960px-Auckland_skyline_-_May_2024_%282%29.jpg",
+"popularity": 11,
+"price_is_estimate": true,
+"website": "http://newmarket-international-motor-inn.hotelsauckland.net/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Newmarket+International+Motor+Inn+Auckland+Auckland+New+Zealand",
+"source": "openstreetmap"
+},
+{
+"title": "The Aura santhi retreat",
+"kind": "stay",
+"city": "Bali",
+"country": "Indonesia",
+"lat": -8.3706533,
+"lng": 115.1791271,
+"price_per_night": 68.0,
+"rating": 4.65,
+"review_count": 318,
+"max_guests": 6,
+"tags": [
+"tropical",
+"beach",
+"nature",
+"relax"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Bali, Indonesia. Jalan Senganan-Apuan-Baturiti.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Bali_in_Indonesia_%28special_marker%29.svg/960px-Bali_in_Indonesia_%28special_marker%29.svg.png",
+"popularity": 99,
+"price_is_estimate": true,
+"website": "",
+"booking_url": "https://www.booking.com/searchresults.html?ss=The+Aura+santhi+retreat+Bali+Indonesia",
+"source": "openstreetmap"
+},
+{
+"title": "Hotel Grand Inn",
+"kind": "stay",
+"city": "Mumbai",
+"country": "India",
+"lat": 19.1177459,
+"lng": 72.8800918,
+"price_per_night": 87.0,
+"rating": 4.65,
+"review_count": 176,
+"max_guests": 6,
+"tags": [
+"city",
+"food",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Mumbai, India.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Mumbai_Bandra-Worli_Sea_Link.jpg/960px-Mumbai_Bandra-Worli_Sea_Link.jpg",
+"popularity": 48,
+"price_is_estimate": true,
+"website": "www.hotelgrandinn.co.in",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Hotel+Grand+Inn+Mumbai+India",
+"source": "openstreetmap"
+},
+{
+"title": "Hulbert House",
+"kind": "stay",
+"city": "Queenstown",
+"country": "New Zealand",
+"lat": -45.0297564,
+"lng": 168.6639098,
+"price_per_night": 158.0,
+"rating": 4.65,
+"review_count": 561,
+"max_guests": 6,
+"tags": [
+"adventure",
+"mountain",
+"nature",
+"lake"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Queenstown, New Zealand.",
+"image_url": "https://picsum.photos/seed/hulbert-housequeenstown/640/420",
+"popularity": 186,
+"price_is_estimate": true,
+"website": "https://www.hulberthouse.co.nz/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Hulbert+House+Queenstown+New+Zealand",
+"source": "openstreetmap"
+},
+{
+"title": "9 Boutique Hotel",
+"kind": "stay",
+"city": "Hong Kong",
+"country": "China",
+"lat": 22.2782377,
+"lng": 114.1840209,
+"price_per_night": 174.0,
+"rating": 4.64,
+"review_count": 64,
+"max_guests": 2,
+"tags": [
+"city",
+"food",
+"shopping",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hostel in Hong Kong, China. 利園山道 Lee Garden Road.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Flag_of_Hong_Kong.svg/960px-Flag_of_Hong_Kong.svg.png",
+"popularity": 8,
+"price_is_estimate": true,
+"website": "http://www.9boutiquehotel.com",
+"booking_url": "https://www.booking.com/searchresults.html?ss=9+Boutique+Hotel+Hong+Kong+China",
+"source": "openstreetmap"
+},
+{
+"title": "Southern Laughter Backpackers",
+"kind": "stay",
+"city": "Queenstown",
+"country": "New Zealand",
+"lat": -45.0301914,
+"lng": 168.6585761,
+"price_per_night": 304.0,
+"rating": 4.63,
+"review_count": 180,
+"max_guests": 2,
+"tags": [
+"adventure",
+"mountain",
+"nature",
+"lake"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hostel in Queenstown, New Zealand. Isle Street.",
+"image_url": "https://picsum.photos/seed/southern-laughter-backpackersqueenstown/640/420",
+"popularity": 50,
+"price_is_estimate": true,
+"website": "https://www.stayatsouthern.co.nz/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Southern+Laughter+Backpackers+Queenstown+New+Zealand",
+"source": "openstreetmap"
+},
+{
+"title": "Hacienda Hotel",
+"kind": "stay",
+"city": "Cancun",
+"country": "Mexico",
+"lat": 21.1624802,
+"lng": -86.8301438,
+"price_per_night": 189.0,
+"rating": 4.59,
+"review_count": 137,
+"max_guests": 3,
+"tags": [
+"beach",
+"tropical",
+"relax",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Cancun, Mexico. Avenida Sunyaxchen.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Cancun_Strand_Luftbild_%2822143397586%29.jpg/960px-Cancun_Strand_Luftbild_%2822143397586%29.jpg",
+"popularity": 34,
+"price_is_estimate": true,
+"website": "https://www.hotelhaciendacancun.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Hacienda+Hotel+Cancun+Mexico",
+"source": "openstreetmap"
+},
+{
+"title": "Zii Hotel",
+"kind": "stay",
+"city": "Rio de Janeiro",
+"country": "Brazil",
+"lat": -22.9489369,
+"lng": -43.1835165,
+"price_per_night": 155.0,
+"rating": 4.59,
+"review_count": 135,
+"max_guests": 3,
+"tags": [
+"beach",
+"city",
+"nightlife",
+"nature"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Rio de Janeiro, Brazil. Rua São Clemente.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Cidade_Maravilhosa.jpg/960px-Cidade_Maravilhosa.jpg",
+"popularity": 34,
+"price_is_estimate": true,
+"website": "https://www.ziihotel.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Zii+Hotel+Rio+de+Janeiro+Brazil",
+"source": "openstreetmap"
+},
+{
+"title": "Oasia Hotel",
+"kind": "stay",
+"city": "Singapore",
+"country": "Singapore",
+"lat": 1.3200301,
+"lng": 103.8447824,
+"price_per_night": 187.0,
+"rating": 4.56,
+"review_count": 541,
+"max_guests": 4,
+"tags": [
+"city",
+"food",
+"shopping",
+"tropical"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Singapore, Singapore. Sinaran Drive.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Flag_of_Singapore.svg/960px-Flag_of_Singapore.svg.png",
+"popularity": 179,
+"price_is_estimate": true,
+"website": "https://www.stayfareast.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Oasia+Hotel+Singapore+Singapore",
+"source": "openstreetmap"
+},
+{
+"title": "Naaz Executive Hotel",
+"kind": "stay",
+"city": "Mumbai",
+"country": "India",
+"lat": 19.0921691,
+"lng": 72.8830998,
+"price_per_night": 108.0,
+"rating": 4.55,
+"review_count": 161,
+"max_guests": 2,
+"tags": [
+"city",
+"food",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Mumbai, India. Rani Arcade, Shamsuddin Nagar, Andheri-Kurla Road, Jarimari, Sakinaka, Mumbai - 400 072.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Mumbai_Bandra-Worli_Sea_Link.jpg/960px-Mumbai_Bandra-Worli_Sea_Link.jpg",
+"popularity": 43,
+"price_is_estimate": true,
+"website": "https://www.naazexecutive.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Naaz+Executive+Hotel+Mumbai+India",
+"source": "openstreetmap"
+},
+{
+"title": "Vanilla Farm",
+"kind": "stay",
+"city": "Bali",
+"country": "Indonesia",
+"lat": -8.3811748,
+"lng": 115.1884975,
+"price_per_night": 160.0,
+"rating": 4.49,
+"review_count": 538,
+"max_guests": 3,
+"tags": [
+"tropical",
+"beach",
+"nature",
+"relax"
+],
+"amenities": [
+"wifi"
+],
+"description": "Guest House in Bali, Indonesia.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Bali_in_Indonesia_%28special_marker%29.svg/960px-Bali_in_Indonesia_%28special_marker%29.svg.png",
+"popularity": 178,
+"price_is_estimate": true,
+"website": "",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Vanilla+Farm+Bali+Indonesia",
+"source": "openstreetmap"
+},
+{
+"title": "Ramah Tu7u",
+"kind": "stay",
+"city": "Bali",
+"country": "Indonesia",
+"lat": -8.4052118,
+"lng": 115.1966302,
+"price_per_night": 123.0,
+"rating": 4.47,
+"review_count": 196,
+"max_guests": 6,
+"tags": [
+"tropical",
+"beach",
+"nature",
+"relax"
+],
+"amenities": [
+"wifi"
+],
+"description": "Guest House in Bali, Indonesia.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Bali_in_Indonesia_%28special_marker%29.svg/960px-Bali_in_Indonesia_%28special_marker%29.svg.png",
+"popularity": 55,
+"price_is_estimate": true,
+"website": "",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Ramah+Tu7u+Bali+Indonesia",
+"source": "openstreetmap"
+},
+{
+"title": "Waterstones Hotel",
+"kind": "stay",
+"city": "Mumbai",
+"country": "India",
+"lat": 19.1057985,
+"lng": 72.8771149,
+"price_per_night": 123.0,
+"rating": 4.46,
+"review_count": 534,
+"max_guests": 3,
+"tags": [
+"city",
+"food",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Mumbai, India. International Airport Sahar.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Mumbai_Bandra-Worli_Sea_Link.jpg/960px-Mumbai_Bandra-Worli_Sea_Link.jpg",
+"popularity": 176,
+"price_is_estimate": true,
+"website": "https://www.waterstoneshotel.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Waterstones+Hotel+Mumbai+India",
+"source": "openstreetmap"
+},
+{
+"title": "Nomads Party Hostel",
+"kind": "stay",
+"city": "Cancun",
+"country": "Mexico",
+"lat": 21.1599738,
+"lng": -86.8265258,
+"price_per_night": 211.0,
+"rating": 4.45,
+"review_count": 114,
+"max_guests": 6,
+"tags": [
+"beach",
+"tropical",
+"relax",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Cancun, Mexico. Calle Claveles.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Cancun_Strand_Luftbild_%2822143397586%29.jpg/960px-Cancun_Strand_Luftbild_%2822143397586%29.jpg",
+"popularity": 26,
+"price_is_estimate": true,
+"website": "https://www.nomadsexperience.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Nomads+Party+Hostel+Cancun+Mexico",
+"source": "openstreetmap"
+},
+{
+"title": "RELC International Hotel",
+"kind": "stay",
+"city": "Singapore",
+"country": "Singapore",
+"lat": 1.3128386,
+"lng": 103.8260319,
+"price_per_night": 272.0,
+"rating": 4.43,
+"review_count": 527,
+"max_guests": 5,
+"tags": [
+"city",
+"food",
+"shopping",
+"tropical"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Singapore, Singapore. Orange Grove Road.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Flag_of_Singapore.svg/960px-Flag_of_Singapore.svg.png",
+"popularity": 174,
+"price_is_estimate": true,
+"website": "https://www.relcih.com.sg/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=RELC+International+Hotel+Singapore+Singapore",
+"source": "openstreetmap"
+},
+{
+"title": "Nap Manor Hostels",
+"kind": "stay",
+"city": "Mumbai",
+"country": "India",
+"lat": 19.0822013,
+"lng": 72.8473955,
+"price_per_night": 91.0,
+"rating": 4.42,
+"review_count": 342,
+"max_guests": 4,
+"tags": [
+"city",
+"food",
+"nightlife"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hostel in Mumbai, India.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Mumbai_Bandra-Worli_Sea_Link.jpg/960px-Mumbai_Bandra-Worli_Sea_Link.jpg",
+"popularity": 108,
+"price_is_estimate": true,
+"website": "https://napmanorhostels.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Nap+Manor+Hostels+Mumbai+India",
+"source": "openstreetmap"
+},
+{
+"title": "Altis Grand Hotel",
+"kind": "stay",
+"city": "Lisbon",
+"country": "Portugal",
+"lat": 38.720849,
+"lng": -9.1500487,
+"price_per_night": 92.0,
+"rating": 4.4,
+"review_count": 142,
+"max_guests": 3,
+"tags": [
+"city",
+"beach",
+"food",
+"history"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Lisbon, Portugal. Rua Castilho.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Lisboa_-_Portugal_%2852597836992%29.jpg/960px-Lisboa_-_Portugal_%2852597836992%29.jpg",
+"popularity": 36,
+"price_is_estimate": true,
+"website": "https://www.altishotels.com/PT/HotelAltisLisboa/Hotel/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Altis+Grand+Hotel+Lisbon+Portugal",
+"source": "openstreetmap"
+},
+{
+"title": "Hôtel d'Aubusson",
+"kind": "stay",
+"city": "Paris",
+"country": "France",
+"lat": 48.8547614,
+"lng": 2.3395044,
+"price_per_night": 153.0,
+"rating": 4.4,
+"review_count": 501,
+"max_guests": 3,
+"tags": [
+"city",
+"art",
+"food",
+"history"
+],
+"amenities": [
+"spa",
+"wifi"
+],
+"description": "Hotel in Paris, France.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/960px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg",
+"popularity": 164,
+"price_is_estimate": true,
+"website": "https://www.hoteldaubusson.com",
+"booking_url": "https://www.booking.com/searchresults.html?ss=H%C3%B4tel+d%27Aubusson+Paris+France",
+"source": "openstreetmap"
+},
+{
+"title": "Hotel Ambasciatori Palace",
+"kind": "stay",
+"city": "Rome",
+"country": "Italy",
+"lat": 41.9062786,
+"lng": 12.4895349,
+"price_per_night": 114.0,
+"rating": 4.4,
+"review_count": 599,
+"max_guests": 4,
+"tags": [
+"history",
+"city",
+"food",
+"art"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Rome, Italy. Via Vittorio Veneto.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Trevi_Fountain%2C_Rome%2C_Italy_2_-_May_2007.jpg/960px-Trevi_Fountain%2C_Rome%2C_Italy_2_-_May_2007.jpg",
+"popularity": 199,
+"price_is_estimate": true,
+"website": "http://www.royalgroup.it/ambasciatoripalace",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Hotel+Ambasciatori+Palace+Rome+Italy",
+"source": "openstreetmap"
+},
+{
+"title": "Waldorf Astoria Amsterdam",
+"kind": "stay",
+"city": "Amsterdam",
+"country": "Netherlands",
+"lat": 52.3647238,
+"lng": 4.8969202,
+"price_per_night": 268.0,
+"rating": 4.4,
+"review_count": 99,
+"max_guests": 3,
+"tags": [
+"city",
+"art",
+"history",
+"food"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Amsterdam, Netherlands. Herengracht.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Imagen_de_los_canales_conc%C3%A9ntricos_en_%C3%81msterdam.png/960px-Imagen_de_los_canales_conc%C3%A9ntricos_en_%C3%81msterdam.png",
+"popularity": 21,
+"price_is_estimate": true,
+"website": "https://www.hilton.com/nl/hotels/amswawa-waldorf-astoria-amsterdam/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Waldorf+Astoria+Amsterdam+Amsterdam+Netherlands",
+"source": "openstreetmap"
+},
+{
+"title": "Hilton Amsterdam",
+"kind": "stay",
+"city": "Amsterdam",
+"country": "Netherlands",
+"lat": 52.3514296,
+"lng": 4.872012,
+"price_per_night": 226.0,
+"rating": 4.4,
+"review_count": 142,
+"max_guests": 3,
+"tags": [
+"city",
+"art",
+"history",
+"food"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Amsterdam, Netherlands. Apollolaan.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Imagen_de_los_canales_conc%C3%A9ntricos_en_%C3%81msterdam.png/960px-Imagen_de_los_canales_conc%C3%A9ntricos_en_%C3%81msterdam.png",
+"popularity": 36,
+"price_is_estimate": true,
+"website": "https://www.hilton.com/nl/hotels/amshitw-hilton-amsterdam/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Hilton+Amsterdam+Amsterdam+Netherlands",
+"source": "openstreetmap"
+},
+{
+"title": "Hotel de l'Europe",
+"kind": "stay",
+"city": "Amsterdam",
+"country": "Netherlands",
+"lat": 52.3676444,
+"lng": 4.8944657,
+"price_per_night": 205.0,
+"rating": 4.4,
+"review_count": 582,
+"max_guests": 6,
+"tags": [
+"city",
+"art",
+"history",
+"food"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Amsterdam, Netherlands. Nieuwe Doelenstraat.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Imagen_de_los_canales_conc%C3%A9ntricos_en_%C3%81msterdam.png/960px-Imagen_de_los_canales_conc%C3%A9ntricos_en_%C3%81msterdam.png",
+"popularity": 193,
+"price_is_estimate": true,
+"website": "https://www.deleurope.com",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Hotel+de+l%27Europe+Amsterdam+Netherlands",
+"source": "openstreetmap"
+},
+{
+"title": "Aria",
+"kind": "stay",
+"city": "Prague",
+"country": "Czechia",
+"lat": 50.0871433,
+"lng": 14.4026655,
+"price_per_night": 110.0,
+"rating": 4.4,
+"review_count": 530,
+"max_guests": 4,
+"tags": [
+"history",
+"city",
+"art"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Prague, Czechia. Tržiště.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Prague_%286365119737%29.jpg/960px-Prague_%286365119737%29.jpg",
+"popularity": 175,
+"price_is_estimate": true,
+"website": "https://www.ariahotel.net/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Aria+Prague+Czechia",
+"source": "openstreetmap"
+},
+{
+"title": "Hoffmeister",
+"kind": "stay",
+"city": "Prague",
+"country": "Czechia",
+"lat": 50.092964,
+"lng": 14.4089966,
+"price_per_night": 148.0,
+"rating": 4.4,
+"review_count": 408,
+"max_guests": 4,
+"tags": [
+"history",
+"city",
+"art"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Prague, Czechia. Pod Bruskou.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Prague_%286365119737%29.jpg/960px-Prague_%286365119737%29.jpg",
+"popularity": 131,
+"price_is_estimate": true,
+"website": "https://www.hoffmeister.cz/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Hoffmeister+Prague+Czechia",
+"source": "openstreetmap"
+},
+{
+"title": "香港瑰麗酒店 Rosewood Hong Kong",
+"kind": "stay",
+"city": "Hong Kong",
+"country": "China",
+"lat": 22.2947013,
+"lng": 114.1758053,
+"price_per_night": 123.0,
+"rating": 4.4,
+"review_count": 127,
+"max_guests": 2,
+"tags": [
+"city",
+"food",
+"shopping",
+"nightlife"
+],
+"amenities": [
+"ac",
+"wifi"
+],
+"description": "Hotel in Hong Kong, China. 梳士巴利道 Salisbury Road.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Flag_of_Hong_Kong.svg/960px-Flag_of_Hong_Kong.svg.png",
+"popularity": 31,
+"price_is_estimate": true,
+"website": "https://www.rosewoodhotels.com/en/hong-kong",
+"booking_url": "https://www.booking.com/searchresults.html?ss=%E9%A6%99%E6%B8%AF%E7%91%B0%E9%BA%97%E9%85%92%E5%BA%97+Rosewood+Hong+Kong+Hong+Kong+China",
+"source": "openstreetmap"
+},
+{
+"title": "Somerset Grand Hanoi",
+"kind": "stay",
+"city": "Hanoi",
+"country": "Vietnam",
+"lat": 21.0258326,
+"lng": 105.8463672,
+"price_per_night": 52.0,
+"rating": 4.4,
+"review_count": 587,
+"max_guests": 4,
+"tags": [
+"history",
+"food",
+"city"
+],
+"amenities": [
+"ac",
+"wifi"
+],
+"description": "Hotel in Hanoi, Vietnam. Phố Hai Bà Trưng.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Hanoi_skyline_with_Ba_Vi_Mountain.jpg/960px-Hanoi_skyline_with_Ba_Vi_Mountain.jpg",
+"popularity": 195,
+"price_is_estimate": true,
+"website": "https://www.discoverasr.com/en/somerset-serviced-residence/vietnam/somerset-grand-hanoi",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Somerset+Grand+Hanoi+Hanoi+Vietnam",
+"source": "openstreetmap"
+},
+{
+"title": "Khách sạn Grand Plaza Hanoi",
+"kind": "stay",
+"city": "Hanoi",
+"country": "Vietnam",
+"lat": 21.0074185,
+"lng": 105.7968704,
+"price_per_night": 93.0,
+"rating": 4.4,
+"review_count": 60,
+"max_guests": 5,
+"tags": [
+"history",
+"food",
+"city"
+],
+"amenities": [
+"ac",
+"bar",
+"pool",
+"wifi"
+],
+"description": "Hotel in Hanoi, Vietnam. Đường Trần Duy Hưng.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Hanoi_skyline_with_Ba_Vi_Mountain.jpg/960px-Hanoi_skyline_with_Ba_Vi_Mountain.jpg",
+"popularity": 7,
+"price_is_estimate": true,
+"website": "https://grandplazahanoi.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Kh%C3%A1ch+s%E1%BA%A1n+Grand+Plaza+Hanoi+Hanoi+Vietnam",
+"source": "openstreetmap"
+},
+{
+"title": "Lotte Hotel Hanoi",
+"kind": "stay",
+"city": "Hanoi",
+"country": "Vietnam",
+"lat": 21.0321679,
+"lng": 105.8124934,
+"price_per_night": 126.0,
+"rating": 4.4,
+"review_count": 155,
+"max_guests": 6,
+"tags": [
+"history",
+"food",
+"city"
+],
+"amenities": [
+"ac",
+"bar",
+"pool",
+"wifi"
+],
+"description": "Hotel in Hanoi, Vietnam.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Hanoi_skyline_with_Ba_Vi_Mountain.jpg/960px-Hanoi_skyline_with_Ba_Vi_Mountain.jpg",
+"popularity": 41,
+"price_is_estimate": true,
+"website": "https://www.lottehotel.com/hanoi-hotel/en.html",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Lotte+Hotel+Hanoi+Hanoi+Vietnam",
+"source": "openstreetmap"
+},
+{
+"title": "Waldorf Astoria Dubai International Financial Centre",
+"kind": "stay",
+"city": "Dubai",
+"country": "United Arab Emirates",
+"lat": 25.2106688,
+"lng": 55.2821114,
+"price_per_night": 170.0,
+"rating": 4.4,
+"review_count": 570,
+"max_guests": 5,
+"tags": [
+"city",
+"desert",
+"shopping",
+"beach"
+],
+"amenities": [
+"ac",
+"wifi"
+],
+"description": "Hotel in Dubai, United Arab Emirates. Al Mustaqbal St.",
+"image_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Burj_Khalifa_2021.jpg/960px-Burj_Khalifa_2021.jpg",
+"popularity": 189,
+"price_is_estimate": true,
+"website": "https://www.hilton.com/en/hotels/dxbwawa-waldorf-astoria-dubai-international-financial-centre/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Waldorf+Astoria+Dubai+International+Financial+Centre+Dubai+United+Arab+Emirates",
+"source": "openstreetmap"
+},
+{
+"title": "One&Only One Za'abeel",
+"kind": "stay",
+"city": "Dubai",
+"country": "United Arab Emirates",
+"lat": 25.228157,
+"lng": 55.2907985,
+"price_per_night": 225.0,
+"rating": 4.4,
+"review_count": 423,
+"max_guests": 4,
+"tags": [
+"city",
+"desert",
+"shopping",
+"beach"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Dubai, United Arab Emirates.",
+"image_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Burj_Khalifa_2021.jpg/960px-Burj_Khalifa_2021.jpg",
+"popularity": 136,
+"price_is_estimate": true,
+"website": "https://www.oneandonlyresorts.com/one-zaabeel",
+"booking_url": "https://www.booking.com/searchresults.html?ss=One%26Only+One+Za%27abeel+Dubai+United+Arab+Emirates",
+"source": "openstreetmap"
+},
+{
+"title": "منتجع فور سيزونز دبي جميرا بيتش",
+"kind": "stay",
+"city": "Dubai",
+"country": "United Arab Emirates",
+"lat": 25.202165,
+"lng": 55.2396872,
+"price_per_night": 280.0,
+"rating": 4.4,
+"review_count": 95,
+"max_guests": 4,
+"tags": [
+"city",
+"desert",
+"shopping",
+"beach"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Dubai, United Arab Emirates.",
+"image_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Burj_Khalifa_2021.jpg/960px-Burj_Khalifa_2021.jpg",
+"popularity": 19,
+"price_is_estimate": true,
+"website": "https://www.fourseasons.com/dubaijb",
+"booking_url": "https://www.booking.com/searchresults.html?ss=%D9%85%D9%86%D8%AA%D8%AC%D8%B9+%D9%81%D9%88%D8%B1+%D8%B3%D9%8A%D8%B2%D9%88%D9%86%D8%B2+%D8%AF%D8%A8%D9%8A+%D8%AC%D9%85%D9%8A%D8%B1%D8%A7+%D8%A8%D9%8A%D8%AA%D8%B4+Dubai+United+Arab+Emirates",
+"source": "openstreetmap"
+},
+{
+"title": "Embassy Suites by Hilton Dubai Business Bay",
+"kind": "stay",
+"city": "Dubai",
+"country": "United Arab Emirates",
+"lat": 25.1807393,
+"lng": 55.2779168,
+"price_per_night": 249.0,
+"rating": 4.4,
+"review_count": 141,
+"max_guests": 4,
+"tags": [
+"city",
+"desert",
+"shopping",
+"beach"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Dubai, United Arab Emirates. Marasi Drive, Business Bay.",
+"image_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Burj_Khalifa_2021.jpg/960px-Burj_Khalifa_2021.jpg",
+"popularity": 36,
+"price_is_estimate": true,
+"website": "https://www.hilton.com/en/hotels/dxbaies-embassy-suites-dubai-business-bay/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Embassy+Suites+by+Hilton+Dubai+Business+Bay+Dubai+United+Arab+Emirates",
+"source": "openstreetmap"
+},
+{
+"title": "SIRO One Za'abeel",
+"kind": "stay",
+"city": "Dubai",
+"country": "United Arab Emirates",
+"lat": 25.2280232,
+"lng": 55.2907376,
+"price_per_night": 299.0,
+"rating": 4.4,
+"review_count": 149,
+"max_guests": 3,
+"tags": [
+"city",
+"desert",
+"shopping",
+"beach"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Dubai, United Arab Emirates.",
+"image_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Burj_Khalifa_2021.jpg/960px-Burj_Khalifa_2021.jpg",
+"popularity": 39,
+"price_is_estimate": true,
+"website": "https://www.sirohotels.com/dubai/one-zaabeel",
+"booking_url": "https://www.booking.com/searchresults.html?ss=SIRO+One+Za%27abeel+Dubai+United+Arab+Emirates",
+"source": "openstreetmap"
+},
+{
+"title": "Riad Dar al Assad",
+"kind": "stay",
+"city": "Marrakech",
+"country": "Morocco",
+"lat": 31.6267326,
+"lng": -7.9843523,
+"price_per_night": 92.0,
+"rating": 4.4,
+"review_count": 339,
+"max_guests": 5,
+"tags": [
+"history",
+"desert",
+"food",
+"art"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Marrakech, Morocco. Derb El Hajra.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Pavillon_Menarag%C3%A4rten.jpg/960px-Pavillon_Menarag%C3%A4rten.jpg",
+"popularity": 107,
+"price_is_estimate": true,
+"website": "https://riad-daralassad-marrakech.com/",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Riad+Dar+al+Assad+Marrakech+Morocco",
+"source": "openstreetmap"
+},
+{
+"title": "فندق فور سيزون نايل بلازا القاهره",
+"kind": "stay",
+"city": "Cairo",
+"country": "Egypt",
+"lat": 30.0362273,
+"lng": 31.2293727,
+"price_per_night": 108.0,
+"rating": 4.4,
+"review_count": 326,
+"max_guests": 2,
+"tags": [
+"history",
+"desert",
+"city"
+],
+"amenities": [
+"wifi"
+],
+"description": "Hotel in Cairo, Egypt.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Cairo_Opera_House%2C_Al_Hurriyah_Park_and_the_Nile_river_%2814797782354%29.jpg/960px-Cairo_Opera_House%2C_Al_Hurriyah_Park_and_the_Nile_river_%2814797782354%29.jpg",
+"popularity": 102,
+"price_is_estimate": true,
+"website": "https://www.fourseasons.com/caironp",
+"booking_url": "https://www.booking.com/searchresults.html?ss=%D9%81%D9%86%D8%AF%D9%82+%D9%81%D9%88%D8%B1+%D8%B3%D9%8A%D8%B2%D9%88%D9%86+%D9%86%D8%A7%D9%8A%D9%84+%D8%A8%D9%84%D8%A7%D8%B2%D8%A7+%D8%A7%D9%84%D9%82%D8%A7%D9%87%D8%B1%D9%87+Cairo+Egypt",
+"source": "openstreetmap"
+},
+{
+"title": "Hotel B Urban Xaman",
+"kind": "stay",
+"city": "Mexico City",
+"country": "Mexico",
+"lat": 19.4356,
+"lng": -99.1484276,
+"price_per_night": 186.0,
+"rating": 4.4,
+"review_count": 463,
+"max_guests": 5,
+"tags": [
+"city",
+"history",
+"food",
+"art"
+],
+"amenities": [
+"ac",
+"bar",
+"wifi"
+],
+"description": "Hotel in Mexico City, Mexico. Avenida Paseo de la Reforma.",
+"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Sobrevuelos_CDMX_HJ2A4913_%2825514321687%29_%28cropped%29.jpg/960px-Sobrevuelos_CDMX_HJ2A4913_%2825514321687%29_%28cropped%29.jpg",
+"popularity": 151,
+"price_is_estimate": true,
+"website": "https://www.hotelburbanxaman.com",
+"booking_url": "https://www.booking.com/searchresults.html?ss=Hotel+B+Urban+Xaman+Mexico+City+Mexico",
+"source": "openstreetmap"
+}
+]

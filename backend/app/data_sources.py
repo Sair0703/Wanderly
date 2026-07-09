@@ -348,10 +348,10 @@ def fetch_around(lat: float, lng: float, city: str, country: str,
 
 
 def ensure_destination(db: Session, query: str) -> int:
-    """Geocode `query` and ingest its hotels if we haven't recently. Idempotent."""
-    # Enabled for live OSM and snapshot demos (snapshot boots instantly, then
-    # grows on demand); disabled for the fully-offline curated/seed mode.
-    if settings.data_provider.lower() not in ("osm", "snapshot"):
+    """Geocode `query` and ingest its hotels if we haven't recently. Idempotent.
+    Only for live OSM self-hosting — the snapshot/seed demos stay fully offline
+    (live geocode+Overpass fetches are too slow/unreliable on free hosting)."""
+    if settings.data_provider.lower() != "osm":
         return 0
     q = query.strip()
     if len(q) < 3:

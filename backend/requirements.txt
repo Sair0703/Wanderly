@@ -3,6 +3,7 @@ uvicorn[standard]>=0.29
 SQLAlchemy>=2.0
 pydantic>=2.6
 pydantic-settings>=2.2
+email-validator>=2.0
 python-multipart>=0.0.9
 # Optional production drivers (used only when DATABASE_URL/REDIS_URL point at them)
 psycopg2-binary>=2.9 ; sys_platform != "darwin"

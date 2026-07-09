@@ -21,7 +21,9 @@ on a built-in offline model out of the box):
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Sair0703/Wanderly)
 
 <!-- LIVE_URL -->
-**Live demo:** _deploy above, then drop your URL here._ · Demo login: `demo@traveler.io` / `demo1234`
+**▶ Live demo: [wanderly-p5v1.onrender.com](https://wanderly-p5v1.onrender.com)**
+· Demo login: `demo@traveler.io` / `demo1234`
+_(free tier — first load may take ~30s to wake the server)_
 
 ---
 
